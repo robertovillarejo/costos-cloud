@@ -55,6 +55,6 @@ services:
         do
           sleep 1;
         done;
-        wget -qO- 'http://dataflow-server:9393/apps' --post-data='uri=https://raw.githubusercontent.com/robertovillarejo/spring-cloud-starter-stream-processor-costos/develop/Default-costos-stream-applications-rabbit-maven&force=true';
+        wget -qO- 'http://dataflow-server:9393/apps' --post-data='uri=https://raw.githubusercontent.com/robertovillarejo/costos-cloud/master/Default-costos-stream-applications-rabbit-maven&force=true';
         echo 'Stream apps imported'"
 
