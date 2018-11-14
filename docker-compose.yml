@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  costos-api:
+    image: costosapi
+    depends_on:
+      - mongo
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+  mongo:
+    image: mongo
+    expose: 
+      - "27017"
+    ports:
+      - "27017:27017"
+  mysql:
+    image: mysql:5.7.20
+    environment:
+      - MYSQL_DATABASE=dataflow
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+  rabbitmq:
+    image: rabbitmq:3.7.8
+    expose:
+      - "5672"
+  dataflow-server:
+    image: springcloud/spring-cloud-dataflow-server-local:${DATAFLOW_VERSION}
+    container_name: dataflow-server
+    ports:
+      - "9393:9393"
+      - "9000-9010:9000-9010"
+      - "9090:9090"
+    environment:
+      - spring.cloud.dataflow.applicationProperties.stream.spring.rabbitmq.host=rabbitmq
+      - spring.datasource.url=jdbc:mysql://mysql:3306/dataflow
+      - spring.datasource.username=root
+      - spring.datasource.password=root
+      - spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+    depends_on:
+      - rabbitmq
+      - mysql
+  app-import:
+    image: alpine:3.7
+    depends_on:
+      - dataflow-server
+    command: >
+      /bin/sh -c "
+        while ! nc -z dataflow-server 9393;
+        do
+          sleep 1;
+        done;
+        wget -qO- 'http://dataflow-server:9393/apps' --post-data='uri=https://raw.githubusercontent.com/robertovillarejo/spring-cloud-starter-stream-processor-costos/develop/Default-costos-stream-applications-rabbit-maven&force=true';
+        echo 'Stream apps imported'"
+

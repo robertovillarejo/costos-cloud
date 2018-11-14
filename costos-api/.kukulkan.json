@@ -1,0 +1,17 @@
+{
+  "id" : "costosapi",
+  "packaging" : "mx.infotec.dads.kukulkan.costos",
+  "version" : "0.0.1",
+  "author" : "kukulkan",
+  "year" : "2018",
+  "targetDatabase" : {
+    "databaseType" : "NO_SQL_MONGODB",
+    "globalGenerationType" : "SEQUENCE"
+  },
+  "codeStandard" : "DEFAULT",
+  "layers" : [ "spring-rest", "spring-service", "spring-repository", "domain-core", "angular-js" ],
+  "layersToProcess" : [ "spring-rest", "spring-service", "domain-core" ],
+  "entities" : [ "src/main/java/mx/infotec/dads/kukulkan/costos/domain/RulePersistable.java", "src/main/java/mx/infotec/dads/kukulkan/costos/web/rest/RulePersistableResource.java", "src/main/java/mx/infotec/dads/kukulkan/costos/service/RulePersistableService.java", "src/main/java/mx/infotec/dads/kukulkan/costos/service/impl/RulePersistableServiceImpl.java", "src/main/java/mx/infotec/dads/kukulkan/costos/domain/Costo.java", "src/main/java/mx/infotec/dads/kukulkan/costos/web/rest/CostoResource.java", "src/main/java/mx/infotec/dads/kukulkan/costos/service/CostoService.java", "src/main/java/mx/infotec/dads/kukulkan/costos/service/impl/CostoServiceImpl.java", "src/main/java/mx/infotec/dads/kukulkan/costos/domain/ExcelFile.java", "src/main/java/mx/infotec/dads/kukulkan/costos/web/rest/ExcelFileResource.java", "src/main/java/mx/infotec/dads/kukulkan/costos/service/ExcelFileService.java", "src/main/java/mx/infotec/dads/kukulkan/costos/service/impl/ExcelFileServiceImpl.java" ],
+  "timestamp" : "2018-11-09T14:32:29.560",
+  "plugins" : [ ]
+}

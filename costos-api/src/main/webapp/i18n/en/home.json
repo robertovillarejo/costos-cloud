@@ -1,0 +1,19 @@
+{
+    "home": {
+        "title": "Welcome, Costosapi!",
+        "subtitle": "This is your homepage",
+        "logged": {
+            "message": "You are logged in as user \"{{username}}\"."
+        },
+        "question": "If you have any question on Costosapi:",
+        "link": {
+            "homepage": "Costosapi homepage",
+            "stackoverflow": "Costosapi on Stack Overflow",
+            "bugtracker": "Costosapi bug tracker",
+            "chat": "Costosapi public chat room",
+            "follow": "follow @java_Costosapi on Twitter"
+        },
+        "like": "If you like Costosapi, don't forget to give us a star on",
+        "github": "GitHub"
+    }
+}

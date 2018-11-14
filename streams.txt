@@ -1,0 +1,8 @@
+PROCESS-COSTO STREAM
+
+source: mongodb --query="{'processed': false}" --database=costos --port=27017 --host=mongo --collection=costos | costos --spring.data.mongodb.database=costos --spring.data.mongodb.port=27017 --spring.data.mongodb.host=mongo | sink: mongodb --database=costos --port=27017 --host=mongo --collection=costos
+
+STREAM TRIGGER TASK
+
+stream create --name trigger-task --definition "triggertask-source-rabbit --uri='file://home/timestamp-batch-task-2.0.0.RELEASE.jar' --cron='0 * * ? * *' --fixed-delay=0 --application-name=parse-costos-excel --environment-properties='spring.data.mongodb.host=mongo,spring.data.mongodb.port=27017,spring.data.mongodb.database=costos' | task-launcher-local-sink-rabbit" --deploy
+

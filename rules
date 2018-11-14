@@ -1,0 +1,14 @@
+Ejemplo de regla de transformación
+
+{
+  "id": "5be9b251ec57dc0001d663db",
+  "name": "Asignacion de area",
+  "order": 99,
+  "condition": "area == 40",
+  "actions": [
+    {
+      "actionExpression": "servicio = 'Servicio administrativos DADT Direccion'",
+      "order": 99
+    }
+  ]
+}

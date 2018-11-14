@@ -1,0 +1,5 @@
+entity RulePersistable
+
+entity Costo
+
+entity ExcelFile
