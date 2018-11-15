@@ -4,5 +4,5 @@ source.jdbc=maven://org.springframework.cloud.stream.app:jdbc-source-rabbit:jar:
 sink.jdbc=maven://org.springframework.cloud.stream.app:jdbc-sink-rabbit:jar:2.0.1.RELEASE
 sink.log=maven://org.springframework.cloud.stream.app:log-sink-rabbit:jar:2.0.1.RELEASE
 sink.mongodb:maven://org.springframework.cloud.stream.app:mongodb-sink-rabbit:jar:2.0.2.RELEASE
-source.triggertask-source-rabbit:maven://org.springframework.cloud.stream.app:triggertask-source-rabbit:jar:2.0.1.RELEASE
-sink.task-launcher-local-sink-rabbit:maven://org.springframework.cloud.stream.app:task-launcher-local-sink-rabbit:jar:2.0.1.RELEASE
+source.triggertask:maven://org.springframework.cloud.stream.app:triggertask-source-rabbit:jar:2.0.1.RELEASE
+sink.task-launcher:maven://org.springframework.cloud.stream.app:task-launcher-local-sink-rabbit:jar:2.0.1.RELEASE
