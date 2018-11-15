@@ -9,7 +9,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>rules	</name>
+	<name>rules</name>
 	<description>Rules Library</description>
 
 	<parent>
@@ -37,6 +37,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 
 </project>

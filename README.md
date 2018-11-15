@@ -34,11 +34,13 @@ Se exponen hacia la máquina host los siguientes servicios:
 ## Uso
 
 ### Copiando las aplicaciones al servidor
-Para copiar la **Excel Parser Task** al Dataflow Server ejecute en la carpeta raíz del proyecto:
-`docker cp excel-parser-task/apps/parser-batch-task/target/parser-batch-task-2.0.0.RELEASE.jar dataflow-server:/home`
+Para copiar la **Excel Parser Task** al Dataflow Server ejecute en la carpeta raíz del proyecto:  
+    
+    docker cp excel-parser-task/apps/parser-batch-task/target/parser-batch-task-2.0.0.RELEASE.jar dataflow-server:/home
 
-Para copiar el **Costos Processor** al Dataflow Server ejecute en la carpeta raíz del proyecto:
-`docker cp costos-processor/target/costos-processor-0.0.1-SNAPSHOT.jar dataflow-server:/home`
+Para copiar el **Costos Processor** al Dataflow Server ejecute en la carpeta raíz del proyecto:  
+    
+    docker cp costos-processor/target/costos-processor-0.0.1-SNAPSHOT.jar dataflow-server:/home
 
 ### Creando los streams
 Se utilizan dos streams para este proyecto:
@@ -60,7 +62,35 @@ Registrar el jar previamente copiado al Dataflow Server como una aplicación Pro
 
 Crear el stream para el procesamiento de los costos:
 
-    stream create --name costos-stream --definition "source: mongodb --query='{'processed': false}' --database=costos --port=27017 --host=mongo --collection=costos | costos --spring.data.mongodb.database=costos --spring.data.mongodb.port=27017 --spring.data.mongodb.host=mongo | sink: mongodb --database=costos --port=27017 --host=mongo --collection=costos"
+    stream create --name costos-stream --definition "source: mongodb --query='{'processed': false}' --database=costos --port=27017 --host=mongo --collection=costos | costos --spring.data.mongodb.database=costos --spring.data.mongodb.port=27017 --spring.data.mongodb.host=mongo | sink: mongodb --database=costos --port=27017 --host=mongo --collection=costos" --deploy
+
+### Insertando reglas
+Insertar reglas que el **Costo Processor** aplica en cada costo.
+
+Nombre de la petición: **Añadir regla**  
+Tipo de petición: **POST**  
+Cuerpo: **JSON**  
+
+    {
+    "id": "5be9b251ec57dc0001d663db",
+    "name": "Asignacion de area",
+    "order": 99,
+    "condition": "area == 40",
+    "actions": [
+        {
+        "actionExpression": "servicio = 'Servicio administrativos DADT Direccion'",
+        "order": 99
+        }
+    ]
+    }
+
+O usa curl:
+
+    curl -d '{"id": "5be9b251ec57dc0001d663db","name": "Asignacion de area","order": 99,"condition": "area == 40","actions": [{"actionExpression": "servicio = 'Servicio administrativos DADT Direccion'","order":99}]}' -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:8080/api/rules
+
+Autenticación: **Bearer Token (Usar token válido)**  
+
+Como respuesta debe obtener un código 202 (Accepted)
 
 ### Probando los streams
 Usar Insomnia para subir un archivo Excel mediante la **Costos API**:
