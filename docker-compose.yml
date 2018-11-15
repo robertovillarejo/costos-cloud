@@ -30,12 +30,10 @@ services:
     expose:
       - "5672"
   dataflow-server:
-    image: springcloud/spring-cloud-dataflow-server-local:${DATAFLOW_VERSION}
+    image: springcloud/spring-cloud-dataflow-server-local:1.7.1.RELEASE
     container_name: dataflow-server
     ports:
       - "9393:9393"
-      - "9000-9010:9000-9010"
-      - "9090:9090"
     environment:
       - spring.cloud.dataflow.applicationProperties.stream.spring.rabbitmq.host=rabbitmq
       - spring.datasource.url=jdbc:mysql://mysql:3306/dataflow
