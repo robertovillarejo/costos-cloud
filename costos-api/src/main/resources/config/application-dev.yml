@@ -14,7 +14,7 @@
 logging:
     level:
         ROOT: DEBUG
-        mx.infotec.dads.kukulkan.costos: DEBUG
+        mx.infotec.dads.costos: DEBUG
         io.github.jhipster: DEBUG
 
 spring:

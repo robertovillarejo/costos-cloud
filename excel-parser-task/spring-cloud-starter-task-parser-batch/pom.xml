@@ -36,7 +36,7 @@
 			<artifactId>spring-boot-starter-batch</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>mx.infotec.dads.kukulkan.costos</groupId>
+			<groupId>mx.infotec.dads.costos</groupId>
 			<artifactId>costos-commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

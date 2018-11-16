@@ -14,7 +14,7 @@
 logging:
     level:
         ROOT: INFO
-        mx.infotec.dads.kukulkan.costos: INFO
+        mx.infotec.dads.costos: INFO
         io.github.jhipster: INFO
 
 spring:

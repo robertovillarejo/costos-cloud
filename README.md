@@ -84,10 +84,6 @@ Cuerpo: **JSON**
     ]
     }
 
-O usa curl:
-
-    curl -d '{"id": "5be9b251ec57dc0001d663db","name": "Asignacion de area","order": 99,"condition": "area == 40","actions": [{"actionExpression": "servicio = 'Servicio administrativos DADT Direccion'","order":99}]}' -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:8080/api/rules
-
 Autenticación: **Bearer Token (Usar token válido)**  
 
 Como respuesta debe obtener un código 202 (Accepted)

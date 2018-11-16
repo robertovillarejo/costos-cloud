@@ -17,6 +17,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import mx.infotec.dads.costos.CostoObjectId;
+
 import static org.hamcrest.Matchers.is;
 import static org.springframework.cloud.stream.test.matcher.MessageQueueMatcher.receivesPayloadThat;
 

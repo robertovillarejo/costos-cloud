@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>mx.infotec.dads.kukulkan.costos</groupId>
+	<groupId>mx.infotec.dads.costos</groupId>
 	<artifactId>costosapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
@@ -310,7 +310,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>mx.infotec.dads.kukulkan.costos</groupId>
+			<groupId>mx.infotec.dads.costos</groupId>
 			<artifactId>costos-commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
