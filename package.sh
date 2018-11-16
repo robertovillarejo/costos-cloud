@@ -36,7 +36,7 @@ echo '
 *****************************
 EMPAQUETANDO COSTOS API...
 *****************************'
-cd costos-api && mvn clean package -DskipTests
+cd costos-api && mvn clean package -DskipTests -Pprod
 
 echo '
 *****************************************

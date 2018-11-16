@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@EnableMongoRepositories("mx.infotec.dads.kukulkan.costos.repository")
+@EnableMongoRepositories("mx.infotec.dads.costos.repository")
 @Profile(JHipsterConstants.SPRING_PROFILE_CLOUD)
 public class CloudDatabaseConfiguration extends AbstractCloudConfig {
 
@@ -68,7 +68,7 @@ public class CloudDatabaseConfiguration extends AbstractCloudConfig {
         mongobee.setDbName(mongoDbFactory.getDb().getName());
         mongobee.setMongoTemplate(mongoTemplate);
         // package to scan for migrations
-        mongobee.setChangeLogsScanPackage("mx.infotec.dads.kukulkan.costos.config.dbmigrations");
+        mongobee.setChangeLogsScanPackage("mx.infotec.dads.costos.config.dbmigrations");
         mongobee.setEnabled(true);
         return mongobee;
     }

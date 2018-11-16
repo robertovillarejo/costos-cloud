@@ -28,7 +28,7 @@ import mx.infotec.dads.costos.domain.Costo;
 @EnableBatchProcessing
 @Configuration
 @EnableConfigurationProperties({ ParserBatchTaskProperties.class })
-@EnableMongoRepositories(basePackages = { "mx.infotec.dads.kukulkan.costos" })
+@EnableMongoRepositories(basePackages = { "mx.infotec.dads.costos" })
 public class ParserBatchTaskConfiguration {
 
     private static final Log logger = LogFactory.getLog(ParserBatchTaskProperties.class);

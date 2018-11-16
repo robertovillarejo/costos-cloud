@@ -52,7 +52,7 @@ import mx.infotec.dads.kukulkan.rules.RulesApplier;
  */
 @EnableBinding(Processor.class)
 @EnableConfigurationProperties(CostosProcessorProperties.class)
-@EnableMongoRepositories(basePackages = { "mx.infotec.dads.kukulkan.costos" })
+@EnableMongoRepositories(basePackages = { "mx.infotec.dads.costos" })
 public class CostosProcessorConfiguration {
 
     private final Logger logger = LoggerFactory.getLogger(CostosProcessorConfiguration.class);

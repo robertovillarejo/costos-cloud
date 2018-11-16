@@ -30,7 +30,7 @@ spring:
         serialization.indent_output: true
     data:
         mongodb:
-            uri: mongodb://mongo:27017
+            uri: mongodb://localhost:27017
             database: costos
     mail:
         host: localhost
