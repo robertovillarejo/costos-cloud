@@ -3,8 +3,8 @@ package mx.infotec.dads.costos;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import mx.infotec.dads.costos.ActionPersistable;
-import mx.infotec.dads.costos.RulePersistable;
+import mx.infotec.dads.costos.domain.ActionPersistable;
+import mx.infotec.dads.costos.domain.RulePersistable;
 import mx.infotec.dads.kukulkan.rules.Action;
 import mx.infotec.dads.kukulkan.rules.Rule;
 

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos;
+package mx.infotec.dads.costos.domain;
 
 import java.io.IOException;
 import java.util.HashMap;

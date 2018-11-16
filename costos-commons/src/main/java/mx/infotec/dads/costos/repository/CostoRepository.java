@@ -2,7 +2,7 @@ package mx.infotec.dads.costos.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import mx.infotec.dads.costos.Costo;
+import mx.infotec.dads.costos.domain.Costo;
 
 /**
  * 

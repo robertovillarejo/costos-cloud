@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import mx.infotec.dads.costos.Costo;
+import mx.infotec.dads.costos.domain.Costo;
 import mx.infotec.dads.costos.repository.CostoRepository;
 import mx.infotec.dads.costos.service.CostoService;
 

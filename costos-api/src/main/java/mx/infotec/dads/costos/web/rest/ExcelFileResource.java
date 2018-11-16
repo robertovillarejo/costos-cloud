@@ -51,7 +51,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import mx.infotec.dads.costos.ExcelFile;
+import mx.infotec.dads.costos.domain.ExcelFile;
 import mx.infotec.dads.costos.service.ExcelFileService;
 import mx.infotec.dads.costos.web.rest.util.HeaderUtil;
 import mx.infotec.dads.costos.web.rest.util.PaginationUtil;

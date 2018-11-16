@@ -26,7 +26,7 @@ package mx.infotec.dads.costos.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import mx.infotec.dads.costos.Costo;
+import mx.infotec.dads.costos.domain.Costo;
 
 /**
  * CostoService

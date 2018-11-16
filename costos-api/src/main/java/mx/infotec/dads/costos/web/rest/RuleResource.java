@@ -51,7 +51,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import mx.infotec.dads.costos.RulePersistable;
+import mx.infotec.dads.costos.domain.RulePersistable;
 import mx.infotec.dads.costos.service.RuleService;
 import mx.infotec.dads.costos.web.rest.util.HeaderUtil;
 import mx.infotec.dads.costos.web.rest.util.PaginationUtil;

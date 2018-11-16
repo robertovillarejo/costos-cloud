@@ -28,8 +28,8 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import mx.infotec.dads.costos.Costo;
-import mx.infotec.dads.costos.CostoDeserializer;
+import mx.infotec.dads.costos.domain.Costo;
+import mx.infotec.dads.costos.domain.CostoDeserializer;
 
 @Component
 public class CostosJacksonModule extends SimpleModule {

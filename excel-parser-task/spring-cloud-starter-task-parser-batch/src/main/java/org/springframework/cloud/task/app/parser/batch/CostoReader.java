@@ -19,8 +19,8 @@ import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
-import mx.infotec.dads.costos.Costo;
-import mx.infotec.dads.costos.ExcelFile;
+import mx.infotec.dads.costos.domain.Costo;
+import mx.infotec.dads.costos.domain.ExcelFile;
 import mx.infotec.dads.costos.repository.ExcelFileRepository;
 
 /**

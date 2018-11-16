@@ -26,7 +26,7 @@ package mx.infotec.dads.costos.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import mx.infotec.dads.costos.RulePersistable;
+import mx.infotec.dads.costos.domain.RulePersistable;
 
 public interface RuleRepository extends MongoRepository<RulePersistable, String> {
 

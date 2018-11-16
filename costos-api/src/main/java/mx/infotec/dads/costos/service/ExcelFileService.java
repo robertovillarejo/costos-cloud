@@ -26,7 +26,7 @@ package mx.infotec.dads.costos.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import mx.infotec.dads.costos.ExcelFile;
+import mx.infotec.dads.costos.domain.ExcelFile;
 
 /**
  * ExcelFileService

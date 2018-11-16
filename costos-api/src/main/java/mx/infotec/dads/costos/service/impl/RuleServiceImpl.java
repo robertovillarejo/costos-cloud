@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import mx.infotec.dads.costos.RulePersistable;
+import mx.infotec.dads.costos.domain.RulePersistable;
 import mx.infotec.dads.costos.repository.RuleRepository;
 import mx.infotec.dads.costos.service.RuleService;
 

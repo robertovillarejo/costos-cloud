@@ -1,4 +1,4 @@
-package mx.infotec.dads.costos;
+package mx.infotec.dads.costos.domain;
 
 import java.io.Serializable;
 

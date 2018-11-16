@@ -10,7 +10,7 @@ import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import mx.infotec.dads.costos.Costo;
+import mx.infotec.dads.costos.domain.Costo;
 import mx.infotec.dads.costos.repository.CostoRepository;
 
 /**
