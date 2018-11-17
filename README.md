@@ -62,7 +62,7 @@ Registrar el jar previamente copiado al Dataflow Server como una aplicación Pro
 
 Crear el stream para el procesamiento de los costos:
 
-    stream create --name costos-stream --definition "source: mongodb --query='{'processed': false}' --database=costos --port=27017 --host=mongo --collection=costos | costos --spring.data.mongodb.database=costos --spring.data.mongodb.port=27017 --spring.data.mongodb.host=mongo | sink: mongodb --database=costos --port=27017 --host=mongo --collection=costos" --deploy
+    stream create --name costos-stream --definition "source: mongodb --query="{'processed': false}" --database=costos --port=27017 --host=mongo --collection=costos | costos --spring.data.mongodb.database=costos --spring.data.mongodb.port=27017 --spring.data.mongodb.host=mongo | sink: mongodb --database=costos --port=27017 --host=mongo --collection=costos" --deploy
 
 ### Insertando reglas
 Insertar reglas que el **Costo Processor** aplica en cada costo.
