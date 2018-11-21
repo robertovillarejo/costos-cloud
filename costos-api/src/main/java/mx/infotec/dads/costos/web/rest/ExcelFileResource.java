@@ -23,12 +23,15 @@
  */
 package mx.infotec.dads.costos.web.rest;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-import com.codahale.metrics.annotation.Timed;
-import io.swagger.annotations.ApiParam;
-import io.github.jhipster.web.util.ResponseUtil;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,16 +44,18 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
+import static mx.infotec.dads.costos.web.rest.util.TikaUtil.detectDocType;
 
+import com.codahale.metrics.annotation.Timed;
+
+import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
+import mx.infotec.dads.costos.config.ApplicationProperties;
 import mx.infotec.dads.costos.domain.ExcelFile;
 import mx.infotec.dads.costos.service.ExcelFileService;
 import mx.infotec.dads.costos.web.rest.util.HeaderUtil;
@@ -71,6 +76,9 @@ public class ExcelFileResource {
 
     @Autowired
     private ExcelFileService service;
+
+    @Autowired
+    private ApplicationProperties appProperties;
 
     /**
      * GET /excelFile : recupera todos los excelFile.
@@ -118,28 +126,38 @@ public class ExcelFileResource {
      */
     @PostMapping(path = "/excelFile")
     @Timed
-    public ResponseEntity<Void> createExcelFile(@RequestBody byte[] file) throws URISyntaxException {
-        log.debug("REST request to save ExcelFile: {}", file);
-        ExcelFile excelFile = new ExcelFile();
-        excelFile.setFile(file);
-        service.save(excelFile);
-        return ResponseEntity.accepted().build();
+    public ResponseEntity<Void> createExcelFile(@Valid @RequestBody ExcelFile excelFile) throws URISyntaxException {
+        log.debug("REST request to save ExcelFile : {}", excelFile);
+        String mediaType = "";
+
+        if (excelFile.getId() != null) {
+            return ResponseEntity.badRequest().headers(
+                    HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new excelFile cannot already have an ID"))
+                    .build();
+        }
+        try {
+            mediaType = detectDocType(new ByteArrayInputStream(excelFile.getFile()));
+        } catch (IOException e) {
+            log.error("Exception while detecting media type: {}", e);
+        }
+
+        /**
+         * Configurar los MediaType permitidos en
+         * 'src/main/resources/config/application.yml'
+         */
+        for (String allowedMediaType : appProperties.getAllowedExcelFileMediaTypes()) {
+            if (allowedMediaType.equals(mediaType)) {
+                ExcelFile result = service.save(excelFile);
+                return ResponseEntity.created(new URI("/api/excelFile/" + result.getId()))
+                        .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId())).build();
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).headers(
+                HeaderUtil.createFailureAlert(ENTITY_NAME, "invalidfile", "The file should be an Excel Workbook"))
+                .build();
+
     }
-    // public ResponseEntity<ExcelFile> createExcelFile(@Valid @RequestBody
-    // ExcelFile excelFile)
-    // throws URISyntaxException {
-    // log.debug("REST request to save ExcelFile : {}", excelFile);
-    // if (excelFile.getId() != null) {
-    // return ResponseEntity.badRequest().headers(
-    // HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new excelFile
-    // cannot already have an ID"))
-    // .body(null);
-    // }
-    // ExcelFile result = service.save(excelFile);
-    // return ResponseEntity.created(new URI("/api/excelFile/" + result.getId()))
-    // .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME,
-    // result.getId().toString())).body(result);
-    // }
 
     /**
      * PUT /excelFile : Actualiza un ExcelFile existente.

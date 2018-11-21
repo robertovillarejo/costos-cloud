@@ -314,6 +314,11 @@
 			<artifactId>costos-commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-parsers</artifactId>
+			<version>1.17</version>
+		</dependency>
 		<!-- jhipster-needle-maven-add-dependency -->
 	</dependencies>
 

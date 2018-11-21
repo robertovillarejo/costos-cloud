@@ -23,6 +23,14 @@
  */
 package mx.infotec.dads.costos.service.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.tika.detect.DefaultDetector;
+import org.apache.tika.detect.Detector;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.mime.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,4 +100,5 @@ public class ExcelFileServiceImpl implements ExcelFileService {
         log.debug("Request to search for a page of ExcelFile");
         return repository.findAll(pageable);
     }
+
 }
