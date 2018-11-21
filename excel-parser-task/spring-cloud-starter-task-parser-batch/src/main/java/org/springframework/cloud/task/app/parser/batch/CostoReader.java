@@ -1,3 +1,27 @@
+/*
+ *  
+ * The MIT License (MIT)
+ * Copyright (c) 2018 Roberto Villarejo Martínez
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package org.springframework.cloud.task.app.parser.batch;
 
 import java.io.ByteArrayInputStream;
@@ -19,9 +43,14 @@ import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import mx.infotec.dads.costos.domain.Costo;
 import mx.infotec.dads.costos.domain.ExcelFile;
 import mx.infotec.dads.costos.repository.ExcelFileRepository;
+
+import static org.springframework.cloud.task.app.parser.batch.ExcelRowParser.getMappingSchema;
+import static org.springframework.cloud.task.app.parser.batch.ExcelRowParser.parseMappingSchema;
 
 /**
  * 
@@ -41,6 +70,14 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
 
     private ExcelFile file;
 
+    private ObjectMapper mapper;
+
+    private ExcelRowParser parser;
+
+    public CostoReader() {
+        mapper = new ObjectMapper();
+    }
+
     @Override
     public void beforeStep(StepExecution stepExecution) {
         // El registro más antiguo que no ha sido marcado como procesado
@@ -52,8 +89,8 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
                 logger.info("Reading file with Id: {} ", file.getId());
                 workbook = new XSSFWorkbook(new ByteArrayInputStream(file.getFile()));
                 rowIt = workbook.getSheetAt(0).iterator();
-                // TODO: Verificar esquema del archivo de excel
-                rowIt.next(); // Ignora headers
+                parser = new ExcelRowParser(getMappingSchema(rowIt.next(),
+                        parseMappingSchema("Importe,monto:Área,area:Beneficiario,proveedor")));
             }
         } catch (IOException e) {
             logger.error("Failed while reading file with id: {} with error: {}", file.getId(), e.getStackTrace());
@@ -65,7 +102,9 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
     public Costo read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
         if (rowIt != null && rowIt.hasNext()) {
             Row row = rowIt.next();
-            return parseCosto(row);
+            Costo costo = mapper.convertValue(parser.map(row), Costo.class);
+//            parseDescripcion(row.getCell(14).getStringCellValue(), costo);
+            return costo;
         }
         return null;
     }
@@ -87,28 +126,6 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
     }
 
     /**
-     * Parse a row and maps it to a new Costo instance
-     * 
-     * Expected Excel file schema:
-     * 
-     * Póliza | Proceso | Devengado | Beneficiario | Entidad Federativa | Área |
-     * Proyecto | Proyecto Específico | Partida | Fecha de transacción | Núm De
-     * documento fuente | Fecha de documento | Descripción | Importe
-     * 
-     * @param row
-     * @return
-     */
-    public static Costo parseCosto(Row row) {
-        Costo costo = new Costo();
-        // Parsing...
-        costo.setMonto(row.getCell(15).getNumericCellValue());
-        costo.setArea(Integer.parseInt(row.getCell(6).getStringCellValue()));
-        costo.setProveedor(row.getCell(4).getStringCellValue());
-        // parseDescripcion(row.getCell(13).getStringCellValue(), costo);
-        return costo;
-    }
-
-    /**
      * Parse the descripcionString and assign values to costo
      * 
      * @param descripcionString
@@ -116,6 +133,11 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
      */
     public static void parseDescripcion(String descripcionString, Costo costo) {
         Descripcion descripcion = parseDescripcion(descripcionString);
+        // descripcion.getConceptoDePago();
+        // descripcion.getFolioFiscal();
+        // descripcion.getNumeroContratoPedido();
+        costo.setNumeroFactura(descripcion.getNumeroFactura());
+        costo.setServicio(descripcion.getServicio());
     }
 
     /**
