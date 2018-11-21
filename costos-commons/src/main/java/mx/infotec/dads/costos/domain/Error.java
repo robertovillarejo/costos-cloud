@@ -22,34 +22,40 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.web.rest.util;
+package mx.infotec.dads.costos.domain;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.Serializable;
 
-import org.apache.tika.detect.DefaultDetector;
-import org.apache.tika.detect.Detector;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.mime.MediaType;
-
-public class TikaUtil {
-
-    private TikaUtil() {
-    }
+public class Error implements Serializable {
 
     /**
-     * Detect the MediaType of the input stream
      * 
-     * @param is
-     * @return
-     * @throws IOException
      */
-    public static String detectDocType(InputStream is) throws IOException {
-        Detector detector = new DefaultDetector();
-        Metadata metadata = new Metadata();
+    private static final long serialVersionUID = 464494562717656354L;
 
-        MediaType mediaType = detector.detect(is, metadata);
-        return mediaType.toString();
+    private String subject;
+
+    private String message;
+
+    public Error(String subject, String message) {
+        this.subject = subject;
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
 }

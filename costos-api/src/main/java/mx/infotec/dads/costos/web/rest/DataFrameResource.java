@@ -56,8 +56,8 @@ import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.swagger.annotations.ApiParam;
 import mx.infotec.dads.costos.config.ApplicationProperties;
-import mx.infotec.dads.costos.domain.ExcelFile;
-import mx.infotec.dads.costos.service.ExcelFileService;
+import mx.infotec.dads.costos.domain.DataFrame;
+import mx.infotec.dads.costos.service.DataFrameService;
 import mx.infotec.dads.costos.web.rest.util.HeaderUtil;
 import mx.infotec.dads.costos.web.rest.util.PaginationUtil;
 
@@ -68,75 +68,76 @@ import mx.infotec.dads.costos.web.rest.util.PaginationUtil;
  */
 @RestController
 @RequestMapping("/api")
-public class ExcelFileResource {
+public class DataFrameResource {
 
-    private static final Logger log = LoggerFactory.getLogger(ExcelFileResource.class);
+    private static final Logger log = LoggerFactory.getLogger(DataFrameResource.class);
 
     private static final String ENTITY_NAME = "excelFile";
 
     @Autowired
-    private ExcelFileService service;
+    private DataFrameService service;
 
     @Autowired
     private ApplicationProperties appProperties;
 
     /**
-     * GET /excelFile : recupera todos los excelFile.
+     * GET /dataFrame : recupera todos los dataFrame.
      *
      * @param pageable
      *            información de paginación
      * @return El objeto ResponseEntity con estado de 200 (OK) y la lista de
-     *         excelFile en el cuerpo del mensaje
+     *         dataFrame en el cuerpo del mensaje
      */
-    @GetMapping("/excelFile")
+    @GetMapping("/dataFrame")
     @Timed
-    public ResponseEntity<List<ExcelFile>> getAllExcelFile(@ApiParam Pageable pageable) {
-        log.debug("REST request to get a page of ExcelFile");
-        Page<ExcelFile> page = service.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/excelFile");
+    public ResponseEntity<List<DataFrame>> getAllDataFrame(@ApiParam Pageable pageable) {
+        log.debug("REST request to get a page of dataFrame");
+        Page<DataFrame> page = service.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/dataFrame");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET /excelFile/:id : recupera por "id" de ExcelFile.
+     * GET /dataFrame/:id : recupera por "id" de DataFrame.
      *
      * @param id
-     *            el id del ExcelFile que se desea recuperar
+     *            el id del DataFrame que se desea recuperar
      * @return El objeto ResponseEntity con el estado de 200 (OK) y dentro del
-     *         cuerpo del mensaje el ExcelFile, o con estado de 404 (Not Found)
+     *         cuerpo del mensaje el DataFrame, o con estado de 404 (Not Found)
      */
-    @GetMapping("/excelFile/{id}")
+    @GetMapping("/dataFrame/{id}")
     @Timed
-    public ResponseEntity<ExcelFile> getExcelFile(@PathVariable String id) {
-        log.debug("REST request to get ExcelFile : {}", id);
-        ExcelFile excelFile = service.findById(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(excelFile));
+    public ResponseEntity<DataFrame> getExcelFile(@PathVariable String id) {
+        log.debug("REST request to get DataFrame : {}", id);
+        DataFrame dataFrame = service.findById(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(dataFrame));
     }
 
     /**
-     * POST /excelFile : Create a new usuario.
+     * POST /dataFrame : Create a new dataFrame.
      *
-     * @param excelFile
-     *            el excelFile que se desea crear
+     * @param dataFrame
+     *            el dataFrame que se desea crear
      * @return El objeto ResponseEntity con estado 201 (Created) y en el cuerpo un
-     *         nuevo excelFile, o con estado 400 (Bad Request) si el usuario ya
-     *         tiene un ID
+     *         nuevo dataFrame, con estado 400 (Bad Request) si el usuario ya tiene
+     *         un ID, o con estado 415 (Unsupported Media Type) si se ha detectado
+     *         que el dataFrame no corresponde a un MediaType permitido
      * @throws URISyntaxException
      *             Si la sintaxis de la URI no es correcta
      */
-    @PostMapping(path = "/excelFile")
+    @PostMapping(path = "/dataFrame")
     @Timed
-    public ResponseEntity<Void> createExcelFile(@Valid @RequestBody ExcelFile excelFile) throws URISyntaxException {
-        log.debug("REST request to save ExcelFile : {}", excelFile);
+    public ResponseEntity<Void> createDataFrame(@Valid @RequestBody DataFrame dataFrame) throws URISyntaxException {
+        log.debug("REST request to save DataFrame : {}", dataFrame);
         String mediaType = "";
 
-        if (excelFile.getId() != null) {
+        if (dataFrame.getId() != null) {
             return ResponseEntity.badRequest().headers(
-                    HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new excelFile cannot already have an ID"))
+                    HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new dataFrame cannot already have an ID"))
                     .build();
         }
         try {
-            mediaType = detectDocType(new ByteArrayInputStream(excelFile.getFile()));
+            mediaType = detectDocType(new ByteArrayInputStream(dataFrame.getFile()));
         } catch (IOException e) {
             log.error("Exception while detecting media type: {}", e);
         }
@@ -147,8 +148,8 @@ public class ExcelFileResource {
          */
         for (String allowedMediaType : appProperties.getAllowedExcelFileMediaTypes()) {
             if (allowedMediaType.equals(mediaType)) {
-                ExcelFile result = service.save(excelFile);
-                return ResponseEntity.created(new URI("/api/excelFile/" + result.getId()))
+                DataFrame result = service.save(dataFrame);
+                return ResponseEntity.created(new URI("/api/dataFrame/" + result.getId()))
                         .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId())).build();
             }
         }
@@ -160,63 +161,63 @@ public class ExcelFileResource {
     }
 
     /**
-     * PUT /excelFile : Actualiza un ExcelFile existente.
+     * PUT /dataFrame : Actualiza un DataFrame existente.
      *
-     * @param excelFile
-     *            el excelFile que se desea actualizar
+     * @param dataFrame
+     *            el dataFrame que se desea actualizar
      * @return el objeto ResponseEntity con estado de 200 (OK) y en el cuerpo de la
-     *         respuesta el ExcelFile actualizado, o con estatus de 400 (Bad
-     *         Request) si el excelFile no es valido, o con estatus de 500 (Internal
-     *         Server Error) si el excelFile no se puede actualizar
+     *         respuesta el DataFrame actualizado, o con estatus de 400 (Bad
+     *         Request) si el dataFrame no es valido, o con estatus de 500 (Internal
+     *         Server Error) si el dataFrame no se puede actualizar
      * @throws URISyntaxException
      *             si la sintaxis de la URI no es correcta
      */
-    // @PutMapping("/excelFile")
+    // @PutMapping("/dataFrame")
     // @Timed
-    // public ResponseEntity<ExcelFile> updateExcelFile(@Valid @RequestBody
-    // ExcelFile excelFile)
+    // public ResponseEntity<DataFrame> updateExcelFile(@Valid @RequestBody
+    // DataFrame dataFrame)
     // throws URISyntaxException {
-    // log.debug("REST request to update ExcelFile : {}", excelFile);
-    // if (excelFile.getId() == null) {
-    // return createExcelFile(excelFile);
+    // log.debug("REST request to update DataFrame : {}", dataFrame);
+    // if (dataFrame.getId() == null) {
+    // return createDataFrame(dataFrame);
     // }
-    // ExcelFile result = service.save(excelFile);
+    // DataFrame result = service.save(dataFrame);
     // return ResponseEntity.ok()
     // .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME,
     // excelFile.getId().toString())).body(result);
     // }
 
     /**
-     * DELETE /excelFile/:id : borrar el ExcelFile con "id".
+     * DELETE /dataFrame/:id : borrar el DataFrame con "id".
      *
      * @param id
-     *            el id del ExcelFile que se desea borrar
+     *            el id del DataFrame que se desea borrar
      * @return el objeto ResponseEntity con estatus 200 (OK)
      */
-    @DeleteMapping("/excelFile/{id}")
+    @DeleteMapping("/dataFrame/{id}")
     @Timed
-    public ResponseEntity<Void> deleteExcelFile(@PathVariable String id) {
-        log.debug("REST request to delete ExcelFile : {}", id);
+    public ResponseEntity<Void> deleteDataFrame(@PathVariable String id) {
+        log.debug("REST request to delete DataFrame : {}", id);
         service.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 
     /**
-     * SEARCH /_search/excelFile?query=:query : buscar por el excelFile
+     * SEARCH /_search/dataFrame?query=:query : buscar por el dataFrame
      * correspondiente to the query.
      *
      * @param query
-     *            el query para el excelFile que se desea buscar
+     *            el query para el dataFrame que se desea buscar
      * @param pageable
      *            información de la paginación
      * @return el resultado de la busqueda
      */
-    @GetMapping("/_search/excelFile")
+    @GetMapping("/_search/dataFrame")
     @Timed
-    public ResponseEntity<List<ExcelFile>> searchExcelFile(@RequestParam String query, @ApiParam Pageable pageable) {
-        log.debug("REST request to search for a page of ExcelFile for query {}", query);
-        Page<ExcelFile> page = service.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/excelFile");
+    public ResponseEntity<List<DataFrame>> searchDataFrame(@RequestParam String query, @ApiParam Pageable pageable) {
+        log.debug("REST request to search for a page of DataFrame for query {}", query);
+        Page<DataFrame> page = service.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/dataFrame");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

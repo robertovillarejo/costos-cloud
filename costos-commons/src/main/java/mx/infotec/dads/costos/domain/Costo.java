@@ -28,6 +28,8 @@ public class Costo implements Serializable {
     @Id
     protected String id;
 
+    protected Origin origin;
+
     protected boolean processed;
 
     protected double monto;
@@ -68,6 +70,14 @@ public class Costo implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Origin getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Origin origin) {
+        this.origin = origin;
     }
 
     @JsonGetter

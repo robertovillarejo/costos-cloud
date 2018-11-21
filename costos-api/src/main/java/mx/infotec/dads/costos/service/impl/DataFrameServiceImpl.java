@@ -23,14 +23,6 @@
  */
 package mx.infotec.dads.costos.service.impl;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.tika.detect.DefaultDetector;
-import org.apache.tika.detect.Detector;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.mime.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,42 +31,42 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import mx.infotec.dads.costos.domain.ExcelFile;
-import mx.infotec.dads.costos.repository.ExcelFileRepository;
-import mx.infotec.dads.costos.service.ExcelFileService;
+import mx.infotec.dads.costos.domain.DataFrame;
+import mx.infotec.dads.costos.repository.DataFrameRepository;
+import mx.infotec.dads.costos.service.DataFrameService;
 
 /**
- * ExcelFileServiceImpl
+ * DataFrameServiceImpl
  * 
  * @author kukulkan
  * @kukulkanGenerated 20181109143229
  */
 @Service
 @Transactional
-public class ExcelFileServiceImpl implements ExcelFileService {
+public class DataFrameServiceImpl implements DataFrameService {
 
-    private final Logger log = LoggerFactory.getLogger(ExcelFileServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(DataFrameServiceImpl.class);
 
     @Autowired
-    private ExcelFileRepository repository;
+    private DataFrameRepository repository;
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ExcelFile> findAll(Pageable pageable) {
-        log.debug("Request to get all ExcelFile");
+    public Page<DataFrame> findAll(Pageable pageable) {
+        log.debug("Request to get all DataFrame");
         return repository.findAll(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public ExcelFile findById(String id) {
-        log.debug("Request to get ExcelFile : {}", id);
+    public DataFrame findById(String id) {
+        log.debug("Request to get DataFrame : {}", id);
         return repository.findOne(id);
     }
 
     @Override
-    public ExcelFile save(ExcelFile excelFile) {
-        return repository.save(excelFile);
+    public DataFrame save(DataFrame dataFrame) {
+        return repository.save(dataFrame);
     }
 
     @Override
@@ -84,20 +76,20 @@ public class ExcelFileServiceImpl implements ExcelFileService {
 
     @Override
     public void delete(String id) {
-        log.debug("Request to delete ExcelFile : {}", id);
+        log.debug("Request to delete DataFrame : {}", id);
         repository.delete(id);
     }
 
     @Override
     public void deleteAll() {
-        log.debug("Request to delete All ExcelFile");
+        log.debug("Request to delete All DataFrame");
         repository.deleteAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ExcelFile> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of ExcelFile");
+    public Page<DataFrame> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of DataFrame");
         return repository.findAll(pageable);
     }
 

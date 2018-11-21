@@ -4,19 +4,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import mx.infotec.dads.costos.domain.ExcelFile;
+import mx.infotec.dads.costos.domain.DataFrame;
 
 /**
  * 
  * @author Roberto Villarejo Martínez
  *
  */
-public interface ExcelFileRepository extends MongoRepository<ExcelFile, String> {
+public interface DataFrameRepository extends MongoRepository<DataFrame, String> {
 
     /**
      * 
-     * @return el ExcelFile más antiguo sin procesar
+     * @return el DataFrame más antiguo sin procesar
      */
-    public Page<ExcelFile> findByProcessedFalse(Pageable pageable);
+    public Page<DataFrame> findByProcessedFalse(Pageable pageable);
 
 }

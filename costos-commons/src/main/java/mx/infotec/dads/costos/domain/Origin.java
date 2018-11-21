@@ -22,34 +22,57 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.web.rest.util;
+package mx.infotec.dads.costos.domain;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.Serializable;
 
-import org.apache.tika.detect.DefaultDetector;
-import org.apache.tika.detect.Detector;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.mime.MediaType;
-
-public class TikaUtil {
-
-    private TikaUtil() {
-    }
+/**
+ * Metadata about origin of an instance
+ * 
+ * @author Roberto Villarejo Martínez
+ *
+ */
+public class Origin implements Serializable {
 
     /**
-     * Detect the MediaType of the input stream
      * 
-     * @param is
-     * @return
-     * @throws IOException
      */
-    public static String detectDocType(InputStream is) throws IOException {
-        Detector detector = new DefaultDetector();
-        Metadata metadata = new Metadata();
+    private static final long serialVersionUID = 1808538217987059199L;
 
-        MediaType mediaType = detector.detect(is, metadata);
-        return mediaType.toString();
+    private String id;
+
+    private String name;
+
+    private Integer instanceId;
+
+    public Origin(String id, String name, Integer instanceId) {
+        this.id = id;
+        this.name = name;
+        this.instanceId = instanceId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(Integer instanceId) {
+        this.instanceId = instanceId;
     }
 
 }

@@ -15,7 +15,7 @@ public class ParserBatchTaskPropertiesTests {
     @Test(expected = ConfigurationPropertiesBindException.class)
     public void testEmptyFormat() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "timestamp.chunkSize:");
+        EnvironmentTestUtils.addEnvironment(context, "parser.chunkSize:");
         context.register(Conf.class);
         context.refresh();
         ParserBatchTaskProperties properties = context.getBean(ParserBatchTaskProperties.class);

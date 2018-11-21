@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import mx.infotec.dads.costos.repository.ExcelFileRepository;
+import mx.infotec.dads.costos.repository.DataFrameRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,7 +18,7 @@ import mx.infotec.dads.costos.repository.ExcelFileRepository;
 public class CostosCommonsApplicationTests {
 
     @Autowired
-    private ExcelFileRepository repository;
+    private DataFrameRepository repository;
 
     @Test
     public void testRepository() {

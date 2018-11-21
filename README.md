@@ -4,7 +4,7 @@ En este repositorio se encuentran los siguientes proyectos:
 
 - **Rules**: es una librería para la definición de reglas definidas con SpEL
 - **Costos Commons**: son clases comunes a usar en Costos API, Excel Parser Task y Costos Processor; en general son clases POJO y Repository.
-- **Costos API**: es la interfaz REST que utilizará la aplicación de Costos para interactuar con la aplicación _Costos Cloud_. Proporciona _endpoints_ para administrar las reglas, subir archivos de excel y consultar los costos procesados.
+- **Costos API**: es la interfaz REST que utilizará la aplicación de Costos para interactuar con la aplicación _Costos Cloud_. Proporciona _endpoints_ para administrar las reglas, subir archivos de DataFrame y consultar los costos procesados.
 - **Excel Parser Task**: es una aplicación de Spring Batch que se ejecuta como una tarea programada en el servidor de Spring Cloud Data Flow.
 - **Costos Processor**: es una aplicación _Stream_ de tipo _Processor_ que se encarga de aplicar las reglas definidas para un costo.
 
@@ -89,11 +89,11 @@ Autenticación: **Bearer Token (Usar token válido)**
 Como respuesta debe obtener un código 202 (Accepted)
 
 ### Probando los streams
-Usar Insomnia para subir un archivo Excel mediante la **Costos API**:
+Usar Insomnia para subir un Data Frame (Archivos Excel) mediante la **Costos API**:
 
 Nombre de la petición: **Subir Excel**  
 Tipo de petición: **POST**  
-Cuerpo: **Archivo de Excel (Binario)**  
+Cuerpo: **Data Frame (Binario)**  
 Autenticación: **Bearer Token (Usar token válido)**  
 
 Como respuesta debe obtener un código 202 (Accepted)

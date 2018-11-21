@@ -46,8 +46,10 @@ import org.springframework.data.domain.PageRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import mx.infotec.dads.costos.domain.Costo;
-import mx.infotec.dads.costos.domain.ExcelFile;
-import mx.infotec.dads.costos.repository.ExcelFileRepository;
+import mx.infotec.dads.costos.domain.DataFrame;
+import mx.infotec.dads.costos.domain.Error;
+import mx.infotec.dads.costos.domain.Origin;
+import mx.infotec.dads.costos.repository.DataFrameRepository;
 
 import static org.springframework.cloud.task.app.parser.batch.ExcelRowParser.getMappingSchema;
 import static org.springframework.cloud.task.app.parser.batch.ExcelRowParser.parseMappingSchema;
@@ -62,31 +64,28 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
     private final Logger logger = LoggerFactory.getLogger(CostoReader.class);
 
     @Autowired
-    private ExcelFileRepository repository;
+    private DataFrameRepository repository;
 
     private XSSFWorkbook workbook;
 
     private Iterator<Row> rowIt;
 
-    private ExcelFile file;
+    private DataFrame file;
 
-    private ObjectMapper mapper;
+    private ObjectMapper mapper = new ObjectMapper();
 
     private ExcelRowParser parser;
-
-    public CostoReader() {
-        mapper = new ObjectMapper();
-    }
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
         // El registro más antiguo que no ha sido marcado como procesado
         logger.info("Querying for not processed ExcelFile...");
-        List<ExcelFile> list = repository.findByProcessedFalse(PageRequest.of(0, 1)).getContent();
+        List<DataFrame> list = repository.findByProcessedFalse(PageRequest.of(0, 1)).getContent();
         try {
             if (!list.isEmpty()) {
                 file = list.get(0);
                 logger.info("Reading file with Id: {} ", file.getId());
+
                 workbook = new XSSFWorkbook(new ByteArrayInputStream(file.getFile()));
                 rowIt = workbook.getSheetAt(0).iterator();
                 parser = new ExcelRowParser(getMappingSchema(rowIt.next(),
@@ -102,8 +101,15 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
     public Costo read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
         if (rowIt != null && rowIt.hasNext()) {
             Row row = rowIt.next();
-            Costo costo = mapper.convertValue(parser.map(row), Costo.class);
-//            parseDescripcion(row.getCell(14).getStringCellValue(), costo);
+            Costo costo = null;
+            try {
+                costo = mapper.convertValue(parser.map(row), Costo.class);
+                costo.setOrigin(new Origin(file.getId(), file.getFileName(), row.getRowNum()));
+                parseDescripcion(row.getCell(14).getStringCellValue(), costo);
+            } catch (IllegalArgumentException ex) {
+                file.addError(new Error("parseFailure", "Fail to parse row number: " + row.getRowNum()));
+                return read();
+            }
             return costo;
         }
         return null;
@@ -133,9 +139,6 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
      */
     public static void parseDescripcion(String descripcionString, Costo costo) {
         Descripcion descripcion = parseDescripcion(descripcionString);
-        // descripcion.getConceptoDePago();
-        // descripcion.getFolioFiscal();
-        // descripcion.getNumeroContratoPedido();
         costo.setNumeroFactura(descripcion.getNumeroFactura());
         costo.setServicio(descripcion.getServicio());
     }

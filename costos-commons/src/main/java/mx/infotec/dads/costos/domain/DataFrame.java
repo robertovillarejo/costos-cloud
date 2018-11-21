@@ -1,17 +1,20 @@
 package mx.infotec.dads.costos.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 
  * @author Roberto Villarejo Martínez
  *
  */
-@Document("excelFile")
-public class ExcelFile implements Serializable {
+@Document("dataFrame")
+public class DataFrame implements Serializable {
 
     /**
      * 
@@ -23,9 +26,12 @@ public class ExcelFile implements Serializable {
 
     private byte[] file;
 
+    @JsonIgnore
     private boolean processed;
 
     private String fileName;
+
+    private List<Error> errors;
 
     public String getId() {
         return id;
@@ -57,6 +63,18 @@ public class ExcelFile implements Serializable {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public List<Error> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<Error> errors) {
+        this.errors = errors;
+    }
+
+    public boolean addError(Error error) {
+        return errors.add(error);
     }
 
 }

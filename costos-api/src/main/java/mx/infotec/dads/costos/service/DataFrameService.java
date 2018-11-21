@@ -26,41 +26,41 @@ package mx.infotec.dads.costos.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import mx.infotec.dads.costos.domain.ExcelFile;
+import mx.infotec.dads.costos.domain.DataFrame;
 
 /**
- * ExcelFileService
+ * DataFrameService
  * 
  * @author kukulkan
  * @kukulkanGenerated 20181109143229
  */
-public interface ExcelFileService {
+public interface DataFrameService {
 
     /**
-     * regresa una lista con todos los elementos ExcelFile
+     * regresa una lista con todos los elementos DataFrame
      * 
-     * @return Page<ExcelFile>
+     * @return Page<DataFrame>
      */
-    Page<ExcelFile> findAll(Pageable pageable);
+    Page<DataFrame> findAll(Pageable pageable);
 
     /**
-     * Consulta un ExcelFile por su llave primaria
+     * Consulta un DataFrame por su llave primaria
      * 
      * @param id
-     * @return ExcelFile
+     * @return DataFrame
      */
-    ExcelFile findById(String id);
+    DataFrame findById(String id);
 
     /**
-     * Guarda o actualiza un ExcelFile
+     * Guarda o actualiza un DataFrame
      * 
-     * @param excelFile
+     * @param dataFrame
      * @return boolean
      */
-    ExcelFile save(ExcelFile excelFile);
+    DataFrame save(DataFrame excelFile);
 
     /**
-     * Regresa true o false si existe un ExcelFile almacenado
+     * Regresa true o false si existe un DataFrame almacenado
      * 
      * @param id
      * @return boolean
@@ -68,21 +68,21 @@ public interface ExcelFileService {
     boolean exists(String id);
 
     /**
-     * Borrar un ExcelFile por su llave primaria
+     * Borrar un DataFrame por su llave primaria
      * 
      * @param id
      */
     void delete(String id);
 
     /**
-     * Borrar todos los elementos ExcelFile almacenados
+     * Borrar todos los elementos DataFrame almacenados
      * 
      * @param id
      */
     void deleteAll();
 
     /**
-     * Buscar ExcelFile con el correspondiente al query.
+     * Buscar DataFrame con el correspondiente al query.
      *
      * @param query
      *            El query de la busqueda
@@ -91,6 +91,6 @@ public interface ExcelFileService {
      *            la información de paginación
      * @return Page de todas las entidades
      */
-    Page<ExcelFile> search(String query, Pageable pageable);
+    Page<DataFrame> search(String query, Pageable pageable);
 
 }
