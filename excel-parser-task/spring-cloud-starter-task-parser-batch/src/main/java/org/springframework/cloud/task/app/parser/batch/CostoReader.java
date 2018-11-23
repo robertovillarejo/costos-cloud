@@ -70,7 +70,7 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
 
     private Iterator<Row> rowIt;
 
-    private DataFrame file;
+    private DataFrame dataFrame;
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -79,20 +79,20 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
     @Override
     public void beforeStep(StepExecution stepExecution) {
         // El registro más antiguo que no ha sido marcado como procesado
-        logger.info("Querying for not processed ExcelFile...");
+        logger.info("Querying for not processed DataFrame...");
         List<DataFrame> list = repository.findByProcessedFalse(PageRequest.of(0, 1)).getContent();
         try {
             if (!list.isEmpty()) {
-                file = list.get(0);
-                logger.info("Reading file with Id: {} ", file.getId());
+                dataFrame = list.get(0);
+                logger.info("Reading file with Id: {} ", dataFrame.getId());
 
-                workbook = new XSSFWorkbook(new ByteArrayInputStream(file.getFile()));
+                workbook = new XSSFWorkbook(new ByteArrayInputStream(dataFrame.getFile()));
                 rowIt = workbook.getSheetAt(0).iterator();
                 parser = new ExcelRowParser(getMappingSchema(rowIt.next(),
                         parseMappingSchema("Importe,monto:Área,area:Beneficiario,proveedor")));
             }
         } catch (IOException e) {
-            logger.error("Failed while reading file with id: {} with error: {}", file.getId(), e.getStackTrace());
+            logger.error("Failed while reading file with id: {} with error: {}", dataFrame.getId(), e.getStackTrace());
         }
 
     }
@@ -104,10 +104,10 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
             Costo costo = null;
             try {
                 costo = mapper.convertValue(parser.map(row), Costo.class);
-                costo.setOrigin(new Origin(file.getId(), file.getFileName(), row.getRowNum()));
+                costo.setOrigin(new Origin(dataFrame.getId(), dataFrame.getFileName(), row.getRowNum()));
                 parseDescripcion(row.getCell(14).getStringCellValue(), costo);
             } catch (IllegalArgumentException ex) {
-                file.addError(new Error("parseFailure", "Fail to parse row number: " + row.getRowNum()));
+                dataFrame.addError(new Error("parseFailure", "Fail to parse row number: " + row.getRowNum()));
                 return read();
             }
             return costo;
@@ -121,12 +121,12 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
             if (workbook != null) {
                 workbook.close();
             }
-            if (file != null) {
-                file.setProcessed(true);
-                repository.save(file);
+            if (dataFrame != null) {
+                dataFrame.setProcessed(true);
+                repository.save(dataFrame);
             }
         } catch (IOException e) {
-            logger.error("Failed to close workbook for excel file: {}", file.getId());
+            logger.error("Failed to close workbook for excel file: {}", dataFrame.getId());
         }
         return ExitStatus.COMPLETED;
     }

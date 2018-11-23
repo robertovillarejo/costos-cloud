@@ -72,7 +72,7 @@ public class DataFrameResource {
 
     private static final Logger log = LoggerFactory.getLogger(DataFrameResource.class);
 
-    private static final String ENTITY_NAME = "excelFile";
+    private static final String ENTITY_NAME = "dataFrame";
 
     @Autowired
     private DataFrameService service;
