@@ -1,6 +1,7 @@
 package mx.infotec.dads.costos.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -31,7 +32,7 @@ public class DataFrame implements Serializable {
 
     private String fileName;
 
-    private List<Error> errors;
+    private List<Error> errors = new ArrayList<>();
 
     public String getId() {
         return id;

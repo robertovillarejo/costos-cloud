@@ -28,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -43,16 +44,11 @@ import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import mx.infotec.dads.costos.domain.Costo;
 import mx.infotec.dads.costos.domain.DataFrame;
 import mx.infotec.dads.costos.domain.Error;
 import mx.infotec.dads.costos.domain.Origin;
 import mx.infotec.dads.costos.repository.DataFrameRepository;
-
-import static org.springframework.cloud.task.app.parser.batch.ExcelRowParser.getMappingSchema;
-import static org.springframework.cloud.task.app.parser.batch.ExcelRowParser.parseMappingSchema;
 
 /**
  * 
@@ -72,9 +68,10 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
 
     private DataFrame dataFrame;
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private ExcelRowParser<Costo> parser;
 
-    private ExcelRowParser parser;
+    @Autowired
+    private CostoParserRegistry registry;
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
@@ -84,12 +81,23 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
         try {
             if (!list.isEmpty()) {
                 dataFrame = list.get(0);
-                logger.info("Reading file with Id: {} ", dataFrame.getId());
+
+                logger.info("Reading dataFrame with Id: {} ", dataFrame.getId());
 
                 workbook = new XSSFWorkbook(new ByteArrayInputStream(dataFrame.getFile()));
                 rowIt = workbook.getSheetAt(0).iterator();
-                parser = new ExcelRowParser(getMappingSchema(rowIt.next(),
-                        parseMappingSchema("Importe,monto:Área,area:Beneficiario,proveedor")));
+
+                Row headersRow = rowIt.next();
+
+                String suggestedParser = registry.detect(headersRow);
+                Optional<ExcelRowParser<Costo>> maybeParser = registry.lookup(suggestedParser);
+
+                if (maybeParser.isPresent()) {
+                    parser = maybeParser.get();
+                } else {
+                    dataFrame.addError(new Error("No parser found for this source",
+                            "No adequate parser was found for this data frame"));
+                }
             }
         } catch (IOException e) {
             logger.error("Failed while reading file with id: {} with error: {}", dataFrame.getId(), e.getStackTrace());
@@ -99,13 +107,14 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
 
     @Override
     public Costo read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+        if (parser == null)
+            return null;
         if (rowIt != null && rowIt.hasNext()) {
             Row row = rowIt.next();
-            Costo costo = null;
+            Costo costo;
             try {
-                costo = mapper.convertValue(parser.map(row), Costo.class);
+                costo = parser.parse(row);
                 costo.setOrigin(new Origin(dataFrame.getId(), dataFrame.getFileName(), row.getRowNum()));
-                parseDescripcion(row.getCell(14).getStringCellValue(), costo);
             } catch (IllegalArgumentException ex) {
                 dataFrame.addError(new Error("parseFailure", "Fail to parse row number: " + row.getRowNum()));
                 return read();
@@ -129,139 +138,6 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
             logger.error("Failed to close workbook for excel file: {}", dataFrame.getId());
         }
         return ExitStatus.COMPLETED;
-    }
-
-    /**
-     * Parse the descripcionString and assign values to costo
-     * 
-     * @param descripcionString
-     * @param costo
-     */
-    public static void parseDescripcion(String descripcionString, Costo costo) {
-        Descripcion descripcion = parseDescripcion(descripcionString);
-        costo.setNumeroFactura(descripcion.getNumeroFactura());
-        costo.setServicio(descripcion.getServicio());
-    }
-
-    /**
-     * Parse the descripcionString
-     * 
-     * @param descripcionString
-     * @return
-     */
-    public static Descripcion parseDescripcion(String descripcionString) {
-        Descripcion descripcion = new Descripcion(descripcionString);
-        if (descripcionString != null && descripcionString.isEmpty()) {
-            // Split pipes '|'
-            String[] subFields = descripcionString.split("|");
-            if (subFields.length > 0) {
-                for (int i = 0; i < subFields.length; i++) {
-                    String[] keyValue = subFields[i].split(":");
-                    assignDescripcionValues(keyValue, i, descripcion);
-                }
-            }
-        }
-        return descripcion;
-    }
-
-    public static void assignDescripcionValues(String[] keyValue, int rowNumber, Descripcion descripcion) {
-
-        String value;
-
-        value = keyValue.length > 1 ? keyValue[1] : "";
-
-        switch (rowNumber) {
-        case 0:
-            descripcion.setNumeroFactura(value);
-            break;
-
-        case 1:
-            descripcion.setFolioFiscal(value);
-            break;
-
-        case 2:
-            descripcion.setNumeroContratoPedido(value);
-            break;
-
-        case 3:
-            descripcion.setConceptoDePago(value);
-            break;
-
-        case 4:
-            descripcion.setServicio(value);
-            break;
-
-        default:
-            break;
-        }
-    }
-
-    static class Descripcion {
-
-        private String descripcionString;
-
-        private String numeroFactura;
-
-        private String folioFiscal;
-
-        private String numeroContratoPedido;
-
-        private String conceptoDePago;
-
-        private String servicio;
-
-        public Descripcion(String descripcion) {
-            this.descripcionString = descripcion;
-        }
-
-        public String getDescripcion() {
-            return descripcionString;
-        }
-
-        public void setDescripcion(String descripcion) {
-            this.descripcionString = descripcion;
-        }
-
-        public String getNumeroFactura() {
-            return numeroFactura;
-        }
-
-        public void setNumeroFactura(String numeroFactura) {
-            this.numeroFactura = numeroFactura;
-        }
-
-        public String getFolioFiscal() {
-            return folioFiscal;
-        }
-
-        public void setFolioFiscal(String folioFiscal) {
-            this.folioFiscal = folioFiscal;
-        }
-
-        public String getNumeroContratoPedido() {
-            return numeroContratoPedido;
-        }
-
-        public void setNumeroContratoPedido(String numeroContratoPedido) {
-            this.numeroContratoPedido = numeroContratoPedido;
-        }
-
-        public String getConceptoDePago() {
-            return conceptoDePago;
-        }
-
-        public void setConceptoDePago(String conceptoDePago) {
-            this.conceptoDePago = conceptoDePago;
-        }
-
-        public String getServicio() {
-            return servicio;
-        }
-
-        public void setServicio(String servicio) {
-            this.servicio = servicio;
-        }
-
     }
 
 }
