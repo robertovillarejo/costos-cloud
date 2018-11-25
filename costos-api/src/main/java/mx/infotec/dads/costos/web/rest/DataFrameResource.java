@@ -143,7 +143,7 @@ public class DataFrameResource {
         }
 
         /**
-         * Configurar los MediaType permitidos en
+         * Configura los MediaType permitidos en
          * 'src/main/resources/config/application.yml'
          */
         for (String allowedMediaType : appProperties.getAllowedExcelFileMediaTypes()) {
@@ -154,6 +154,7 @@ public class DataFrameResource {
             }
         }
 
+        log.info("Invalid Media Type: {}", mediaType);
         return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).headers(
                 HeaderUtil.createFailureAlert(ENTITY_NAME, "invalidfile", "The file should be an Excel Workbook"))
                 .build();

@@ -22,7 +22,7 @@ public class AnotherParser implements ExcelRowParser<Costo> {
      * encabezados separados por coma).
      */
     private final SortedMap<Integer, String> supportedSchema = ExcelRowMapParser
-            .parsePositionBasedSchema("Id,Proveedor");
+            .parsePositionBasedSchema("Área,Proveedor");
 
     /**
      * El 'mappingSchema' es la definición del mapeo de una columna a una
@@ -32,7 +32,7 @@ public class AnotherParser implements ExcelRowParser<Costo> {
      * escribir uno solo: 'propiedad'.
      */
     private ExcelRowMapParser parser = new ExcelRowMapParser(ExcelRowMapParser.getMappingSchema(supportedSchema,
-            ExcelRowMapParser.parseMappingSchema("Id,id:Proveedor,proveedor")));
+            ExcelRowMapParser.parseMappingSchema("Área,area:Proveedor,proveedor")));
 
     private ObjectMapper mapper = new ObjectMapper();
 
