@@ -31,10 +31,10 @@ La **Excel Parser Task** consulta cada minuto el archivo de Excel más antiguo s
 Una vez insertados, el **costos-stream** se encargar de procesarlos y persistirlos.
 
 ### Costos API
-**Endpoints**:
-    - **Carga de DataFrame**: `api/dataFrame`
-    - **Carga de Regla**: `api/rules`
-    - **Consulta de costos**: `api/costos`
+**Endpoints**:  
+- **Carga de DataFrame**: `api/dataFrame`  
+- **Carga de Regla**: `api/rules`  
+- **Consulta de costos**: `api/costos`  
 
 ### Excel Parser
 La manera en que el componente _Excel Parser_ decide cuál parser usar para transformar una fila de Workbook de Excel a una objeto 'Costo' es comparando la fila de _headers_ del _Data Frame_ contra los _ExcelRowParser_ registrados.
@@ -74,7 +74,8 @@ public class AnotherParser implements ExcelRowParser<Costo> {
     @Override
     public Costo parse(Row row) {
         logger.debug("Parsing row...");
-        return mapper.convertValue(parser.map(row), Costo.class);
+        Map<String, String> map = parser.map(row);
+        return mapper.convertValue(map, Costo.class);
     }
 
     @Override
@@ -85,7 +86,8 @@ public class AnotherParser implements ExcelRowParser<Costo> {
 }
 ```
 
-Note la utilización de un `ExcelRowMapParser` que ayuda a convertir una fila `Row` (de Apache POI) a un Mapa de clave-valor **String, String**. Luego, se utiliza el ObjectMapper de Jackson para convertir el Mapa a un objeto.
+Note la utilización de un `ExcelRowMapParser` que ayuda a convertir una fila `org.apache.poi.ss.usermodel.Row.Row` a un Mapa de clave-valor **String, String**: `Map<String, String> map = parser.map(row);`  
+Luego, se utiliza el ObjectMapper de Jackson para convertir el Mapa a un objeto: `mapper.convertValue(map, Costo.class);`
 
 ### Costo Processor
 
@@ -105,7 +107,7 @@ El **Costos Processor** carga al iniciar las reglas de transformación guardadas
 
 - Maven
 - Docker y Docker Compose
-- Insomnia (Cliente REST)
+- Insomnia: Cliente REST (opcional)
 
 ### Building
 Para compilar y generar los archivos `.jar` ejecute el script para empaquetar: `./package.sh`
@@ -156,37 +158,53 @@ Crear el stream para el procesamiento de los costos:
 ### Insertando reglas
 Insertar reglas que el **Costo Processor** aplica en cada costo.
 
-Nombre de la petición: **Añadir regla**  
-Tipo de petición: **POST**  
-Cuerpo: **JSON**  
+```bash
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Authorization: Bearer TOKEN_DE_AUTORIZACION' -d '{ \ 
+     "name": "Asignacion de area", \ 
+     "order": 99, \ 
+     "condition": "area == 40", \ 
+     "actions": [ \ 
+         { \ 
+         "actionExpression": "servicio = %27Servicio administrativos DADT Direccion%27", \ 
+         "order": 99 \ 
+         } \ 
+     ] \ 
+     }' 'http://localhost:8081/api/rules'
+```
 
-    {
-    "id": "5be9b251ec57dc0001d663db",
-    "name": "Asignacion de area",
-    "order": 99,
-    "condition": "area == 40",
-    "actions": [
-        {
-        "actionExpression": "servicio = 'Servicio administrativos DADT Direccion'",
-        "order": 99
-        }
-    ]
-    }
-
-Autenticación: **Bearer Token (Usar token válido)**  
-
-Como respuesta debe obtener un código 202 (Accepted)
+Como respuesta debe obtener un código **201 (Created)**
 
 ### Probando los streams
-Usar Insomnia para subir un Data Frame (Archivos Excel) mediante la **Costos API**:
+Usando **curl** para subir un Data Frame (Archivos Excel) mediante la **Costos API**:
 
-Nombre de la petición: **Subir Excel**  
-Tipo de petición: **POST**  
-Cuerpo: **Data Frame (Binario)**  
-Autenticación: **Bearer Token (Usar token válido)**  
+```bash
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/problem+json' --header 'Authorization: Bearer TOKEN_DE_AUTORIZACION' -d '{ \ 
+   "file": "ARCHIVO_EN_BASE64", \ 
+   "fileName": "NOMBRE_DE_ARCHIVO" \ 
+ }' 'http://localhost:8081/api/dataFrame'
+```
 
-Como respuesta debe obtener un código 202 (Accepted)
+Como respuesta debe obtener un código **201 (Created)**
 
 La **Excel Parser Task** consulta cada minuto el archivo de Excel más antiguo sin procesar, lo _parsea_ e inserta los costos en la colección `costos` en la BD de Mongo.
 
 Una vez insertados, el **costos-stream** se encargar de procesarlos y persistirlos.
+
+## FAQ
+
+### Cómo solicitar un token de autorización
+Usando **curl**:  
+```bash
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ \ 
+   "password": "admin", \ 
+   "rememberMe": true, \ 
+   "username": "admin" \ 
+ }'
+```
+
+Como respuesta se obtiene el token de autorización:
+```json
+{
+  "id_token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NjEwNjI5NH0.QELMgAAljornJBuUgJROYmieWk0rf7WFIju2zHmUAsEkpJTx4FSi7ccHXGvPWhC9-FUKltq20hR6xVOXZsrFYA"
+}
+```
