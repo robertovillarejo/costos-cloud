@@ -1,7 +1,25 @@
 # Costos Cloud
 
-En este repositorio se encuentran los siguientes proyectos:
+## Diagrama de contexto
+Como se muestra en el diagrama de contexto, éste es un proyecto que interactúa con la aplicación CostosApp y es el macro-componente responsable de procesar _data frames_ a objetos de dominio y aplicarles reglas de transformación.
 
+![Diagrama de contexto](img/contexto.png)
+
+Este componente se compone de tres sub-componentes:
+- **Costos Cloud API**: es la interfaz que se proporciona a la aplicación de CostosApp para interactuar con **Costos Cloud** (este proyecto): 
+    - Carga de _Data Frames_ (archivos Excel)
+    - Creación de reglas de transformación
+    - Consulta de costos (resultado)
+- **Excel Parser**: es el encargado de _parsear_ los _Data Frames_ cargados y persistirlos como objetos 'Costo'.
+- **Costo Processor**: se encarga de aplicar reglas de transformación, previamente cargados en la BD, en el contexto de 'Costo'. 
+
+## Diagrama de secuencia
+A continuación se muestra el diagrama de secuencia para un DataFrame de 'Costo'.
+
+![Diagrama de secuencia](img/SequenceDataFrame.png)
+
+## Descripción de los componentes
+En este repositorio se encuentran los siguientes proyectos:  
 - **Rules**: es una librería para la definición de reglas definidas con SpEL
 - **Costos Commons**: son clases comunes a usar en Costos API, Excel Parser Task y Costos Processor; en general son clases POJO y Repository.
 - **Costos API**: es la interfaz REST que utilizará la aplicación de Costos para interactuar con la aplicación _Costos Cloud_. Proporciona _endpoints_ para administrar las reglas, subir archivos de DataFrame y consultar los costos procesados.
@@ -11,6 +29,77 @@ En este repositorio se encuentran los siguientes proyectos:
 La **Excel Parser Task** consulta cada minuto el archivo de Excel más antiguo sin procesar, lo _parsea_ e inserta los costos en la colección `costos` en la BD de Mongo.
 
 Una vez insertados, el **costos-stream** se encargar de procesarlos y persistirlos.
+
+### Costos API
+**Endpoints**:
+    - **Carga de DataFrame**: `api/dataFrame`
+    - **Carga de Regla**: `api/rules`
+    - **Consulta de costos**: `api/costos`
+
+### Excel Parser
+La manera en que el componente _Excel Parser_ decide cuál parser usar para transformar una fila de Workbook de Excel a una objeto 'Costo' es comparando la fila de _headers_ del _Data Frame_ contra los _ExcelRowParser_ registrados.
+
+Para añadir un nuevo _parser_ para una nueva fuente de datos, implemente la interfaz `ExcelRowParser`.
+
+```java
+@Component
+public class AnotherParser implements ExcelRowParser<Costo> {
+
+    private final Logger logger = LoggerFactory.getLogger(AnotherParser.class);
+
+    /**
+     * El esquema que este parser soporta (expresado como una lista de
+     * encabezados separados por coma).
+     */
+    private final SortedMap<Integer, String> supportedSchema = ExcelRowMapParser
+            .parsePositionBasedSchema("Área,Proveedor");
+
+    /**
+     * El 'mappingSchema' es la definición del mapeo de una columna a una
+     * propiedad del objeto. Se expresa como una lista de 'Header,propiedad'
+     * separados por dos puntos ':' Si el header y la propiedad tienen el mismo
+     * nombre entonces no es necesario usar 'Header:propiedad', basta con
+     * escribir uno solo: 'propiedad'.
+     */
+    private ExcelRowMapParser parser = new ExcelRowMapParser(ExcelRowMapParser.getMappingSchema(supportedSchema,
+            ExcelRowMapParser.parseMappingSchema("Área,area:Proveedor,proveedor")));
+
+    private ObjectMapper mapper = new ObjectMapper();
+
+    @Override
+    public String getName() {
+        return "anotherParser";
+    }
+
+    @Override
+    public Costo parse(Row row) {
+        logger.debug("Parsing row...");
+        return mapper.convertValue(parser.map(row), Costo.class);
+    }
+
+    @Override
+    public Map<Integer, String> getSupportedSchema() {
+        return supportedSchema;
+    }
+
+}
+```
+
+Note la utilización de un `ExcelRowMapParser` que ayuda a convertir una fila `Row` (de Apache POI) a un Mapa de clave-valor **String, String**. Luego, se utiliza el ObjectMapper de Jackson para convertir el Mapa a un objeto.
+
+### Costo Processor
+
+El **Costos Processor** carga al iniciar las reglas de transformación guardadas previamente en la BD y las aplica para cada una de los costos. Éstas reglas están expresadas con **Spring Expression Language** (SpEL).
+
+```java
+@ServiceActivator(inputChannel = Processor.INPUT, outputChannel = Processor.OUTPUT)
+    public CostoObjectId process(CostoObjectId costo) throws JsonProcessingException {
+        logger.info("Processing costo: {}", costo);
+        rulesApplier.apply(new StandardEvaluationContext(costo));
+        costo.setProcessed(true);
+        return costo;
+    }
+```
 
 ## Prerequisitos
 
