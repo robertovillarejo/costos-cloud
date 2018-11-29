@@ -1,0 +1,38 @@
+
+<div>
+    <h2><span data-translate="costosapiApp.dataFrame.detail.title">DataFrame</span> {{vm.dataFrame.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="global.field.id">id</span></dt>
+        <dd>
+            <span>{{vm.dataFrame.id}}</span>
+        <dd>
+        <dt><span data-translate="costosapiApp.dataFrame.fileName">FileName</span></dt>
+        <dd>
+            <span>{{vm.dataFrame.fileName}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.dataFrame.file">File</span></dt>
+        <dd>      
+            <div ng-if="vm.dataFrame.file">
+                <a ng-click="vm.openFile(vm.dataFrame.fileContentType, vm.dataFrame.file)" data-translate="entity.action.open">open</a>
+                {{vm.dataFrame.fileContentType}}, {{vm.byteSize(vm.dataFrame.file)}}
+            </div>
+        </dd>
+        <dt><span data-translate="costosapiApp.dataFrame.processed">Processed</span></dt>
+        <dd>
+            <span>{{vm.dataFrame.processed}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="dataFrame-detail.edit({id:vm.dataFrame.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

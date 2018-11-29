@@ -7,6 +7,9 @@
             "jhipster-needle-menu-add-element": "Generator will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "rulePersistable": "RulePersistable",
+                "costo": "Costo",
+                "dataFrame": "DataFrame",
                 "jhipster-needle-menu-add-entry": "Generator will add additional entities here (do not translate!)"
             },
             "account": {
@@ -108,8 +111,7 @@
             "maxbytes": "This field cannot be more than {{ max }} bytes.",
             "pattern": "This field should follow pattern for {{ pattern }}.",
             "number": "This field should be a number.",
-            "datetimelocal": "This field should be a date and time.",
-            "patternLogin": "This field can only contain letters, digits and e-mail addresses."
+            "datetimelocal": "This field should be a date and time."
         }
     },
     "error": {

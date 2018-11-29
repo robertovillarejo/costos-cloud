@@ -91,6 +91,6 @@ jhipster:
 # ===================================================================
 
 application:
-    allowedExcelFileMediaTypes:
+    allowedDataFrameMediaTypes:
         - application/x-tika-ooxml
         - application/zip

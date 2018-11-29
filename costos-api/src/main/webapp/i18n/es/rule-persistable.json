@@ -1,0 +1,21 @@
+{
+    "costosapiApp": {
+        "rulePersistable" : {
+            "home": {
+                "title": "RulePersistable",
+                "createLabel": "Crear nuevo RulePersistable",
+                "createOrEditLabel": "Crear o editar RulePersistable",
+                "search": "Buscar RulePersistable"
+            },
+            "created": "Un nuevo RulePersistable ha sido creado con el identificador {{ param }}",
+            "updated": "Un RulePersistable ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un RulePersistable ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar RulePersistable {{ id }}?"
+            },
+            "detail": {
+                "title": "RulePersistable"
+            }
+        }
+    }
+}

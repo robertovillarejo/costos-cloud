@@ -7,6 +7,9 @@
             "jhipster-needle-menu-add-element": "Generator will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entidades",
+                "rulePersistable": "RulePersistable",
+                "costo": "Costo",
+                "dataFrame": "DataFrame",
                 "jhipster-needle-menu-add-entry": "Generator will add additional entities here (do not translate!)"
             },
             "account": {
@@ -77,7 +80,7 @@
         "ribbon": {
             "dev":"Development"
         },
-        "item-count": "Monstrando {{first}} - {{second}} de {{total}} artículos."
+        "item-count": "Mostrando {{first}} - {{second}} de {{total}} artículos."
     },
     "entity": {
         "action": {

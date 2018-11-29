@@ -1,5 +1,35 @@
-entity RulePersistable
+entity RulePersistable {
+    name: String,
+    order: Integer,
+    condition: String
+}
 
-entity Costo
+entity Costo {
+	processed : Boolean,
+	monto : Double,
+	porcentaje : Double,
+	anio : Integer,
+	mes : Integer,
+	fechaRegistro : LocalDate,
+	area : Integer,
+	proyectoOperativo : String,
+	proyectoPresupuestal : String,
+	servicio : String,
+	tipoCosto : String,
+	partida : Integer,
+	proveedor : String,
+	user : String,
+	subpartida : String,
+	subSubPartida : String,
+	numeroFactura : String
+}
 
-entity ExcelFile
+entity DataFrame {
+	fileName : String required min(5),
+	file : Blob,
+	processed : Boolean
+}
+
+views {
+    Costo as Sheet
+}

@@ -31,6 +31,24 @@
             </a>
 
             <ul class="dropdown-menu" uib-dropdown-menu>
+                <li ui-sref-active="active" has-any-authority="ROLE_ADMIN,ROLE_USER">
+                    <a ui-sref="rulePersistable" ng-click="vm.collapseNavbar()">
+                        <span class="fa fa-archive"></span>&nbsp;
+                        <span data-translate="global.menu.entities.rulePersistable">RulePersistable</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active" has-any-authority="ROLE_ADMIN,ROLE_USER">
+                    <a ui-sref="costo" ng-click="vm.collapseNavbar()">
+                        <span class="fa fa-archive"></span>&nbsp;
+                        <span data-translate="global.menu.entities.costo">Costo</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active" has-any-authority="ROLE_ADMIN,ROLE_USER">
+                    <a ui-sref="dataFrame" ng-click="vm.collapseNavbar()">
+                        <span class="fa fa-archive"></span>&nbsp;
+                        <span data-translate="global.menu.entities.dataFrame">DataFrame</span>
+                    </a>
+                </li>
                 <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
             </ul>
         </li>

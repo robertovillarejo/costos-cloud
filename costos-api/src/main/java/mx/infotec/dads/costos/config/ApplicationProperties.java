@@ -13,14 +13,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
 
-    private List<String> allowedExcelFileMediaTypes;
+    private List<String> allowedDataFrameMediaTypes;
 
-    public List<String> getAllowedExcelFileMediaTypes() {
-        return allowedExcelFileMediaTypes;
+    public List<String> getAllowedDataFrameMediaTypes() {
+        return allowedDataFrameMediaTypes;
     }
 
-    public void setAllowedExcelFileMediaTypes(List<String> allowedExcelFileMediaTypes) {
-        this.allowedExcelFileMediaTypes = allowedExcelFileMediaTypes;
+    public void setAllowedDataFrameMediaTypes(List<String> allowedDataFrameMediaTypes) {
+        this.allowedDataFrameMediaTypes = allowedDataFrameMediaTypes;
     }
 
 }

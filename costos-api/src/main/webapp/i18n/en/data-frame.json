@@ -1,0 +1,25 @@
+{
+    "costosapiApp": {
+        "dataFrame" : {
+            "home": {
+                "title": "DataFrame",
+                "createLabel": "Create a new DataFrame",
+                "createOrEditLabel": "Create or edit a DataFrame",
+                "search": "Search DataFrame"
+            },
+            "created": "A new DataFrame is created with identifier {{ param }}",
+            "updated": "A DataFrame is updated with identifier {{ param }}",
+            "deleted": "A DataFrame is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete DataFrame {{ id }}?"
+            },
+            "detail": {
+                "title": "DataFrame"
+            },
+            "fileName": "FileName", 
+            "file": "File", 
+            "fileContentType": "FileContentType", 
+            "processed": "Processed"
+        }
+    }
+}

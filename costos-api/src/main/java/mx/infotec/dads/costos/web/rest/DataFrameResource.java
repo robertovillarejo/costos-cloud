@@ -23,6 +23,8 @@
  */
 package mx.infotec.dads.costos.web.rest;
 
+import static mx.infotec.dads.costos.web.rest.util.TikaUtil.detectDocType;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -48,8 +50,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import static mx.infotec.dads.costos.web.rest.util.TikaUtil.detectDocType;
 
 import com.codahale.metrics.annotation.Timed;
 
@@ -107,7 +107,7 @@ public class DataFrameResource {
      */
     @GetMapping("/dataFrame/{id}")
     @Timed
-    public ResponseEntity<DataFrame> getExcelFile(@PathVariable String id) {
+    public ResponseEntity<DataFrame> getDataFrameFile(@PathVariable String id) {
         log.debug("REST request to get DataFrame : {}", id);
         DataFrame dataFrame = service.findById(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(dataFrame));
@@ -146,7 +146,7 @@ public class DataFrameResource {
          * Configura los MediaType permitidos en
          * 'src/main/resources/config/application.yml'
          */
-        for (String allowedMediaType : appProperties.getAllowedExcelFileMediaTypes()) {
+        for (String allowedMediaType : appProperties.getAllowedDataFrameMediaTypes()) {
             if (allowedMediaType.equals(mediaType)) {
                 DataFrame result = service.save(dataFrame);
                 return ResponseEntity.created(new URI("/api/dataFrame/" + result.getId()))
@@ -175,7 +175,7 @@ public class DataFrameResource {
      */
     // @PutMapping("/dataFrame")
     // @Timed
-    // public ResponseEntity<DataFrame> updateExcelFile(@Valid @RequestBody
+    // public ResponseEntity<DataFrame> updateDataFrame(@Valid @RequestBody
     // DataFrame dataFrame)
     // throws URISyntaxException {
     // log.debug("REST request to update DataFrame : {}", dataFrame);
@@ -185,7 +185,7 @@ public class DataFrameResource {
     // DataFrame result = service.save(dataFrame);
     // return ResponseEntity.ok()
     // .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME,
-    // excelFile.getId().toString())).body(result);
+    // dataFrame.getId().toString())).body(result);
     // }
 
     /**
