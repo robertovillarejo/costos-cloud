@@ -30,6 +30,7 @@
         });
 
         vm.settings = {
+            readOnly: true,
             columnSorting: true,
             contextMenu: true,
             search: true,
@@ -104,7 +105,6 @@
         }
 
         function loadPage() {
-            console.log("load page!!");
             var page = vm.page + 1;
             if (vm.hasNextPage && !vm.loading) {
                 if (autoRowSizePlugin.getLastVisibleRow() >= (hotInstance.countRows() - umbral)) {
