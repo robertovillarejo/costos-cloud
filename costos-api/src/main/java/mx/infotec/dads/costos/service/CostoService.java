@@ -26,6 +26,9 @@ package mx.infotec.dads.costos.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.springframework.data.domain.Sort;
+
 import mx.infotec.dads.costos.domain.Costo;
 
 /**
@@ -92,5 +95,12 @@ public interface CostoService {
      * @return Page de todas las entidades
      */
     Page<Costo> search(String query, Pageable pageable);
+
+    /**
+     * Regresa un Workbook que contienen todos los registros de ${entity.name}
+     * 
+     * @return SXSSFWorkbook
+     */
+    SXSSFWorkbook getWorkbook(Sort sort);
 
 }

@@ -32,6 +32,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.data.domain.Sort;
+import mx.infotec.dads.kukulkan.tables.apachepoi.SheetDataSupplier;
+import mx.infotec.dads.kukulkan.tables.apachepoi.WorkbookWriter;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+
 import mx.infotec.dads.costos.domain.Costo;
 import mx.infotec.dads.costos.repository.CostoRepository;
 import mx.infotec.dads.costos.service.CostoService;
@@ -92,5 +97,16 @@ public class CostoServiceImpl implements CostoService {
     public Page<Costo> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Costo");
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public SXSSFWorkbook getWorkbook(Sort sort) {
+        log.debug("Request to get a Workbook of Costo ");
+        SheetDataSupplier<Costo> dataSupplier = new SheetDataSupplier<>(sort, (Pageable pageable) -> {
+            return repository.findAll(pageable);
+        });
+        WorkbookWriter<Costo> converter = new WorkbookWriter<>(Costo.class);
+        converter.addData(dataSupplier);
+        return converter.getWorkbook();
     }
 }

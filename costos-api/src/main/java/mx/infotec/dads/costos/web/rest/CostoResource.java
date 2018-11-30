@@ -50,6 +50,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.springframework.data.domain.Sort;
+
 import io.github.jhipster.web.util.ResponseUtil;
 import io.swagger.annotations.ApiParam;
 import mx.infotec.dads.costos.domain.Costo;
@@ -187,6 +191,24 @@ public class CostoResource {
         Page<Costo> page = service.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/costos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET /costos/workbook : recupera un workbook de Costo.
+     * 
+     * @return Un archivo workbook con extensión xlsx de Costo.
+     * @throws MalformedURLException
+     */
+    @GetMapping(produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", path = "/costos/workbook")
+    @Timed
+    public ResponseEntity<StreamingResponseBody> getCostoWorkbook(@ApiParam Sort sort) {
+        log.debug("REST request to get Costo Workbook");
+        SXSSFWorkbook wb = service.getWorkbook(sort);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + ENTITY_NAME + ".xlsx" + "\"")
+                .body((os) -> {
+                    wb.write(os);
+                });
     }
 
 }
