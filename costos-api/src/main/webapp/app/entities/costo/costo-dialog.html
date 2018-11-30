@@ -12,6 +12,191 @@
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.costo.id" readonly />
         </div>
+			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.costo.processed"
+					for="field_processed">processed</label>
+				<input type="checkbox" name="processed" id="field_processed"
+					ng-model="vm.costo.processed" />
+			</div>
+			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.costo.monto"
+					for="field_monto">monto</label>
+				<input type="number" class="form-control" name="monto" id="field_monto"
+					ng-model="vm.costo.monto"
+  
+					/>
+				<div ng-show="editForm.monto.$invalid">
+	                <p class="help-block"
+	                    ng-show="editForm.monto.$error.number" data-translate="entity.validation.number">
+	                    This field should be a number.
+	                </p>
+            	</div>	
+			</div>
+			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.costo.porcentaje"
+					for="field_porcentaje">porcentaje</label>
+				<input type="number" class="form-control" name="porcentaje" id="field_porcentaje"
+					ng-model="vm.costo.porcentaje"
+  
+					/>
+				<div ng-show="editForm.porcentaje.$invalid">
+	                <p class="help-block"
+	                    ng-show="editForm.porcentaje.$error.number" data-translate="entity.validation.number">
+	                    This field should be a number.
+	                </p>
+            	</div>	
+			</div>
+			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.costo.anio"
+					for="field_anio">anio</label>
+				<input type="number" class="form-control" name="anio" id="field_anio"
+					ng-model="vm.costo.anio"
+  
+					/>
+				<div ng-show="editForm.anio.$invalid">
+	                <p class="help-block"
+	                    ng-show="editForm.anio.$error.number" data-translate="entity.validation.number">
+	                    This field should be a number.
+	                </p>
+            	</div>	
+			</div>
+			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.costo.mes"
+					for="field_mes">mes</label>
+				<input type="number" class="form-control" name="mes" id="field_mes"
+					ng-model="vm.costo.mes"
+  
+					/>
+				<div ng-show="editForm.mes.$invalid">
+	                <p class="help-block"
+	                    ng-show="editForm.mes.$error.number" data-translate="entity.validation.number">
+	                    This field should be a number.
+	                </p>
+            	</div>	
+			</div>
+			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.costo.fechaRegistro"
+					for="field_fechaRegistro">fechaRegistro</label>
+				<div class="input-group">
+					<input id="field_fechaRegistro" type="text" class="form-control"
+						name="fechaRegistro" uib-datepicker-popup="{{dateformat}}" ng-model="vm.costo.fechaRegistro"
+						is-open="vm.datePickerOpenStatus.fechaRegistro" 
+ />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="vm.openCalendar('fechaRegistro')">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
+				</div>
+			</div>			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.costo.area"
+					for="field_area">area</label>
+				<input type="number" class="form-control" name="area" id="field_area"
+					ng-model="vm.costo.area"
+  
+					/>
+				<div ng-show="editForm.area.$invalid">
+	                <p class="help-block"
+	                    ng-show="editForm.area.$error.number" data-translate="entity.validation.number">
+	                    This field should be a number.
+	                </p>
+            	</div>	
+			</div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.costo.proyectoOperativo" for="field_proyectoOperativo">ProyectoOperativo</label>
+            <input type="text" class="form-control" name="proyectoOperativo" id="field_proyectoOperativo"
+                ng-model="vm.costo.proyectoOperativo"
+   
+                />
+            <div ng-show="editForm.proyectoOperativo.$invalid">
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.costo.proyectoPresupuestal" for="field_proyectoPresupuestal">ProyectoPresupuestal</label>
+            <input type="text" class="form-control" name="proyectoPresupuestal" id="field_proyectoPresupuestal"
+                ng-model="vm.costo.proyectoPresupuestal"
+   
+                />
+            <div ng-show="editForm.proyectoPresupuestal.$invalid">
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.costo.servicio" for="field_servicio">Servicio</label>
+            <input type="text" class="form-control" name="servicio" id="field_servicio"
+                ng-model="vm.costo.servicio"
+   
+                />
+            <div ng-show="editForm.servicio.$invalid">
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.costo.tipoCosto" for="field_tipoCosto">TipoCosto</label>
+            <input type="text" class="form-control" name="tipoCosto" id="field_tipoCosto"
+                ng-model="vm.costo.tipoCosto"
+   
+                />
+            <div ng-show="editForm.tipoCosto.$invalid">
+            </div>	
+        </div>
+			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.costo.partida"
+					for="field_partida">partida</label>
+				<input type="number" class="form-control" name="partida" id="field_partida"
+					ng-model="vm.costo.partida"
+  
+					/>
+				<div ng-show="editForm.partida.$invalid">
+	                <p class="help-block"
+	                    ng-show="editForm.partida.$error.number" data-translate="entity.validation.number">
+	                    This field should be a number.
+	                </p>
+            	</div>	
+			</div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.costo.proveedor" for="field_proveedor">Proveedor</label>
+            <input type="text" class="form-control" name="proveedor" id="field_proveedor"
+                ng-model="vm.costo.proveedor"
+   
+                />
+            <div ng-show="editForm.proveedor.$invalid">
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.costo.user" for="field_user">User</label>
+            <input type="text" class="form-control" name="user" id="field_user"
+                ng-model="vm.costo.user"
+   
+                />
+            <div ng-show="editForm.user.$invalid">
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.costo.subpartida" for="field_subpartida">Subpartida</label>
+            <input type="text" class="form-control" name="subpartida" id="field_subpartida"
+                ng-model="vm.costo.subpartida"
+   
+                />
+            <div ng-show="editForm.subpartida.$invalid">
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.costo.subSubPartida" for="field_subSubPartida">SubSubPartida</label>
+            <input type="text" class="form-control" name="subSubPartida" id="field_subSubPartida"
+                ng-model="vm.costo.subSubPartida"
+   
+                />
+            <div ng-show="editForm.subSubPartida.$invalid">
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.costo.numeroFactura" for="field_numeroFactura">NumeroFactura</label>
+            <input type="text" class="form-control" name="numeroFactura" id="field_numeroFactura"
+                ng-model="vm.costo.numeroFactura"
+   
+                />
+            <div ng-show="editForm.numeroFactura.$invalid">
+            </div>	
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

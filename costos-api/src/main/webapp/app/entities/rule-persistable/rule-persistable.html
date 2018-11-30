@@ -39,12 +39,18 @@
         <thead>
             <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                 <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="name"><span data-translate="costosapiApp.rulePersistable.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="order"><span data-translate="costosapiApp.rulePersistable.order">Order</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="condition"><span data-translate="costosapiApp.rulePersistable.condition">Condition</span> <span class="glyphicon glyphicon-sort"></span></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="rulePersistable in vm.rulePersistable track by rulePersistable.id">
                 <td><a ui-sref="rulePersistable-detail({id:rulePersistable.id})">{{rulePersistable.id}}</a></td>
+                <td>{{rulePersistable.name}}</td>
+                <td>{{rulePersistable.order}}</td>
+                <td>{{rulePersistable.condition}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

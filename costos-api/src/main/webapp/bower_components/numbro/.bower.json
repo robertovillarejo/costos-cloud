@@ -1,0 +1,29 @@
+{
+  "name": "numbro",
+  "repo": "BenjaminVanRyseghem/numbro",
+  "version": "2.1.1",
+  "description": "Format and manipulate numbers.",
+  "keywords": [
+    "numeral",
+    "numbro",
+    "number",
+    "format",
+    "time",
+    "money",
+    "percentage"
+  ],
+  "scripts": [
+    "numbro.js"
+  ],
+  "main": "numbro.js",
+  "homepage": "https://github.com/BenjaminVanRyseghem/numbro",
+  "_release": "2.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.1.1",
+    "commit": "4832c47b80261b5a8722d8e258ac60869c37be82"
+  },
+  "_source": "https://github.com/BenjaminVanRyseghem/numbro.git",
+  "_target": "^2.0.6",
+  "_originalSource": "numbro"
+}

@@ -15,7 +15,24 @@
             },
             "detail": {
                 "title": "Costo"
-            }
+            },
+            "processed": "Processed", 
+            "monto": "Monto", 
+            "porcentaje": "Porcentaje", 
+            "anio": "Anio", 
+            "mes": "Mes", 
+            "fechaRegistro": "FechaRegistro", 
+            "area": "Area", 
+            "proyectoOperativo": "ProyectoOperativo", 
+            "proyectoPresupuestal": "ProyectoPresupuestal", 
+            "servicio": "Servicio", 
+            "tipoCosto": "TipoCosto", 
+            "partida": "Partida", 
+            "proveedor": "Proveedor", 
+            "user": "User", 
+            "subpartida": "Subpartida", 
+            "subSubPartida": "SubSubPartida", 
+            "numeroFactura": "NumeroFactura"
         }
     }
 }

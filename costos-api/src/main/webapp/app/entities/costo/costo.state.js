@@ -24,11 +24,6 @@
                 }
             },
             params: {
-                page: {
-                    value: '1',
-                    squash: true
-                },
-                search: null,
                 sort: {
                     value: 'id,asc',
                     squash: true
@@ -125,6 +120,23 @@
                         entity: function () {
                             return {
                             	id: null,
+                                processed: false,
+                                monto: null,
+                                porcentaje: null,
+                                anio: null,
+                                mes: null,
+                                fechaRegistro: null,
+                                area: null,
+                                proyectoOperativo: null,
+                                proyectoPresupuestal: null,
+                                servicio: null,
+                                tipoCosto: null,
+                                partida: null,
+                                proveedor: null,
+                                user: null,
+                                subpartida: null,
+                                subSubPartida: null,
+                                numeroFactura: null
                             };
                         }
                     }

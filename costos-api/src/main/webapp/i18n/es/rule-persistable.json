@@ -15,7 +15,10 @@
             },
             "detail": {
                 "title": "RulePersistable"
-            }
+            },
+            "name": "Name", 
+            "order": "Order", 
+            "condition": "Condition"
         }
     }
 }

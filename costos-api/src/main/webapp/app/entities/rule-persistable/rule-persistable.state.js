@@ -125,6 +125,9 @@
                         entity: function () {
                             return {
                             	id: null,
+                                name: null,
+                                order: null,
+                                condition: null
                             };
                         }
                     }
