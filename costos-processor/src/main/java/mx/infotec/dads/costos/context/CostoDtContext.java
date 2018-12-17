@@ -22,16 +22,8 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.repository;
+package mx.infotec.dads.costos.context;
 
-import java.util.List;
-
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-import mx.infotec.dads.costos.domain.RulePersistable;
-
-public interface RuleRepository extends MongoRepository<RulePersistable, String> {
-
-    public List<RulePersistable> findAllWhereDataFrameTypeEquals(String dataFrameType);
+public class CostoDtContext {
 
 }

@@ -24,14 +24,10 @@
 
 package mx.infotec.dads.costos.repository;
 
-import java.util.List;
-
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import mx.infotec.dads.costos.domain.RulePersistable;
+import mx.infotec.dads.costos.domain.DataFrameItem;
 
-public interface RuleRepository extends MongoRepository<RulePersistable, String> {
-
-    public List<RulePersistable> findAllWhereDataFrameTypeEquals(String dataFrameType);
+public interface DfItemRepository extends MongoRepository<DataFrameItem, String> {
 
 }

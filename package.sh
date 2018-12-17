@@ -32,19 +32,6 @@ EMPAQUETANDO PARSER BATCH TASK...
 cd apps/parser-batch-task && mvn clean package
 
 cd ../../..
-echo '
-********************************
-GENERANDO MERGER BATCH TASK...
-********************************'
-cd costos-merger-task && mvn clean install -PgenerateApps -DskipTests
-
-echo '
-********************************
-EMPAQUETANDO MERGER BATCH TASK...
-********************************' 
-cd apps/merger-batch-task && mvn clean package
-
-cd ../../..
 
 echo '
 *****************************

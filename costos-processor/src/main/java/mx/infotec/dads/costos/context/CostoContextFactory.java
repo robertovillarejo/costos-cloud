@@ -22,16 +22,25 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.repository;
+package mx.infotec.dads.costos.context;
 
-import java.util.List;
+import mx.infotec.dads.costos.domain.DataFrameItem;
+import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
+import mx.infotec.dads.costos.domain.dataframe.DfItemSigaif;
+import mx.infotec.dads.costos.repository.RuleRepository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+public class CostoContextFactory {
 
-import mx.infotec.dads.costos.domain.RulePersistable;
+    private CostoContextFactory() {
+    }
 
-public interface RuleRepository extends MongoRepository<RulePersistable, String> {
-
-    public List<RulePersistable> findAllWhereDataFrameTypeEquals(String dataFrameType);
+    public static CostoContext buildContext(DataFrameItem dfItem, RuleRepository ruleRepository) {
+        if (dfItem instanceof DfItemRh) {
+            return new RhCostoContext((DfItemRh) dfItem, ruleRepository);
+        } else if (dfItem instanceof DfItemSigaif) {
+            return new SigaifCostoContext((DfItemSigaif) dfItem, ruleRepository);
+        }
+        return null;
+    }
 
 }

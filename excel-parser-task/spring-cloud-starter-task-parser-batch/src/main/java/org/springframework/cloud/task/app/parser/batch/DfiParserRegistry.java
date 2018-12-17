@@ -35,16 +35,16 @@ import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import mx.infotec.dads.costos.domain.Costo;
+import mx.infotec.dads.costos.domain.DataFrameItem;
 
 @Component
-public class CostoParserRegistry implements ExcelRowParserRegistry<Costo> {
+public class DfiParserRegistry implements ExcelRowParserRegistry<DataFrameItem> {
 
     @Autowired
-    private List<ExcelRowParser<Costo>> parsers;
+    private List<ExcelRowParser<DataFrameItem>> parsers;
 
     @Override
-    public Optional<ExcelRowParser<Costo>> lookup(String parserName) {
+    public Optional<ExcelRowParser<DataFrameItem>> lookup(String parserName) {
         if (parserName == null)
             return Optional.empty();
         return parsers.stream().filter(p -> parserName.equals(p.getName())).findFirst();
@@ -53,7 +53,7 @@ public class CostoParserRegistry implements ExcelRowParserRegistry<Costo> {
     @Override
     public String detect(Row row) {
         Map<Integer, String> schema = ExcelRowMapParser.getPositionBasedSchema(row);
-        for (ExcelRowParser<Costo> parser : parsers) {
+        for (ExcelRowParser<DataFrameItem> parser : parsers) {
             if (areEquals(parser.getSupportedSchema(), schema)) {
                 return parser.getName();
             }

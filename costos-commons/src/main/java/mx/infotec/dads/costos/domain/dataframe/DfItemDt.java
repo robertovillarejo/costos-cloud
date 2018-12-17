@@ -22,16 +22,15 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.repository;
+package mx.infotec.dads.costos.domain.dataframe;
 
-import java.util.List;
+import mx.infotec.dads.costos.domain.DataFrameItem;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+public class DfItemDt extends DataFrameItem {
 
-import mx.infotec.dads.costos.domain.RulePersistable;
-
-public interface RuleRepository extends MongoRepository<RulePersistable, String> {
-
-    public List<RulePersistable> findAllWhereDataFrameTypeEquals(String dataFrameType);
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2802048171981940542L;
 
 }

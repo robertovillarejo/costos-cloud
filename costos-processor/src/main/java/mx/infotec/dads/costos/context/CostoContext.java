@@ -22,16 +22,19 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.repository;
+package mx.infotec.dads.costos.context;
 
-import java.util.List;
+import mx.infotec.dads.costos.domain.Costo;
+import mx.infotec.dads.costos.repository.RuleRepository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+public abstract class CostoContext {
 
-import mx.infotec.dads.costos.domain.RulePersistable;
+    protected Costo costo = new Costo();
 
-public interface RuleRepository extends MongoRepository<RulePersistable, String> {
+    protected RuleRepository ruleRepo;
 
-    public List<RulePersistable> findAllWhereDataFrameTypeEquals(String dataFrameType);
+    public Costo getCosto() {
+        return costo;
+    }
 
 }

@@ -34,16 +34,17 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import mx.infotec.dads.costos.domain.Costo;
+import mx.infotec.dads.costos.domain.DataFrameItem;
+import mx.infotec.dads.costos.domain.dataframe.DfItemSigaif;
 
 @Component
-public class SigaifParser implements ExcelRowParser<Costo> {
+public class SigaifParser implements ExcelRowParser<DataFrameItem> {
 
     private final Logger logger = LoggerFactory.getLogger(SigaifParser.class);
 
     /**
-     * El esquema que este parser soporta (expresado como una lista de
-     * encabezados separados por coma).
+     * El esquema que este parser soporta (expresado como una lista de encabezados
+     * separados por coma).
      */
     private final SortedMap<Integer, String> supportedSchema = ExcelRowMapParser.parsePositionBasedSchema(
             "Póliza,Proceso,Evento,Devengado,Beneficiario,Entidad Federativa,Área,Proyecto,Especialidad,Proy. Específico,Partida,Fecha de transacción,Núm. De documento fuente,Fecha de documento,Descripción,Importe");
@@ -59,14 +60,14 @@ public class SigaifParser implements ExcelRowParser<Costo> {
     }
 
     @Override
-    public Costo parse(Row row) {
-        Costo costo = mapper.convertValue(parser.map(row), Costo.class);
+    public DataFrameItem parse(Row row) {
+        DfItemSigaif dfi = mapper.convertValue(parser.map(row), DfItemSigaif.class);
         try {
-            parseDescripcion(row.getCell(14).getStringCellValue(), costo);
+            parseDescripcion(row.getCell(14).getStringCellValue(), dfi);
         } catch (Exception e) {
             logger.error("Failed to parse 'descripcion' at row: {}", row.getRowNum());
         }
-        return costo;
+        return dfi;
     }
 
     @Override
@@ -78,12 +79,12 @@ public class SigaifParser implements ExcelRowParser<Costo> {
      * Parse the descripcionString and assign values to costo
      * 
      * @param descripcionString
-     * @param costo
+     * @param dfi
      */
-    public static void parseDescripcion(String descripcionString, Costo costo) {
+    public static void parseDescripcion(String descripcionString, DfItemSigaif dfi) {
         Descripcion descripcion = parseDescripcion(descripcionString);
-        costo.setNumeroFactura(descripcion.getNumeroFactura());
-        costo.setServicio(descripcion.getServicio());
+        dfi.setNumeroFactura(descripcion.getNumeroFactura());
+        dfi.setServicio(descripcion.getServicio());
     }
 
     /**

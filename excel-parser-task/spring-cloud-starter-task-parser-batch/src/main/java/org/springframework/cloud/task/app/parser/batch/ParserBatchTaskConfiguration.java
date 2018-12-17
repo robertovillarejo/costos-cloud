@@ -39,7 +39,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import mx.infotec.dads.costos.domain.Costo;
+import mx.infotec.dads.costos.domain.DataFrameItem;
 
 /**
  * 
@@ -63,19 +63,19 @@ public class ParserBatchTaskConfiguration {
     private ParserBatchTaskProperties config;
 
     @Bean
-    public ItemReader<Costo> reader() {
-        return new CostoReader();
+    public ItemReader<DataFrameItem> reader() {
+        return new DfItemReader();
     }
 
     @Bean
-    public ItemWriter<Costo> writer() {
-        return new CostoWriter();
+    public ItemWriter<DataFrameItem> writer() {
+        return new DfItemWriter();
     }
 
     @Bean
-    public Step step(ItemReader<Costo> reader, ItemWriter<Costo> writer) {
-        return stepBuilder.get("parser").<Costo, Costo>chunk(config.getChunkSize()).reader(reader).writer(writer)
-                .build();
+    public Step step(ItemReader<DataFrameItem> reader, ItemWriter<DataFrameItem> writer) {
+        return stepBuilder.get("parser").<DataFrameItem, DataFrameItem>chunk(config.getChunkSize()).reader(reader)
+                .writer(writer).build();
     }
 
     @Bean

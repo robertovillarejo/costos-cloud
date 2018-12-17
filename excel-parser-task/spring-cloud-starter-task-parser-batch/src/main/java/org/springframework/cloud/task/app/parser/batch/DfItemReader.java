@@ -44,10 +44,9 @@ import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
-import mx.infotec.dads.costos.domain.Costo;
 import mx.infotec.dads.costos.domain.DataFrame;
+import mx.infotec.dads.costos.domain.DataFrameItem;
 import mx.infotec.dads.costos.domain.Error;
-import mx.infotec.dads.costos.domain.Origin;
 import mx.infotec.dads.costos.repository.DataFrameRepository;
 
 /**
@@ -55,9 +54,9 @@ import mx.infotec.dads.costos.repository.DataFrameRepository;
  * @author Roberto Villarejo Martínez
  *
  */
-public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
+public class DfItemReader implements ItemReader<DataFrameItem>, StepExecutionListener {
 
-    private final Logger logger = LoggerFactory.getLogger(CostoReader.class);
+    private final Logger logger = LoggerFactory.getLogger(DfItemReader.class);
 
     @Autowired
     private DataFrameRepository repository;
@@ -68,10 +67,10 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
 
     private DataFrame dataFrame;
 
-    private ExcelRowParser<Costo> parser;
+    private ExcelRowParser<DataFrameItem> parser;
 
     @Autowired
-    private CostoParserRegistry registry;
+    private DfiParserRegistry registry;
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
@@ -90,7 +89,7 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
                 Row headersRow = rowIt.next();
 
                 String suggestedParser = registry.detect(headersRow);
-                Optional<ExcelRowParser<Costo>> maybeParser = registry.lookup(suggestedParser);
+                Optional<ExcelRowParser<DataFrameItem>> maybeParser = registry.lookup(suggestedParser);
 
                 if (maybeParser.isPresent()) {
                     parser = maybeParser.get();
@@ -106,20 +105,21 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
     }
 
     @Override
-    public Costo read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+    public DataFrameItem read()
+            throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
         if (parser == null)
             return null;
         if (rowIt != null && rowIt.hasNext()) {
             Row row = rowIt.next();
-            Costo costo;
+            DataFrameItem dfItem;
             try {
-                costo = parser.parse(row);
-                costo.setOrigin(new Origin(dataFrame.getId(), dataFrame.getFileName(), row.getRowNum()));
+                dfItem = parser.parse(row);
+                dfItem.setDataFrame(dataFrame);
             } catch (IllegalArgumentException ex) {
                 dataFrame.addError(new Error("parseFailure", "Fail to parse row number: " + row.getRowNum()));
                 return read();
             }
-            return costo;
+            return dfItem;
         }
         return null;
     }

@@ -24,7 +24,7 @@
 
 package mx.infotec.dads.costos;
 
-import java.util.List;
+import static mx.infotec.dads.costos.context.CostoContextFactory.buildContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,17 +32,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Processor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.integration.annotation.ServiceActivator;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
+import mx.infotec.dads.costos.context.CostoContext;
+import mx.infotec.dads.costos.domain.Costo;
+import mx.infotec.dads.costos.domain.DataFrameItem;
 import mx.infotec.dads.costos.repository.RuleRepository;
 import mx.infotec.dads.kukulkan.rules.DefaultRulesApplier;
-import mx.infotec.dads.kukulkan.rules.Rule;
 import mx.infotec.dads.kukulkan.rules.RulesApplier;
 
 /**
@@ -61,20 +60,19 @@ public class CostosProcessorConfiguration {
     private CostosProcessorProperties properties;
 
     @Autowired
-    private RulesApplier rulesApplier;
+    private RuleRepository ruleRepo;
 
     @ServiceActivator(inputChannel = Processor.INPUT, outputChannel = Processor.OUTPUT)
-    public CostoObjectId process(CostoObjectId costo) throws JsonProcessingException {
-        logger.info("Processing costo: {}", costo);
-        rulesApplier.apply(new StandardEvaluationContext(costo));
-        costo.setProcessed(true);
-        return costo;
-    }
-
-    @Bean
-    public RulesApplier rulesApplier(RuleRepository ruleRepo) {
-        List<Rule> rules = RuleMapper.mapToRulesList(ruleRepo.findAll());
-        return new DefaultRulesApplier(rules, new SpelExpressionParser());
+    public Costo process(DataFrameItem dfItem) {
+        logger.info("Processing costo: {}", dfItem);
+        CostoContext context = buildContext(dfItem, ruleRepo);
+        RulesApplier rulesApplier = new DefaultRulesApplier(
+                RuleMapper.mapToRulesList(ruleRepo.findAllWhereDataFrameTypeEquals("sigaif")),
+                new SpelExpressionParser());
+        rulesApplier.apply(new StandardEvaluationContext(context));
+        dfItem.setProcessed(true);
+        // Guardar dfItem
+        return context.getCosto();
     }
 
 }

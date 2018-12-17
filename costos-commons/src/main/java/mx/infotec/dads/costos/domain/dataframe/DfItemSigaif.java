@@ -22,16 +22,35 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.repository;
+package mx.infotec.dads.costos.domain.dataframe;
 
-import java.util.List;
+import mx.infotec.dads.costos.domain.DataFrameItem;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+public class DfItemSigaif extends DataFrameItem {
 
-import mx.infotec.dads.costos.domain.RulePersistable;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5068991723463595030L;
 
-public interface RuleRepository extends MongoRepository<RulePersistable, String> {
+    protected String numeroFactura;
 
-    public List<RulePersistable> findAllWhereDataFrameTypeEquals(String dataFrameType);
+    protected String servicio;
+
+    public String getNumeroFactura() {
+        return numeroFactura;
+    }
+
+    public void setNumeroFactura(String numeroFactura) {
+        this.numeroFactura = numeroFactura;
+    }
+
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
+    }
 
 }

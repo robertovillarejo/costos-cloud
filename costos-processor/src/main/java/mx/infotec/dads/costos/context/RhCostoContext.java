@@ -22,57 +22,22 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.domain;
+package mx.infotec.dads.costos.context;
 
-import java.io.Serializable;
+import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
+import mx.infotec.dads.costos.repository.RuleRepository;
 
-/**
- * Metadata about origin of an instance
- * 
- * @author Roberto Villarejo Martínez
- *
- */
-public class Origin implements Serializable {
+public class RhCostoContext extends CostoContext {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1808538217987059199L;
+    private DfItemRh dfItem;
 
-    private String id;
-
-    private String name;
-
-    private Integer instanceId;
-
-    public Origin(String id, String name, Integer instanceId) {
-        this.id = id;
-        this.name = name;
-        this.instanceId = instanceId;
+    public RhCostoContext(DfItemRh dfItem, RuleRepository ruleRepository) {
+        this.dfItem = dfItem;
+        this.ruleRepo = ruleRepository;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getInstanceId() {
-        return instanceId;
-    }
-
-    public void setInstanceId(Integer instanceId) {
-        this.instanceId = instanceId;
+    public DfItemRh getItem() {
+        return this.dfItem;
     }
 
 }

@@ -45,6 +45,8 @@ public class RulePersistable implements Serializable {
 
     private String condition;
 
+    private String dataFrameType;
+
     private List<ActionPersistable> actions;
 
     public String getId() {
@@ -85,6 +87,14 @@ public class RulePersistable implements Serializable {
 
     public void setActions(List<ActionPersistable> actions) {
         this.actions = actions;
+    }
+
+    public String getDataFrameType() {
+        return dataFrameType;
+    }
+
+    public void setDataFrameType(String dataFrameType) {
+        this.dataFrameType = dataFrameType;
     }
 
 }

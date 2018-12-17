@@ -22,16 +22,53 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.repository;
+package mx.infotec.dads.costos.domain;
 
-import java.util.List;
+import java.io.Serializable;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import mx.infotec.dads.costos.domain.RulePersistable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-public interface RuleRepository extends MongoRepository<RulePersistable, String> {
+@Document(collection = "dataFrameItems")
+@JsonIgnoreProperties(ignoreUnknown = true)
+public abstract class DataFrameItem implements Serializable {
 
-    public List<RulePersistable> findAllWhereDataFrameTypeEquals(String dataFrameType);
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -767157635083454769L;
+
+    @Id
+    protected String id;
+
+    private DataFrame dataFrame;
+
+    private boolean processed;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public DataFrame getDataFrame() {
+        return dataFrame;
+    }
+
+    public void setDataFrame(DataFrame dataFrame) {
+        this.dataFrame = dataFrame;
+    }
+
+    public boolean isProcessed() {
+        return processed;
+    }
+
+    public void setProcessed(boolean processed) {
+        this.processed = processed;
+    }
 
 }

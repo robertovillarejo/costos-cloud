@@ -10,35 +10,35 @@ import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import mx.infotec.dads.costos.domain.Costo;
-import mx.infotec.dads.costos.repository.CostoRepository;
+import mx.infotec.dads.costos.domain.DataFrameItem;
+import mx.infotec.dads.costos.repository.DfItemRepository;
 
 /**
  * 
  * @author Roberto Villarejo Martínez
  *
  */
-public class CostoWriter implements ItemWriter<Costo>, StepExecutionListener {
+public class DfItemWriter implements ItemWriter<DataFrameItem>, StepExecutionListener {
 
-    private final Logger logger = LoggerFactory.getLogger(CostoWriter.class);
+    private final Logger logger = LoggerFactory.getLogger(DfItemWriter.class);
 
     @Autowired
-    private CostoRepository repository;
+    private DfItemRepository repository;
 
     @Override
     public void beforeStep(StepExecution arg0) {
-        logger.info("Before writing costo items...");
+        logger.info("Before writing data frame items...");
     }
 
     @Override
-    public void write(List<? extends Costo> costos) throws Exception {
-        logger.info("Saving costo items...");
-        repository.saveAll(costos);
+    public void write(List<? extends DataFrameItem> dfItems) throws Exception {
+        logger.info("Saving data frame items...");
+        repository.saveAll(dfItems);
     }
 
     @Override
     public ExitStatus afterStep(StepExecution arg0) {
-        logger.info("After writing costo items...");
+        logger.info("After writing data frame items...");
         return ExitStatus.COMPLETED;
     }
 

@@ -22,16 +22,22 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.repository;
+package mx.infotec.dads.costos.context;
 
-import java.util.List;
+import mx.infotec.dads.costos.domain.dataframe.DfItemSigaif;
+import mx.infotec.dads.costos.repository.RuleRepository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+public class SigaifCostoContext extends CostoContext {
 
-import mx.infotec.dads.costos.domain.RulePersistable;
+    private DfItemSigaif dfItem;
 
-public interface RuleRepository extends MongoRepository<RulePersistable, String> {
+    public SigaifCostoContext(DfItemSigaif dfItem, RuleRepository ruleRepository) {
+        this.dfItem = dfItem;
+        this.ruleRepo = ruleRepository;
+    }
 
-    public List<RulePersistable> findAllWhereDataFrameTypeEquals(String dataFrameType);
+    public DfItemSigaif getItem() {
+        return dfItem;
+    }
 
 }
