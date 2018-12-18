@@ -31,7 +31,7 @@ entity DataFrame {
 }
 
 entity DataFrameType {
-	name: String required min(2),
+	-> name: String required min(2),
 	OneToMany rules: RulePersistable
 }
 

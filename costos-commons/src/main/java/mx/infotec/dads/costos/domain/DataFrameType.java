@@ -28,6 +28,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("dataFrameTypes")
@@ -43,6 +44,7 @@ public class DataFrameType implements Serializable {
 
     private String name;
 
+    @DBRef
     private List<RulePersistable> rules;
 
     public String getId() {

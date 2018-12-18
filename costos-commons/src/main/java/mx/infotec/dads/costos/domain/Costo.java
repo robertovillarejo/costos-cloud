@@ -28,6 +28,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -86,6 +87,7 @@ public class Costo implements Serializable {
 
     protected String numeroFactura;
 
+    @DBRef
     protected DataFrameItem dataFrameItem;
 
     public String getId() {

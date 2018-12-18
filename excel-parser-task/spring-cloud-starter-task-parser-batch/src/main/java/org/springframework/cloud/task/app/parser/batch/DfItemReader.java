@@ -43,8 +43,10 @@ import org.springframework.data.domain.PageRequest;
 
 import mx.infotec.dads.costos.domain.DataFrame;
 import mx.infotec.dads.costos.domain.DataFrameItem;
+import mx.infotec.dads.costos.domain.DataFrameType;
 import mx.infotec.dads.costos.domain.Error;
 import mx.infotec.dads.costos.repository.DataFrameRepository;
+import mx.infotec.dads.costos.repository.DataFrameTypeRepository;
 
 /**
  * 
@@ -67,11 +69,14 @@ public class DfItemReader implements ItemReader<DataFrameItem>, StepExecutionLis
     private ExcelRowParser<DataFrameItem> parser;
 
     @Autowired
+    private DataFrameTypeRepository dfTypeRepo;
+
+    @Autowired
     private DfiParserRegistry registry;
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
-        // El registro más antiguo sin procesarF
+        // El registro más antiguo sin procesar
         logger.info("Querying for oldest not processed DataFrame...");
         List<DataFrame> list = repository.findByProcessedFalse(PageRequest.of(0, 1)).getContent();
         try {
@@ -90,6 +95,9 @@ public class DfItemReader implements ItemReader<DataFrameItem>, StepExecutionLis
 
                 if (maybeParser.isPresent()) {
                     parser = maybeParser.get();
+                    Optional<DataFrameType> maybeDfType = dfTypeRepo.findOneByName(parser.getName());
+                    maybeDfType.ifPresent(dfType -> dataFrame.setDataFrameType(dfType));
+
                 } else {
                     dataFrame.addError(new Error("No parser found for this source",
                             "No adequate parser was found for this data frame"));

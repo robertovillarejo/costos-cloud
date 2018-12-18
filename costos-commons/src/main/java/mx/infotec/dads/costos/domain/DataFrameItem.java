@@ -27,6 +27,7 @@ package mx.infotec.dads.costos.domain;
 import java.io.Serializable;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,6 +44,7 @@ public abstract class DataFrameItem implements Serializable {
     @Id
     protected String id;
 
+    @DBRef
     private DataFrame dataFrame;
 
     private boolean processed;
