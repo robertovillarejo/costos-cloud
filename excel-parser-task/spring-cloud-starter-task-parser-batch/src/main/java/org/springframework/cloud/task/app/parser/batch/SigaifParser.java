@@ -42,6 +42,8 @@ public class SigaifParser implements ExcelRowParser<DataFrameItem> {
 
     private final Logger logger = LoggerFactory.getLogger(SigaifParser.class);
 
+    private static final String NAME = "sigaif";
+
     /**
      * El esquema que este parser soporta (expresado como una lista de encabezados
      * separados por coma).
@@ -56,7 +58,7 @@ public class SigaifParser implements ExcelRowParser<DataFrameItem> {
 
     @Override
     public String getName() {
-        return "sigaif";
+        return NAME;
     }
 
     @Override

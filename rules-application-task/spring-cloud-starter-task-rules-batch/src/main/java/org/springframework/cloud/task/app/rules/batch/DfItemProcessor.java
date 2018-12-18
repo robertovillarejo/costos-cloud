@@ -24,8 +24,6 @@
 
 package org.springframework.cloud.task.app.rules.batch;
 
-import static org.springframework.cloud.task.app.rules.batch.context.CostoContextFactory.buildContext;
-
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -65,7 +63,7 @@ public class DfItemProcessor implements ItemProcessor<DataFrameItem, Costo>, Ste
     public Costo process(DataFrameItem dfItem) throws Exception {
         logger.info("Processing dfItem: {}", dfItem);
         DataFrameItem dataFrameItem = dfItem;
-        CostoContext context = buildContext(dfItem);
+        CostoContext context = new CostoContext(dfItem);
         String dataFrameType = dfItem.getDataFrame().getDataFrameType().getName();
         Optional<DataFrameType> maybeDfType = dfTypeRepo.findOneByName(dataFrameType);
         if (maybeDfType.isPresent()) {

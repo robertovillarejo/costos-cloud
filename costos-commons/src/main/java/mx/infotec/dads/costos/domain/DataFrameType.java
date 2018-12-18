@@ -27,6 +27,8 @@ package mx.infotec.dads.costos.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -42,6 +44,7 @@ public class DataFrameType implements Serializable {
     @Id
     private String id;
 
+    @NotNull
     private String name;
 
     @DBRef

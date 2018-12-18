@@ -28,7 +28,7 @@ services:
     expose:
       - "5672"
   dataflow-server:
-    image: springcloud/spring-cloud-dataflow-server-local:1.7.1.RELEASE
+    image: springcloud/spring-cloud-dataflow-server-local:1.7.3.RELEASE
     container_name: dataflow-server
     ports:
       - "9393:9393"

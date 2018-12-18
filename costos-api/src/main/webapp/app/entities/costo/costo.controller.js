@@ -153,7 +153,7 @@
         }
 
         function refresh() {
-            $state.go('costos', null, { reload: 'costo' });
+            $state.go('costo', null, { reload: 'costo' });
         }
 
     }

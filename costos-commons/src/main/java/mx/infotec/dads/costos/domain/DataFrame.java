@@ -2,13 +2,12 @@ package mx.infotec.dads.costos.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 
@@ -31,7 +30,6 @@ public class DataFrame implements Serializable {
     @DBRef
     private DataFrameType dataFrameType;
 
-    @JsonIgnore
     private boolean processed;
 
     private String fileName;
@@ -88,6 +86,12 @@ public class DataFrame implements Serializable {
 
     public boolean addError(Error error) {
         return errors.add(error);
+    }
+
+    @Override
+    public String toString() {
+        return "DataFrame [id=" + id + "," + ", dataFrameType=" + dataFrameType + ", processed=" + processed
+                + ", fileName=" + fileName + ", errors=" + errors + "]";
     }
 
 }

@@ -42,6 +42,8 @@ public class RhParser implements ExcelRowParser<DataFrameItem> {
 
     private final Logger logger = LoggerFactory.getLogger(RhParser.class);
 
+    private static final String NAME = "rh";
+
     /**
      * El esquema que este parser soporta (expresado como una lista de encabezados
      * separados por coma).
@@ -62,7 +64,7 @@ public class RhParser implements ExcelRowParser<DataFrameItem> {
 
     @Override
     public String getName() {
-        return "rh";
+        return NAME;
     }
 
     @Override

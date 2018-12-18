@@ -5,7 +5,6 @@ entity RulePersistable {
 }
 
 entity Costo {
-	processed : Boolean,
 	monto : Double,
 	porcentaje : Double,
 	anio : Integer,

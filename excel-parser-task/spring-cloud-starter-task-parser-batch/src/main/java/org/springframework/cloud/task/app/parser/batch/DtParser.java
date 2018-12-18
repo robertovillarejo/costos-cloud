@@ -42,6 +42,8 @@ public class DtParser implements ExcelRowParser<DataFrameItem> {
 
     private final Logger logger = LoggerFactory.getLogger(DtParser.class);
 
+    private static final String NAME = "dt";
+
     /**
      * El esquema que este parser soporta (expresado como una lista de encabezados
      * separados por coma).
@@ -67,7 +69,7 @@ public class DtParser implements ExcelRowParser<DataFrameItem> {
 
     @Override
     public String getName() {
-        return "dt";
+        return NAME;
     }
 
     @Override

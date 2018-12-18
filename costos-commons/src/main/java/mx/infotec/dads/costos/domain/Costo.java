@@ -31,9 +31,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSetter;
+
+import mx.infotec.dads.kukulkan.tables.annotations.Sheet;
+import mx.infotec.dads.kukulkan.tables.annotations.SheetColumn;
 
 /**
  * Un Costo
@@ -41,6 +42,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * @author Roberto Villarejo Martínez
  *
  */
+@Sheet
 @Document(collection = "costos")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Costo implements Serializable {
@@ -50,41 +52,56 @@ public class Costo implements Serializable {
      */
     protected static final long serialVersionUID = 182075029449305890L;
 
+    @SheetColumn(title = "id")
     @Id
     protected String id;
 
-    protected boolean processed;
-
+    @SheetColumn(title = "monto")
     protected double monto;
 
+    @SheetColumn(title = "porcentaje")
     protected double porcentaje;
 
+    @SheetColumn(title = "año")
     protected int anio;
 
+    @SheetColumn(title = "mes")
     protected int mes;
 
+    @SheetColumn(title = "fechaRegistro")
     protected Date fechaRegistro;
 
+    @SheetColumn(title = "area")
     protected int area;
 
+    @SheetColumn(title = "proyectoOperativo")
     protected String proyectoOperativo;
 
+    @SheetColumn(title = "proyectoPresupuestal")
     protected String proyectoPresupuestal;
 
+    @SheetColumn(title = "servicio")
     protected String servicio;
 
+    @SheetColumn(title = "tipoCosto")
     protected String tipoCosto;
 
+    @SheetColumn(title = "partida")
     protected int partida;
 
+    @SheetColumn(title = "proveedor")
     protected String proveedor;
 
+    @SheetColumn(title = "user")
     protected String user;
 
+    @SheetColumn(title = "subpartida")
     protected String subpartida;
 
+    @SheetColumn(title = "subSubPartida")
     protected String subSubPartida;
 
+    @SheetColumn(title = "numeroFactura")
     protected String numeroFactura;
 
     @DBRef
@@ -96,16 +113,6 @@ public class Costo implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    @JsonGetter
-    public boolean isProcessed() {
-        return processed;
-    }
-
-    @JsonSetter
-    public void setProcessed(boolean processed) {
-        this.processed = processed;
     }
 
     public double getMonto() {
@@ -246,12 +253,11 @@ public class Costo implements Serializable {
 
     @Override
     public String toString() {
-        return "Costo [id=" + id + ", processed=" + processed + ", monto=" + monto + ", porcentaje=" + porcentaje
-                + ", anio=" + anio + ", mes=" + mes + ", fechaRegistro=" + fechaRegistro + ", area=" + area
-                + ", proyectoOperativo=" + proyectoOperativo + ", proyectoPresupuestal=" + proyectoPresupuestal
-                + ", servicio=" + servicio + ", tipoCosto=" + tipoCosto + ", partida=" + partida + ", proveedor="
-                + proveedor + ", user=" + user + ", subpartida=" + subpartida + ", subSubPartida=" + subSubPartida
-                + ", numeroFactura=" + numeroFactura + "]";
+        return "Costo [id=" + id + ", monto=" + monto + ", porcentaje=" + porcentaje + ", anio=" + anio + ", mes=" + mes
+                + ", fechaRegistro=" + fechaRegistro + ", area=" + area + ", proyectoOperativo=" + proyectoOperativo
+                + ", proyectoPresupuestal=" + proyectoPresupuestal + ", servicio=" + servicio + ", tipoCosto="
+                + tipoCosto + ", partida=" + partida + ", proveedor=" + proveedor + ", user=" + user + ", subpartida="
+                + subpartida + ", subSubPartida=" + subSubPartida + ", numeroFactura=" + numeroFactura + "]";
     }
 
 }

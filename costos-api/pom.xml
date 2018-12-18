@@ -319,11 +319,6 @@
 			<artifactId>tika-parsers</artifactId>
 			<version>1.17</version>
 		</dependency>
-		<dependency>
-			<groupId>mx.infotec.dads.kukulkan</groupId>
-			<artifactId>kukulkan-tables</artifactId>
-			<version>0.0.1-RELEASE</version>
-		</dependency>
 		<!-- jhipster-needle-maven-add-dependency -->
 	</dependencies>
 
