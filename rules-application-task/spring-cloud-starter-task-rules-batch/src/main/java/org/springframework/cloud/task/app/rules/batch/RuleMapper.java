@@ -22,46 +22,36 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.domain.dataframe;
+package org.springframework.cloud.task.app.rules.batch;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import mx.infotec.dads.costos.domain.ActionPersistable;
+import mx.infotec.dads.costos.domain.RulePersistable;
+import mx.infotec.dads.kukulkan.rules.Action;
+import mx.infotec.dads.kukulkan.rules.Rule;
 
-import mx.infotec.dads.costos.domain.DataFrameItem;
+public class RuleMapper {
 
-@Document("dataFrameItems")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class DfItemSigaif extends DataFrameItem {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 5068991723463595030L;
-
-    protected String numeroFactura;
-
-    protected String servicio;
-
-    public String getNumeroFactura() {
-        return numeroFactura;
+    private RuleMapper() {
     }
 
-    public void setNumeroFactura(String numeroFactura) {
-        this.numeroFactura = numeroFactura;
+    public static Rule mapToRule(RulePersistable rulePersistable) {
+        return new Rule(rulePersistable.getName(), rulePersistable.getCondition(),
+                mapToActionList(rulePersistable.getActions()), rulePersistable.getOrder());
     }
 
-    public String getServicio() {
-        return servicio;
+    public static Action mapToAction(ActionPersistable actionPersistable) {
+        return new Action(actionPersistable.getActionExpression(), actionPersistable.getOrder());
     }
 
-    public void setServicio(String servicio) {
-        this.servicio = servicio;
+    public static List<Rule> mapToRulesList(List<RulePersistable> rulesPersistable) {
+        return rulesPersistable.stream().map(RuleMapper::mapToRule).collect(Collectors.toList());
     }
 
-    @Override
-    public String toString() {
-        return "DfItemSigaif [numeroFactura=" + numeroFactura + ", servicio=" + servicio + ", id=" + id + "]";
+    public static List<Action> mapToActionList(List<ActionPersistable> actionsPersistable) {
+        return actionsPersistable.stream().map(RuleMapper::mapToAction).collect(Collectors.toList());
     }
 
 }

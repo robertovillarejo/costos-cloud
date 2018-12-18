@@ -22,16 +22,20 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.repository;
+package org.springframework.cloud.task.app.rules.batch.context;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import mx.infotec.dads.costos.domain.dataframe.DfItemDt;
 
-import mx.infotec.dads.costos.domain.DataFrameItem;
+public class DtCostoContext extends CostoContext {
 
-public interface DfItemRepository extends MongoRepository<DataFrameItem, String> {
+    private DfItemDt dfItemDt;
 
-    public Page<DataFrameItem> findByProcessedFalse(Pageable pageable);
+    public DtCostoContext(DfItemDt dfItemDt) {
+        this.dfItemDt = dfItemDt;
+    }
+
+    public DfItemDt getItem() {
+        return dfItemDt;
+    }
 
 }

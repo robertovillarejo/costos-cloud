@@ -22,16 +22,28 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.repository;
+package org.springframework.cloud.task.app.rules.batch;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import mx.infotec.dads.costos.domain.DataFrameItem;
+/**
+ * 
+ * @author Roberto Villarejo Martínez
+ *
+ */
+@ConfigurationProperties("rules")
+public class RulesBatchTaskProperties {
 
-public interface DfItemRepository extends MongoRepository<DataFrameItem, String> {
+    /**
+     * The chunk size for the excel parsing job
+     */
+    private int chunkSize = 10;
 
-    public Page<DataFrameItem> findByProcessedFalse(Pageable pageable);
+    public int getChunkSize() {
+        return chunkSize;
+    }
 
+    public void setChunkSize(int chunkSize) {
+        this.chunkSize = chunkSize;
+    }
 }

@@ -34,6 +34,20 @@ cd apps/parser-batch-task && mvn clean package
 cd ../../..
 
 echo '
+********************************
+GENERANDO RULES BATCH TASK...
+********************************'
+cd rules-application-task && mvn clean install -PgenerateApps -DskipTests
+
+echo '
+********************************
+EMPAQUETANDO RULES BATCH TASK...
+********************************' 
+cd apps/rules-batch-task && mvn clean package
+
+cd ../../..
+
+echo '
 *****************************
 EMPAQUETANDO COSTOS API...
 *****************************'

@@ -24,8 +24,14 @@
 
 package mx.infotec.dads.costos.domain.dataframe;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import mx.infotec.dads.costos.domain.DataFrameItem;
 
+@Document("dataFrameItems")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DfItemDt extends DataFrameItem {
 
     /**

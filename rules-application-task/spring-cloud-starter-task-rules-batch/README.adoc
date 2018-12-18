@@ -1,0 +1,31 @@
+//tag::ref-doc[]
+= Timestamp Batch Task
+
+A batch job task that executes 2 jobs each job prints out the job name and a timestamp to `stdout`. Intended to primarily be used for testing.
+
+== Options
+
+// see syntax (soon to be automatically generated) in spring-cloud-stream starters
+The **$$timestamp$$** $$task$$ has the following options:
+
+//tag::configuration-properties[]
+//end::configuration-properties[]
+
+== Building with Maven
+
+```
+$ ./mvnw clean install -PgenerateApps
+$ cd apps/timestamp-batch-task
+$ ./mvnw clean package
+```
+
+== Example
+```
+java -jar timestamp-batch-task-<version>.jar
+```
+
+== Contributing
+
+We welcome contributions! Follow this https://github.com/spring-cloud-task-app-starters/app-starters-release/blob/master/spring-cloud-task-app-starters-
+
+//end::ref-doc[]

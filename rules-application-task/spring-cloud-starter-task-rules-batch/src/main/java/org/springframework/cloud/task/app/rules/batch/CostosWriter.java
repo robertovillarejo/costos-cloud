@@ -22,46 +22,48 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.domain.dataframe;
+package org.springframework.cloud.task.app.rules.batch;
 
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.batch.core.ExitStatus;
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.StepExecutionListener;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import mx.infotec.dads.costos.domain.DataFrameItem;
+import mx.infotec.dads.costos.domain.Costo;
+import mx.infotec.dads.costos.repository.CostoRepository;
 
-@Document("dataFrameItems")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class DfItemSigaif extends DataFrameItem {
+/**
+ * 
+ * @author Roberto Villarejo Martínez
+ *
+ */
+public class CostosWriter implements ItemWriter<Costo>, StepExecutionListener {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 5068991723463595030L;
+    private final Logger logger = LoggerFactory.getLogger(CostosWriter.class);
 
-    protected String numeroFactura;
+    @Autowired
+    private CostoRepository repo;
 
-    protected String servicio;
-
-    public String getNumeroFactura() {
-        return numeroFactura;
-    }
-
-    public void setNumeroFactura(String numeroFactura) {
-        this.numeroFactura = numeroFactura;
-    }
-
-    public String getServicio() {
-        return servicio;
-    }
-
-    public void setServicio(String servicio) {
-        this.servicio = servicio;
+    @Override
+    public void beforeStep(StepExecution arg0) {
+        logger.info("Before writing costos...");
     }
 
     @Override
-    public String toString() {
-        return "DfItemSigaif [numeroFactura=" + numeroFactura + ", servicio=" + servicio + ", id=" + id + "]";
+    public void write(List<? extends Costo> costos) throws Exception {
+        logger.info("Saving costos...");
+        repo.saveAll(costos);
+    }
+
+    @Override
+    public ExitStatus afterStep(StepExecution arg0) {
+        logger.info("After writing costos...");
+        return ExitStatus.COMPLETED;
     }
 
 }

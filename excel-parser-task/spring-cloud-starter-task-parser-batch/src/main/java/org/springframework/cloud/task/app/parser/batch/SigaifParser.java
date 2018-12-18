@@ -95,9 +95,9 @@ public class SigaifParser implements ExcelRowParser<DataFrameItem> {
      */
     public static Descripcion parseDescripcion(String descripcionString) {
         Descripcion descripcion = new Descripcion(descripcionString);
-        if (descripcionString != null && descripcionString.isEmpty()) {
+        if (descripcionString != null && !descripcionString.isEmpty()) {
             // Split pipes '|'
-            String[] subFields = descripcionString.split("|");
+            String[] subFields = descripcionString.split("\\|");
             if (subFields.length > 0) {
                 for (int i = 0; i < subFields.length; i++) {
                     String[] keyValue = subFields[i].split(":");
