@@ -22,24 +22,51 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.context;
+package mx.infotec.dads.costos.domain;
 
-import mx.infotec.dads.costos.domain.DataFrameItem;
-import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
-import mx.infotec.dads.costos.domain.dataframe.DfItemSigaif;
+import java.io.Serializable;
+import java.util.List;
 
-public class CostoContextFactory {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-    private CostoContextFactory() {
+@Document("dataFrameTypes")
+public class DataFrameType implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8254577008422566215L;
+
+    @Id
+    private String id;
+
+    private String name;
+
+    private List<RulePersistable> rules;
+
+    public String getId() {
+        return id;
     }
 
-    public static CostoContext buildContext(DataFrameItem dfItem) {
-        if (dfItem instanceof DfItemRh) {
-            return new RhCostoContext((DfItemRh) dfItem);
-        } else if (dfItem instanceof DfItemSigaif) {
-            return new SigaifCostoContext((DfItemSigaif) dfItem);
-        }
-        return null;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<RulePersistable> getRules() {
+        return rules;
+    }
+
+    public void setRules(List<RulePersistable> rules) {
+        this.rules = rules;
     }
 
 }

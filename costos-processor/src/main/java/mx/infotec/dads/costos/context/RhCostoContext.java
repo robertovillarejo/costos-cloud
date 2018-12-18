@@ -25,15 +25,13 @@
 package mx.infotec.dads.costos.context;
 
 import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
-import mx.infotec.dads.costos.repository.RuleRepository;
 
 public class RhCostoContext extends CostoContext {
 
     private DfItemRh dfItem;
 
-    public RhCostoContext(DfItemRh dfItem, RuleRepository ruleRepository) {
+    public RhCostoContext(DfItemRh dfItem) {
         this.dfItem = dfItem;
-        this.ruleRepo = ruleRepository;
     }
 
     public DfItemRh getItem() {

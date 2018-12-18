@@ -24,31 +24,14 @@
 
 package org.springframework.cloud.task.app.merger.batch;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.NonTransientResourceException;
-import org.springframework.batch.item.ParseException;
-import org.springframework.batch.item.UnexpectedInputException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 
 import mx.infotec.dads.costos.domain.Costo;
-import mx.infotec.dads.costos.domain.DataFrame;
-import mx.infotec.dads.costos.domain.Error;
-import mx.infotec.dads.costos.domain.Origin;
-import mx.infotec.dads.costos.repository.DataFrameRepository;
 
 /**
  * 
@@ -64,7 +47,7 @@ public class CostoReader implements ItemReader<Costo>, StepExecutionListener {
     }
 
     @Override
-    public Costo read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+    public Costo read() throws Exception {
         return null;
     }
 

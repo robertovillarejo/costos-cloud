@@ -25,13 +25,10 @@
 package mx.infotec.dads.costos.context;
 
 import mx.infotec.dads.costos.domain.Costo;
-import mx.infotec.dads.costos.repository.RuleRepository;
 
 public abstract class CostoContext {
 
     protected Costo costo = new Costo();
-
-    protected RuleRepository ruleRepo;
 
     public Costo getCosto() {
         return costo;

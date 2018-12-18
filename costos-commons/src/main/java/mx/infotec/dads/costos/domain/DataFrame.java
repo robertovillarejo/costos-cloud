@@ -27,6 +27,8 @@ public class DataFrame implements Serializable {
 
     private byte[] file;
 
+    private DataFrameType dataFrameType;
+
     @JsonIgnore
     private boolean processed;
 
@@ -40,6 +42,14 @@ public class DataFrame implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public DataFrameType getDataFrameType() {
+        return dataFrameType;
+    }
+
+    public void setDataFrameType(DataFrameType dataFrameType) {
+        this.dataFrameType = dataFrameType;
     }
 
     public byte[] getFile() {

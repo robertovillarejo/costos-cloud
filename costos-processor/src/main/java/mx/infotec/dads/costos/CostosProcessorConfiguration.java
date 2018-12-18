@@ -26,6 +26,8 @@ package mx.infotec.dads.costos;
 
 import static mx.infotec.dads.costos.context.CostoContextFactory.buildContext;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,9 @@ import org.springframework.integration.annotation.ServiceActivator;
 import mx.infotec.dads.costos.context.CostoContext;
 import mx.infotec.dads.costos.domain.Costo;
 import mx.infotec.dads.costos.domain.DataFrameItem;
-import mx.infotec.dads.costos.repository.RuleRepository;
+import mx.infotec.dads.costos.domain.DataFrameType;
+import mx.infotec.dads.costos.repository.DataFrameTypeRepository;
+import mx.infotec.dads.costos.repository.DfItemRepository;
 import mx.infotec.dads.kukulkan.rules.DefaultRulesApplier;
 import mx.infotec.dads.kukulkan.rules.RulesApplier;
 
@@ -60,18 +64,27 @@ public class CostosProcessorConfiguration {
     private CostosProcessorProperties properties;
 
     @Autowired
-    private RuleRepository ruleRepo;
+    private DfItemRepository dfItemRepo;
+
+    @Autowired
+    private DataFrameTypeRepository dfTypeRepo;
 
     @ServiceActivator(inputChannel = Processor.INPUT, outputChannel = Processor.OUTPUT)
     public Costo process(DataFrameItem dfItem) {
-        logger.info("Processing costo: {}", dfItem);
-        CostoContext context = buildContext(dfItem, ruleRepo);
-        RulesApplier rulesApplier = new DefaultRulesApplier(
-                RuleMapper.mapToRulesList(ruleRepo.findAllWhereDataFrameTypeEquals("sigaif")),
-                new SpelExpressionParser());
-        rulesApplier.apply(new StandardEvaluationContext(context));
+        logger.info("Processing dfItem: {}", dfItem);
+        CostoContext context = buildContext(dfItem);
+        String dataFrameType = dfItem.getDataFrame().getDataFrameType().getName();
+        Optional<DataFrameType> maybeDfType = dfTypeRepo.findOneByName(dataFrameType);
+        if (maybeDfType.isPresent()) {
+            RulesApplier rulesApplier = new DefaultRulesApplier(RuleMapper.mapToRulesList(maybeDfType.get().getRules()),
+                    new SpelExpressionParser());
+            rulesApplier.apply(new StandardEvaluationContext(context));
+        } else {
+            logger.debug("No rules to apply for data frame type {}", dataFrameType);
+        }
+
         dfItem.setProcessed(true);
-        // Guardar dfItem
+        dfItemRepo.save(dfItem);
         return context.getCosto();
     }
 

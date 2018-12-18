@@ -22,24 +22,16 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.context;
+package mx.infotec.dads.costos.repository;
 
-import mx.infotec.dads.costos.domain.DataFrameItem;
-import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
-import mx.infotec.dads.costos.domain.dataframe.DfItemSigaif;
+import java.util.Optional;
 
-public class CostoContextFactory {
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-    private CostoContextFactory() {
-    }
+import mx.infotec.dads.costos.domain.DataFrameType;
 
-    public static CostoContext buildContext(DataFrameItem dfItem) {
-        if (dfItem instanceof DfItemRh) {
-            return new RhCostoContext((DfItemRh) dfItem);
-        } else if (dfItem instanceof DfItemSigaif) {
-            return new SigaifCostoContext((DfItemSigaif) dfItem);
-        }
-        return null;
-    }
+public interface DataFrameTypeRepository extends MongoRepository<DataFrameType, String> {
+
+    public Optional<DataFrameType> findOneByName(String name);
 
 }

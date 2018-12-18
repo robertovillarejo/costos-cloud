@@ -38,9 +38,6 @@ import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.NonTransientResourceException;
-import org.springframework.batch.item.ParseException;
-import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
@@ -74,8 +71,8 @@ public class DfItemReader implements ItemReader<DataFrameItem>, StepExecutionLis
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
-        // El registro más antiguo que no ha sido marcado como procesado
-        logger.info("Querying for not processed DataFrame...");
+        // El registro más antiguo sin procesarF
+        logger.info("Querying for oldest not processed DataFrame...");
         List<DataFrame> list = repository.findByProcessedFalse(PageRequest.of(0, 1)).getContent();
         try {
             if (!list.isEmpty()) {
@@ -105,8 +102,7 @@ public class DfItemReader implements ItemReader<DataFrameItem>, StepExecutionLis
     }
 
     @Override
-    public DataFrameItem read()
-            throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+    public DataFrameItem read() throws Exception {
         if (parser == null)
             return null;
         if (rowIt != null && rowIt.hasNext()) {

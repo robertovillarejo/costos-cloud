@@ -25,15 +25,13 @@
 package mx.infotec.dads.costos.context;
 
 import mx.infotec.dads.costos.domain.dataframe.DfItemSigaif;
-import mx.infotec.dads.costos.repository.RuleRepository;
 
 public class SigaifCostoContext extends CostoContext {
 
     private DfItemSigaif dfItem;
 
-    public SigaifCostoContext(DfItemSigaif dfItem, RuleRepository ruleRepository) {
+    public SigaifCostoContext(DfItemSigaif dfItem) {
         this.dfItem = dfItem;
-        this.ruleRepo = ruleRepository;
     }
 
     public DfItemSigaif getItem() {

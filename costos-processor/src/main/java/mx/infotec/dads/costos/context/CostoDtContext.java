@@ -24,6 +24,15 @@
 
 package mx.infotec.dads.costos.context;
 
-public class CostoDtContext {
+import mx.infotec.dads.costos.domain.DataFrameItem;
+import mx.infotec.dads.costos.domain.dataframe.DfItemDt;
+
+public class CostoDtContext extends CostoContext {
+
+    private DataFrameItem dfItem;
+
+    public CostoDtContext(DfItemDt dfItem) {
+        this.dfItem = dfItem;
+    }
 
 }
