@@ -20,6 +20,10 @@
         <dd>
             <span>{{vm.rulePersistable.condition}}</span>
         </dd>
+        <dt><span data-translate="costosapiApp.rulePersistable.dataFrameType">DataFrameType</span></dt>
+        <dd>
+            <a ui-sref="dataFrameType-detail({id:vm.rulePersistable.dataFrameType.id})">{{vm.rulePersistable.dataFrameType.id}}</a>
+        </dd>
     </dl>
 
     <button type="submit"

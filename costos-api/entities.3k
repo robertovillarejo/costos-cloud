@@ -30,6 +30,11 @@ entity DataFrame {
 	processed : Boolean
 }
 
+entity DataFrameType {
+	name: String required min(2),
+	OneToMany rules: RulePersistable
+}
+
 views {
     Costo as Sheet
 }

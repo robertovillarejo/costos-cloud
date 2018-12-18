@@ -5,9 +5,9 @@
         .module('costosapiApp')
         .controller('RulePersistableDetailController', RulePersistableDetailController);
 
-    RulePersistableDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'RulePersistable'];
+    RulePersistableDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'DataFrameType', 'RulePersistable'];
 
-    function RulePersistableDetailController($scope, $rootScope, $stateParams, previousState, entity, RulePersistable) {
+    function RulePersistableDetailController($scope, $rootScope, $stateParams, previousState, entity, DataFrameType, RulePersistable) {
         var vm = this;
 
         vm.rulePersistable = entity;

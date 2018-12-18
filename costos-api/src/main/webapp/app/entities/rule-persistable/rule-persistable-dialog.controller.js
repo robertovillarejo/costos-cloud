@@ -5,14 +5,15 @@
         .module('costosapiApp')
         .controller('RulePersistableDialogController', RulePersistableDialogController);
 
-    RulePersistableDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'RulePersistable'];
+    RulePersistableDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'DataFrameType', 'RulePersistable'];
 
-    function RulePersistableDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, RulePersistable) {
+    function RulePersistableDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, DataFrameType, RulePersistable) {
         var vm = this;
 
         vm.rulePersistable = entity;
         vm.clear = clear;
         vm.save = save;
+        vm.dataFrameType = DataFrameType.query();
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
         });

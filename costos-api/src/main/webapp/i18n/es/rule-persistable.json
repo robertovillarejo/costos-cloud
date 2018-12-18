@@ -18,7 +18,8 @@
             },
             "name": "Name", 
             "order": "Order", 
-            "condition": "Condition"
+            "condition": "Condition",
+            "dataFrameType": "DataFrameType"
         }
     }
 }

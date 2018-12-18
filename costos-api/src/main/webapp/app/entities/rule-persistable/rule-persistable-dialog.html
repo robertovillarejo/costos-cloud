@@ -44,6 +44,12 @@
             <div ng-show="editForm.condition.$invalid">
             </div>	
         </div>
+        <div class="form-group">
+            <label data-translate="costosapiApp.rulePersistable.dataFrameType" for="field_dataFrameType">DataFrameType</label>
+            <select class="form-control" id="field_dataFrameType" name="dataFrameType" ng-model="vm.rulePersistable.dataFrameType" ng-options="dataFrameType as dataFrameType.id for dataFrameType in vm.dataFrameType track by dataFrameType.id">
+                <option value=""></option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

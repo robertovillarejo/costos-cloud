@@ -49,6 +49,12 @@
                         <span data-translate="global.menu.entities.dataFrame">DataFrame</span>
                     </a>
                 </li>
+                <li ui-sref-active="active" has-any-authority="ROLE_ADMIN,ROLE_USER">
+                    <a ui-sref="dataFrameType" ng-click="vm.collapseNavbar()">
+                        <span class="fa fa-archive"></span>&nbsp;
+                        <span data-translate="global.menu.entities.dataFrameType">DataFrameType</span>
+                    </a>
+                </li>
                 <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
             </ul>
         </li>

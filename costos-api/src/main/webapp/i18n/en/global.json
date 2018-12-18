@@ -10,6 +10,7 @@
                 "rulePersistable": "RulePersistable",
                 "costo": "Costo",
                 "dataFrame": "DataFrame",
+                "dataFrameType": "DataFrameType",
                 "jhipster-needle-menu-add-entry": "Generator will add additional entities here (do not translate!)"
             },
             "account": {

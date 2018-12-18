@@ -1,0 +1,23 @@
+{
+    "costosapiApp": {
+        "dataFrameType" : {
+            "home": {
+                "title": "DataFrameType",
+                "createLabel": "Create a new DataFrameType",
+                "createOrEditLabel": "Create or edit a DataFrameType",
+                "search": "Search DataFrameType"
+            },
+            "created": "A new DataFrameType is created with identifier {{ param }}",
+            "updated": "A DataFrameType is updated with identifier {{ param }}",
+            "deleted": "A DataFrameType is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete DataFrameType {{ id }}?"
+            },
+            "detail": {
+                "title": "DataFrameType"
+            },
+            "name": "Name",
+            "rules": "Rules"
+        }
+    }
+}
