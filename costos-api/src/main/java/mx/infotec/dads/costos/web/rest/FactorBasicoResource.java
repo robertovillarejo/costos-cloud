@@ -54,6 +54,7 @@ import mx.infotec.dads.costos.web.rest.util.HeaderUtil;
 import mx.infotec.dads.costos.web.rest.util.PaginationUtil;
 
 import mx.infotec.dads.costos.domain.FactorBasico;
+import mx.infotec.dads.costos.domain.Proveedor;
 import mx.infotec.dads.costos.service.FactorBasicoService;
 
 /**
@@ -173,6 +174,15 @@ public class FactorBasicoResource {
         Page<FactorBasico> page = service.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/factorBasico");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    @PostMapping("/factorBasico-list")
+    public ResponseEntity<Void> createFactoresBasicos(@Valid @RequestBody List<FactorBasico> factoresBasicos) {
+        log.debug("REST request to save Factores Basicos: {}", factoresBasicos);
+        for (FactorBasico factorBasico : factoresBasicos) {
+            service.save(factorBasico);
+        }
+        return ResponseEntity.ok().build();
     }
     
     

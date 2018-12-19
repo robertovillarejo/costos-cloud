@@ -23,6 +23,7 @@
  */
 package mx.infotec.dads.costos.web.rest;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -129,6 +130,15 @@ public class ProveedorResource {
         Proveedor result = service.save(proveedor);
         return ResponseEntity.created(new URI("/api/proveedores/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
+    }
+
+    @PostMapping("/proveedores-list")
+    public ResponseEntity<Void> createProveedores(@Valid @RequestBody List<Proveedor> proveedores) {
+        log.debug("REST request to save Proveedores: {}", proveedores);
+        for (Proveedor proveedor : proveedores) {
+            service.save(proveedor);
+        }
+        return ResponseEntity.ok().build();
     }
 
     /**

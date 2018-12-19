@@ -53,6 +53,7 @@ import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.swagger.annotations.ApiParam;
 import mx.infotec.dads.costos.domain.EquipoComputo;
+import mx.infotec.dads.costos.domain.PartidaConcepto;
 import mx.infotec.dads.costos.service.EquipoComputoService;
 import mx.infotec.dads.costos.web.rest.util.HeaderUtil;
 import mx.infotec.dads.costos.web.rest.util.PaginationUtil;
@@ -191,6 +192,15 @@ public class EquipoComputoResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page,
                 "/api/_search/equipoComputo");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    @PostMapping("/equipoComputo-list")
+    public ResponseEntity<Void> createEquipoComputos(@Valid @RequestBody List<EquipoComputo> equiposComputo) {
+        log.debug("REST request to save Equipo Computo: {}", equiposComputo);
+        for (EquipoComputo partidaConcepto : equiposComputo) {
+            service.save(partidaConcepto);
+        }
+        return ResponseEntity.ok().build();
     }
 
 }

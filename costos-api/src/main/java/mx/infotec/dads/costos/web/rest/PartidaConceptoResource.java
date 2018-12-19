@@ -53,6 +53,7 @@ import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.swagger.annotations.ApiParam;
 import mx.infotec.dads.costos.domain.PartidaConcepto;
+import mx.infotec.dads.costos.domain.Proveedor;
 import mx.infotec.dads.costos.service.PartidaConceptoService;
 import mx.infotec.dads.costos.web.rest.util.HeaderUtil;
 import mx.infotec.dads.costos.web.rest.util.PaginationUtil;
@@ -174,6 +175,15 @@ public class PartidaConceptoResource {
         Page<PartidaConcepto> page = service.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/partidaConcepto");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    @PostMapping("/partidaConcepto-list")
+    public ResponseEntity<Void> createpartidaConceptos(@Valid @RequestBody List<PartidaConcepto> partidasConceptos) {
+        log.debug("REST request to save Partidas Conceptos: {}", partidasConceptos);
+        for (PartidaConcepto partidaConcepto : partidasConceptos) {
+            service.save(partidaConcepto);
+        }
+        return ResponseEntity.ok().build();
     }
     
     
