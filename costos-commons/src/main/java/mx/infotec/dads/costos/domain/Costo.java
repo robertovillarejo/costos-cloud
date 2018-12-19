@@ -87,7 +87,7 @@ public class Costo implements Serializable {
     protected String tipoCosto;
 
     @SheetColumn(title = "partida")
-    protected int partida;
+    protected String partida;
 
     @SheetColumn(title = "proveedor")
     protected String proveedor;
@@ -195,11 +195,11 @@ public class Costo implements Serializable {
         this.tipoCosto = tipoCosto;
     }
 
-    public int getPartida() {
+    public String getPartida() {
         return partida;
     }
 
-    public void setPartida(int partida) {
+    public void setPartida(String partida) {
         this.partida = partida;
     }
 

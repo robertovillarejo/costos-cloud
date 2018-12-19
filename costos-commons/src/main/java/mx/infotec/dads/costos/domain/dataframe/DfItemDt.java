@@ -34,9 +34,64 @@ import mx.infotec.dads.costos.domain.DataFrameItem;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DfItemDt extends DataFrameItem {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 2802048171981940542L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2802048171981940542L;
+
+	protected String partida;
+	protected String subPartida;
+	protected double monto;
+	protected double porcentaje;
+	protected int anio;
+	protected int claveServicio;	
+
+	public String getPartida() {
+		return partida;
+	}
+
+	public void setPartida(String partida) {
+		this.partida = partida;
+	}
+
+	public String getSubPartida() {
+		return subPartida;
+	}
+
+	public void setSubPartida(String subPartida) {
+		this.subPartida = subPartida;
+	}
+
+	public double getMonto() {
+		return monto;
+	}
+
+	public void setMonto(double monto) {
+		this.monto = monto;
+	}
+
+	public double getPorcentaje() {
+		return porcentaje;
+	}
+
+	public void setPorcentaje(double porcentaje) {
+		this.porcentaje = porcentaje;
+	}
+	
+	public int getAnio() {
+		return anio;
+	}
+
+	public void setAnio(int anio) {
+		this.anio = anio;
+	}
+
+	public int getClaveServicio() {
+		return claveServicio;
+	}
+
+	public void setClaveServicio(int claveServicio) {
+		this.claveServicio = claveServicio;
+	}
 
 }

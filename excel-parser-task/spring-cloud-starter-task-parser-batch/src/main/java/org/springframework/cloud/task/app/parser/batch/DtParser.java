@@ -45,20 +45,21 @@ public class DtParser implements ExcelRowParser<DataFrameItem> {
     private static final String NAME = "dt";
 
     /**
-     * El esquema que este parser soporta (expresado como una lista de encabezados
-     * separados por coma).
+     * El esquema que este parser soporta (expresado como una lista de
+     * encabezados separados por coma).
      */
     private final SortedMap<Integer, String> supportedSchema = ExcelRowMapParser
-            .parsePositionBasedSchema("ColumnaDtA,ColumnaDtB");
+            .parsePositionBasedSchema("PARTIDA,SUBPARTIDA,MONTO,PORCENTAJE,MES,AÑO,CLAVE_SERVICIO");
 
     /**
-     * El 'mappingSchema' es la definición del mapeo de una columna a una propiedad
-     * del objeto. Se expresa como una lista de 'Header,propiedad' separados por dos
-     * puntos ':' Si el header y la propiedad tienen el mismo nombre entonces no es
-     * necesario usar 'Header:propiedad', basta con escribir uno solo: 'propiedad'.
+     * El 'mappingSchema' es la definición del mapeo de una columna a una
+     * propiedad del objeto. Se expresa como una lista de 'Header,propiedad'
+     * separados por dos puntos ':' Si el header y la propiedad tienen el mismo
+     * nombre entonces no es necesario usar 'Header:propiedad', basta con
+     * escribir uno solo: 'propiedad'.
      */
     private ExcelRowMapParser parser = new ExcelRowMapParser(ExcelRowMapParser.getMappingSchema(supportedSchema,
-            ExcelRowMapParser.parseMappingSchema("ColumnaDtA,propiedadA:ColumnaDtB,propiedadB")));
+            ExcelRowMapParser.parseMappingSchema("PARTIDA,partida:SUBPARTIDA,subPartida:MONTO,monto:PORCENTAJE,porcentaje:MES,mes:CLAVE_SERVICIO,claveServicio")));
 
     private ObjectMapper mapper = new ObjectMapper();
 

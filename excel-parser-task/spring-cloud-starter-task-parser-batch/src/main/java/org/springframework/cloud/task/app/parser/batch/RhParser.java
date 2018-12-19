@@ -45,20 +45,21 @@ public class RhParser implements ExcelRowParser<DataFrameItem> {
     private static final String NAME = "rh";
 
     /**
-     * El esquema que este parser soporta (expresado como una lista de encabezados
-     * separados por coma).
+     * El esquema que este parser soporta (expresado como una lista de
+     * encabezados separados por coma).
      */
     private final SortedMap<Integer, String> supportedSchema = ExcelRowMapParser
-            .parsePositionBasedSchema("Área,Proveedor");
+            .parsePositionBasedSchema("Proveedor,Subconcepto,Mes,Año,Monto");
 
     /**
-     * El 'mappingSchema' es la definición del mapeo de una columna a una propiedad
-     * del objeto. Se expresa como una lista de 'Header,propiedad' separados por dos
-     * puntos ':' Si el header y la propiedad tienen el mismo nombre entonces no es
-     * necesario usar 'Header:propiedad', basta con escribir uno solo: 'propiedad'.
+     * El 'mappingSchema' es la definición del mapeo de una columna a una
+     * propiedad del objeto. Se expresa como una lista de 'Header,propiedad'
+     * separados por dos puntos ':' Si el header y la propiedad tienen el mismo
+     * nombre entonces no es necesario usar 'Header:propiedad', basta con
+     * escribir uno solo: 'propiedad'.
      */
     private ExcelRowMapParser parser = new ExcelRowMapParser(ExcelRowMapParser.getMappingSchema(supportedSchema,
-            ExcelRowMapParser.parseMappingSchema("Área,area:Proveedor,proveedor")));
+            ExcelRowMapParser.parseMappingSchema("Proveedor,proveedor:Subconcepto,subconcepto:Mes,mes:Año,anio:Monto,monto")));
 
     private ObjectMapper mapper = new ObjectMapper();
 
