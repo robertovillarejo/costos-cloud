@@ -1,0 +1,24 @@
+{
+    "costosapiApp": {
+        "equipoComputo" : {
+            "home": {
+                "title": "EquipoComputo",
+                "createLabel": "Crear nuevo EquipoComputo",
+                "createOrEditLabel": "Crear o editar EquipoComputo",
+                "search": "Buscar EquipoComputo"
+            },
+            "created": "Un nuevo EquipoComputo ha sido creado con el identificador {{ param }}",
+            "updated": "Un EquipoComputo ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un EquipoComputo ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar EquipoComputo {{ id }}?"
+            },
+            "detail": {
+                "title": "EquipoComputo"
+            },
+            "tipoComputadora": "TipoComputadora", 
+            "proveedor": "Proveedor", 
+            "monto": "Monto"
+        }
+    }
+}

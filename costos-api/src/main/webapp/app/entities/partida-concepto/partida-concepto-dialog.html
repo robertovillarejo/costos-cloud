@@ -1,0 +1,81 @@
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myPartidaConceptoLabel" data-translate="costosapiApp.partidaConcepto.home.createOrEditLabel">Create or edit a PartidaConcepto</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.partidaConcepto.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.partidaConcepto.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.partidaConcepto.tipoCosto" for="field_tipoCosto">TipoCosto</label>
+            <input type="text" class="form-control" name="tipoCosto" id="field_tipoCosto"
+                ng-model="vm.partidaConcepto.tipoCosto"
+                required   
+                />
+            <div ng-show="editForm.tipoCosto.$invalid">
+                <p class="help-block"
+	                ng-show="editForm.tipoCosto.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.partidaConcepto.subtipoCosto" for="field_subtipoCosto">SubtipoCosto</label>
+            <input type="text" class="form-control" name="subtipoCosto" id="field_subtipoCosto"
+                ng-model="vm.partidaConcepto.subtipoCosto"
+                required   
+                />
+            <div ng-show="editForm.subtipoCosto.$invalid">
+                <p class="help-block"
+	                ng-show="editForm.subtipoCosto.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.partidaConcepto.partida" for="field_partida">Partida</label>
+            <input type="text" class="form-control" name="partida" id="field_partida"
+                ng-model="vm.partidaConcepto.partida"
+                required   
+                />
+            <div ng-show="editForm.partida.$invalid">
+                <p class="help-block"
+	                ng-show="editForm.partida.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.partidaConcepto.subPartida" for="field_subPartida">SubPartida</label>
+            <input type="text" class="form-control" name="subPartida" id="field_subPartida"
+                ng-model="vm.partidaConcepto.subPartida"
+   
+                />
+            <div ng-show="editForm.subPartida.$invalid">
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.partidaConcepto.subSubPartida" for="field_subSubPartida">SubSubPartida</label>
+            <input type="text" class="form-control" name="subSubPartida" id="field_subSubPartida"
+                ng-model="vm.partidaConcepto.subSubPartida"
+   
+                />
+            <div ng-show="editForm.subSubPartida.$invalid">
+            </div>	
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

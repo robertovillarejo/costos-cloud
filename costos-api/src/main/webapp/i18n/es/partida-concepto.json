@@ -1,0 +1,26 @@
+{
+    "costosapiApp": {
+        "partidaConcepto" : {
+            "home": {
+                "title": "PartidaConcepto",
+                "createLabel": "Crear nuevo PartidaConcepto",
+                "createOrEditLabel": "Crear o editar PartidaConcepto",
+                "search": "Buscar PartidaConcepto"
+            },
+            "created": "Un nuevo PartidaConcepto ha sido creado con el identificador {{ param }}",
+            "updated": "Un PartidaConcepto ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un PartidaConcepto ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar PartidaConcepto {{ id }}?"
+            },
+            "detail": {
+                "title": "PartidaConcepto"
+            },
+            "tipoCosto": "TipoCosto", 
+            "subtipoCosto": "SubtipoCosto", 
+            "partida": "Partida", 
+            "subPartida": "SubPartida", 
+            "subSubPartida": "SubSubPartida"
+        }
+    }
+}

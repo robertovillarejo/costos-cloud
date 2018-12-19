@@ -1,0 +1,26 @@
+{
+    "costosapiApp": {
+        "factorBasico" : {
+            "home": {
+                "title": "FactorBasico",
+                "createLabel": "Crear nuevo FactorBasico",
+                "createOrEditLabel": "Crear o editar FactorBasico",
+                "search": "Buscar FactorBasico"
+            },
+            "created": "Un nuevo FactorBasico ha sido creado con el identificador {{ param }}",
+            "updated": "Un FactorBasico ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un FactorBasico ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar FactorBasico {{ id }}?"
+            },
+            "detail": {
+                "title": "FactorBasico"
+            },
+            "nombre": "Nombre", 
+            "sede": "Sede", 
+            "mes": "Mes", 
+            "anio": "Anio", 
+            "valor": "Valor"
+        }
+    }
+}

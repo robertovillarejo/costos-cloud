@@ -1,7 +1,7 @@
 entity RulePersistable {
-    name: String,
-    order: Integer,
-    condition: String
+	name : String,
+	order : Integer,
+	condition : String
 }
 
 entity Costo {
@@ -30,8 +30,41 @@ entity DataFrame {
 }
 
 entity DataFrameType {
-	-> name: String required min(2),
-	OneToMany rules: RulePersistable
+	-> name : String required min(2),
+	OneToMany rules : RulePersistable
+}
+
+entity Proveedor {
+	claveServicio : String required,
+	nombre : String required min(2),
+	mes : Integer,
+	anio : Integer,
+	porcentaje : Double,
+	subtipoCosto : String required,
+	observacion : String,
+	fechaObservacion : String
+}
+
+entity PartidaConcepto {
+	tipoCosto : String required,
+	subtipoCosto : String required,
+	partida : String required,
+	subPartida : String,
+	subSubPartida : String
+}
+
+entity FactorBasico {
+	nombre : String required,
+	sede : String ,
+	mes : String,
+	anio : String,
+	valor : Double required
+}
+
+entity EquipoComputo {
+	tipoComputadora: String required,
+	proveedor: String required,
+	monto: Double
 }
 
 views {

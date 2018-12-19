@@ -1,0 +1,24 @@
+{
+    "costosapiApp": {
+        "equipoComputo" : {
+            "home": {
+                "title": "EquipoComputo",
+                "createLabel": "Create a new EquipoComputo",
+                "createOrEditLabel": "Create or edit a EquipoComputo",
+                "search": "Search EquipoComputo"
+            },
+            "created": "A new EquipoComputo is created with identifier {{ param }}",
+            "updated": "A EquipoComputo is updated with identifier {{ param }}",
+            "deleted": "A EquipoComputo is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete EquipoComputo {{ id }}?"
+            },
+            "detail": {
+                "title": "EquipoComputo"
+            },
+            "tipoComputadora": "TipoComputadora", 
+            "proveedor": "Proveedor", 
+            "monto": "Monto"
+        }
+    }
+}

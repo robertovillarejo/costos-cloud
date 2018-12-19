@@ -1,0 +1,55 @@
+
+<div>
+    <h2><span data-translate="costosapiApp.proveedor.detail.title">Proveedor</span> {{vm.proveedor.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="global.field.id">id</span></dt>
+        <dd>
+            <span>{{vm.proveedor.id}}</span>
+        <dd>
+        <dt><span data-translate="costosapiApp.proveedor.claveServicio">ClaveServicio</span></dt>
+        <dd>
+            <span>{{vm.proveedor.claveServicio}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.proveedor.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.proveedor.nombre}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.proveedor.mes">Mes</span></dt>
+        <dd>
+            <span>{{vm.proveedor.mes}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.proveedor.anio">Anio</span></dt>
+        <dd>
+            <span>{{vm.proveedor.anio}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.proveedor.porcentaje">Porcentaje</span></dt>
+        <dd>
+            <span>{{vm.proveedor.porcentaje}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.proveedor.subtipoCosto">SubtipoCosto</span></dt>
+        <dd>
+            <span>{{vm.proveedor.subtipoCosto}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.proveedor.observacion">Observacion</span></dt>
+        <dd>
+            <span>{{vm.proveedor.observacion}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.proveedor.fechaObservacion">FechaObservacion</span></dt>
+        <dd>
+            <span>{{vm.proveedor.fechaObservacion}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="proveedor-detail.edit({id:vm.proveedor.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

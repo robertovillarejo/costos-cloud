@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span data-translate="costosapiApp.partidaConcepto.detail.title">PartidaConcepto</span> {{vm.partidaConcepto.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="global.field.id">id</span></dt>
+        <dd>
+            <span>{{vm.partidaConcepto.id}}</span>
+        <dd>
+        <dt><span data-translate="costosapiApp.partidaConcepto.tipoCosto">TipoCosto</span></dt>
+        <dd>
+            <span>{{vm.partidaConcepto.tipoCosto}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.partidaConcepto.subtipoCosto">SubtipoCosto</span></dt>
+        <dd>
+            <span>{{vm.partidaConcepto.subtipoCosto}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.partidaConcepto.partida">Partida</span></dt>
+        <dd>
+            <span>{{vm.partidaConcepto.partida}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.partidaConcepto.subPartida">SubPartida</span></dt>
+        <dd>
+            <span>{{vm.partidaConcepto.subPartida}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.partidaConcepto.subSubPartida">SubSubPartida</span></dt>
+        <dd>
+            <span>{{vm.partidaConcepto.subSubPartida}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="partidaConcepto-detail.edit({id:vm.partidaConcepto.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

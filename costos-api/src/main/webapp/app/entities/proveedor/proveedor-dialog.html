@@ -1,0 +1,127 @@
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myProveedorLabel" data-translate="costosapiApp.proveedor.home.createOrEditLabel">Create or edit a Proveedor</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.proveedor.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.proveedor.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.proveedor.claveServicio" for="field_claveServicio">ClaveServicio</label>
+            <input type="text" class="form-control" name="claveServicio" id="field_claveServicio"
+                ng-model="vm.proveedor.claveServicio"
+                required   
+                />
+            <div ng-show="editForm.claveServicio.$invalid">
+                <p class="help-block"
+	                ng-show="editForm.claveServicio.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.proveedor.nombre" for="field_nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="field_nombre"
+                ng-model="vm.proveedor.nombre"
+                required ng-minlength="2"  
+                />
+            <div ng-show="editForm.nombre.$invalid">
+                <p class="help-block"
+	                ng-show="editForm.nombre.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.nombre.$error.minlength" data-translate="entity.validation.minlength" translate-value-min="2">
+	                This field is required to be at least 2 characters.
+                </p>
+            </div>	
+        </div>
+			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.proveedor.mes"
+					for="field_mes">mes</label>
+				<input type="number" class="form-control" name="mes" id="field_mes"
+					ng-model="vm.proveedor.mes"
+  
+					/>
+				<div ng-show="editForm.mes.$invalid">
+	                <p class="help-block"
+	                    ng-show="editForm.mes.$error.number" data-translate="entity.validation.number">
+	                    This field should be a number.
+	                </p>
+            	</div>	
+			</div>
+			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.proveedor.anio"
+					for="field_anio">anio</label>
+				<input type="number" class="form-control" name="anio" id="field_anio"
+					ng-model="vm.proveedor.anio"
+  
+					/>
+				<div ng-show="editForm.anio.$invalid">
+	                <p class="help-block"
+	                    ng-show="editForm.anio.$error.number" data-translate="entity.validation.number">
+	                    This field should be a number.
+	                </p>
+            	</div>	
+			</div>
+			<div class="form-group">
+				<label class="control-label" data-translate="costosapiApp.proveedor.porcentaje"
+					for="field_porcentaje">porcentaje</label>
+				<input type="number" class="form-control" name="porcentaje" id="field_porcentaje"
+					ng-model="vm.proveedor.porcentaje"
+  
+					/>
+				<div ng-show="editForm.porcentaje.$invalid">
+	                <p class="help-block"
+	                    ng-show="editForm.porcentaje.$error.number" data-translate="entity.validation.number">
+	                    This field should be a number.
+	                </p>
+            	</div>	
+			</div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.proveedor.subtipoCosto" for="field_subtipoCosto">SubtipoCosto</label>
+            <input type="text" class="form-control" name="subtipoCosto" id="field_subtipoCosto"
+                ng-model="vm.proveedor.subtipoCosto"
+                required   
+                />
+            <div ng-show="editForm.subtipoCosto.$invalid">
+                <p class="help-block"
+	                ng-show="editForm.subtipoCosto.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.proveedor.observacion" for="field_observacion">Observacion</label>
+            <input type="text" class="form-control" name="observacion" id="field_observacion"
+                ng-model="vm.proveedor.observacion"
+   
+                />
+            <div ng-show="editForm.observacion.$invalid">
+            </div>	
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="costosapiApp.proveedor.fechaObservacion" for="field_fechaObservacion">FechaObservacion</label>
+            <input type="text" class="form-control" name="fechaObservacion" id="field_fechaObservacion"
+                ng-model="vm.proveedor.fechaObservacion"
+   
+                />
+            <div ng-show="editForm.fechaObservacion.$invalid">
+            </div>	
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
