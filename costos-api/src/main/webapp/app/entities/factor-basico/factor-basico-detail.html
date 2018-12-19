@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span data-translate="costosapiApp.factorBasico.detail.title">FactorBasico</span> {{vm.factorBasico.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="global.field.id">id</span></dt>
+        <dd>
+            <span>{{vm.factorBasico.id}}</span>
+        <dd>
+        <dt><span data-translate="costosapiApp.factorBasico.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.factorBasico.nombre}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.factorBasico.sede">Sede</span></dt>
+        <dd>
+            <span>{{vm.factorBasico.sede}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.factorBasico.mes">Mes</span></dt>
+        <dd>
+            <span>{{vm.factorBasico.mes}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.factorBasico.anio">Anio</span></dt>
+        <dd>
+            <span>{{vm.factorBasico.anio}}</span>
+        </dd>
+        <dt><span data-translate="costosapiApp.factorBasico.valor">Valor</span></dt>
+        <dd>
+            <span>{{vm.factorBasico.valor}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="factorBasico-detail.edit({id:vm.factorBasico.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

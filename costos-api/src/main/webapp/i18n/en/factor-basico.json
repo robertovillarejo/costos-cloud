@@ -1,0 +1,26 @@
+{
+    "costosapiApp": {
+        "factorBasico" : {
+            "home": {
+                "title": "FactorBasico",
+                "createLabel": "Create a new FactorBasico",
+                "createOrEditLabel": "Create or edit a FactorBasico",
+                "search": "Search FactorBasico"
+            },
+            "created": "A new FactorBasico is created with identifier {{ param }}",
+            "updated": "A FactorBasico is updated with identifier {{ param }}",
+            "deleted": "A FactorBasico is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete FactorBasico {{ id }}?"
+            },
+            "detail": {
+                "title": "FactorBasico"
+            },
+            "nombre": "Nombre", 
+            "sede": "Sede", 
+            "mes": "Mes", 
+            "anio": "Anio", 
+            "valor": "Valor"
+        }
+    }
+}
