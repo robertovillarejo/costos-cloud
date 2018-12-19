@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 package mx.infotec.dads.costos.repository;
+import java.util.Optional;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 
@@ -34,5 +36,7 @@ import mx.infotec.dads.costos.domain.PartidaConcepto;
  * @kukulkanGenerated 20181109143229
  */
 public interface PartidaConceptoRepository extends MongoRepository<PartidaConcepto, String> {
+    
+    public Optional<PartidaConcepto> findOneBySubPartida(String subPartida);
 
 }

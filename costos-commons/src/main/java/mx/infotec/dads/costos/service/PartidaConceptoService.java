@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 package mx.infotec.dads.costos.service;
+
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -80,15 +81,24 @@ public interface PartidaConceptoService {
      * @param id
      */
     void deleteAll();
-    
+
     /**
      * Buscar PartidaConcepto con el correspondiente al query.
      *
-     *  @param query El query de la busqueda
-     *  
-     *  @param pageable la información de paginación
-     *  @return Page de todas las entidades
+     * @param query
+     *            El query de la busqueda
+     * 
+     * @param pageable
+     *            la información de paginación
+     * @return Page de todas las entidades
      */
     Page<PartidaConcepto> search(String query, Pageable pageable);
-    
+
+    /**
+     * 
+     * @param subPartida
+     * @return
+     */
+    Optional<PartidaConcepto> findOneBySubPartida(String subPartida);
+
 }

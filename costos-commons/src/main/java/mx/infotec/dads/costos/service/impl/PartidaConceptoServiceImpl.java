@@ -88,11 +88,17 @@ public class PartidaConceptoServiceImpl implements PartidaConceptoService {
         log.debug("Request to delete All PartidaConcepto");
         repository.deleteAll();
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public Page<PartidaConcepto> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of PartidaConcepto");
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public Optional<PartidaConcepto> findOneBySubPartida(String subPartida) {
+        log.debug("Request to find a PartidaConcepto by subPartida: {}", subPartida);
+        return repository.findOneBySubPartida(subPartida);
     }
 }
