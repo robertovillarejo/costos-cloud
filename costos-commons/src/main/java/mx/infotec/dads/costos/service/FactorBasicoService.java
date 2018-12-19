@@ -22,6 +22,9 @@
  * SOFTWARE.
  */
 package mx.infotec.dads.costos.service;
+
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import mx.infotec.dads.costos.domain.FactorBasico;
@@ -47,7 +50,7 @@ public interface FactorBasicoService {
      * @param id
      * @return FactorBasico
      */
-    FactorBasico findById(String id);
+    Optional<FactorBasico> findById(String id);
 
     /**
      * Guarda o actualiza un FactorBasico
@@ -78,15 +81,17 @@ public interface FactorBasicoService {
      * @param id
      */
     void deleteAll();
-    
+
     /**
      * Buscar FactorBasico con el correspondiente al query.
      *
-     *  @param query El query de la busqueda
-     *  
-     *  @param pageable la información de paginación
-     *  @return Page de todas las entidades
+     * @param query
+     *            El query de la busqueda
+     * 
+     * @param pageable
+     *            la información de paginación
+     * @return Page de todas las entidades
      */
     Page<FactorBasico> search(String query, Pageable pageable);
-    
+
 }

@@ -22,43 +22,45 @@
  * SOFTWARE.
  */
 package mx.infotec.dads.costos.service;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import mx.infotec.dads.costos.domain.Proveedor;
+import mx.infotec.dads.costos.domain.EquipoComputo;
 
 /**
- * ProveedorService
+ * EquipoComputoService
  * 
  * @author kukulkan
  * @kukulkanGenerated 20181109143229
  */
-public interface ProveedorService {
+public interface EquipoComputoService {
 
     /**
-     * regresa una lista con todos los elementos Proveedor
+     * regresa una lista con todos los elementos EquipoComputo
      * 
-     * @return Page<Proveedor>
+     * @return Page<EquipoComputo>
      */
-    Page<Proveedor> findAll(Pageable pageable);
+    Page<EquipoComputo> findAll(Pageable pageable);
 
     /**
-     * Consulta un Proveedor por su llave primaria
+     * Consulta un EquipoComputo por su llave primaria
      * 
      * @param id
-     * @return Proveedor
+     * @return EquipoComputo
      */
-    Proveedor findById(String id);
+    Optional<EquipoComputo> findById(String id);
 
     /**
-     * Guarda o actualiza un Proveedor
+     * Guarda o actualiza un EquipoComputo
      * 
-     * @param proveedor
+     * @param equipoComputo
      * @return boolean
      */
-    Proveedor save(Proveedor proveedor);
+    EquipoComputo save(EquipoComputo equipoComputo);
 
     /**
-     * Regresa true o false si existe un Proveedor almacenado
+     * Regresa true o false si existe un EquipoComputo almacenado
      * 
      * @param id
      * @return boolean
@@ -66,27 +68,27 @@ public interface ProveedorService {
     boolean exists(String id);
 
     /**
-     * Borrar un Proveedor por su llave primaria
+     * Borrar un EquipoComputo por su llave primaria
      * 
      * @param id
      */
     void delete(String id);
 
     /**
-     * Borrar todos los elementos Proveedor almacenados
+     * Borrar todos los elementos EquipoComputo almacenados
      * 
      * @param id
      */
     void deleteAll();
     
     /**
-     * Buscar Proveedor con el correspondiente al query.
+     * Buscar EquipoComputo con el correspondiente al query.
      *
      *  @param query El query de la busqueda
      *  
      *  @param pageable la información de paginación
      *  @return Page de todas las entidades
      */
-    Page<Proveedor> search(String query, Pageable pageable);
+    Page<EquipoComputo> search(String query, Pageable pageable);
     
 }

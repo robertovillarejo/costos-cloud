@@ -23,12 +23,13 @@
  */
 package mx.infotec.dads.costos.web.rest;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-import com.codahale.metrics.annotation.Timed;
-import io.swagger.annotations.ApiParam;
-import io.github.jhipster.web.util.ResponseUtil;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +48,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import mx.infotec.dads.costos.web.rest.util.HeaderUtil;
-import mx.infotec.dads.costos.web.rest.util.PaginationUtil;
+import com.codahale.metrics.annotation.Timed;
 
+import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 import mx.infotec.dads.costos.domain.PartidaConcepto;
 import mx.infotec.dads.costos.service.PartidaConceptoService;
+import mx.infotec.dads.costos.web.rest.util.HeaderUtil;
+import mx.infotec.dads.costos.web.rest.util.PaginationUtil;
 
 /**
  * 
@@ -97,8 +98,8 @@ public class PartidaConceptoResource {
     @Timed
     public ResponseEntity<PartidaConcepto> getPartidaConcepto(@PathVariable String id) {
         log.debug("REST request to get PartidaConcepto : {}", id);
-        PartidaConcepto partidaConcepto = service.findById(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(partidaConcepto));
+        Optional<PartidaConcepto> partidaConcepto = service.findById(id);
+        return ResponseUtil.wrapOrNotFound(partidaConcepto);
     }
 
     /**

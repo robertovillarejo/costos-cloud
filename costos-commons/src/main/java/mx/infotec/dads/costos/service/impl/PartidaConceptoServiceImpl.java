@@ -29,67 +29,70 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.infotec.dads.costos.domain.EquipoComputo;
-import mx.infotec.dads.costos.repository.EquipoComputoRepository;
-import mx.infotec.dads.costos.service.EquipoComputoService;
+import mx.infotec.dads.costos.domain.PartidaConcepto;
+import mx.infotec.dads.costos.repository.PartidaConceptoRepository;
+import mx.infotec.dads.costos.service.PartidaConceptoService;
 
 /**
- * EquipoComputoServiceImpl
+ * PartidaConceptoServiceImpl
  * 
  * @author kukulkan
  * @kukulkanGenerated 20181109143229
  */
 @Service
 @Transactional
-public class EquipoComputoServiceImpl implements EquipoComputoService {
+public class PartidaConceptoServiceImpl implements PartidaConceptoService {
 
-    private final Logger log = LoggerFactory.getLogger(EquipoComputoServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(PartidaConceptoServiceImpl.class);
 
     @Autowired
-    private EquipoComputoRepository repository;
+    private PartidaConceptoRepository repository;
 
     @Override
     @Transactional(readOnly = true)
-    public Page<EquipoComputo> findAll(Pageable pageable) {
-        log.debug("Request to get all EquipoComputo");
+    public Page<PartidaConcepto> findAll(Pageable pageable) {
+        log.debug("Request to get all PartidaConcepto");
         return repository.findAll(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public EquipoComputo findById(String id) {
-        log.debug("Request to get EquipoComputo : {}", id);
-        return repository.findOne(id);
+    public Optional<PartidaConcepto> findById(String id) {
+        log.debug("Request to get PartidaConcepto : {}", id);
+        return repository.findById(id);
     }
 
     @Override
-    public EquipoComputo save(EquipoComputo equipoComputo) {
-        return repository.save(equipoComputo);
+    public PartidaConcepto save(PartidaConcepto partidaConcepto) {
+        return repository.save(partidaConcepto);
     }
 
     @Override
     public boolean exists(String id) {
-        return repository.exists(id);
+        return repository.existsById(id);
     }
 
     @Override
     public void delete(String id) {
-        log.debug("Request to delete EquipoComputo : {}", id);
-        repository.delete(id);
+        log.debug("Request to delete PartidaConcepto : {}", id);
+        repository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        log.debug("Request to delete All EquipoComputo");
+        log.debug("Request to delete All PartidaConcepto");
         repository.deleteAll();
     }
     
     @Override
     @Transactional(readOnly = true)
-    public Page<EquipoComputo> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of EquipoComputo");
+    public Page<PartidaConcepto> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of PartidaConcepto");
         return repository.findAll(pageable);
     }
 }

@@ -29,67 +29,70 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.infotec.dads.costos.domain.FactorBasico;
-import mx.infotec.dads.costos.repository.FactorBasicoRepository;
-import mx.infotec.dads.costos.service.FactorBasicoService;
+import mx.infotec.dads.costos.domain.EquipoComputo;
+import mx.infotec.dads.costos.repository.EquipoComputoRepository;
+import mx.infotec.dads.costos.service.EquipoComputoService;
 
 /**
- * FactorBasicoServiceImpl
+ * EquipoComputoServiceImpl
  * 
  * @author kukulkan
  * @kukulkanGenerated 20181109143229
  */
 @Service
 @Transactional
-public class FactorBasicoServiceImpl implements FactorBasicoService {
+public class EquipoComputoServiceImpl implements EquipoComputoService {
 
-    private final Logger log = LoggerFactory.getLogger(FactorBasicoServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(EquipoComputoServiceImpl.class);
 
     @Autowired
-    private FactorBasicoRepository repository;
+    private EquipoComputoRepository repository;
 
     @Override
     @Transactional(readOnly = true)
-    public Page<FactorBasico> findAll(Pageable pageable) {
-        log.debug("Request to get all FactorBasico");
+    public Page<EquipoComputo> findAll(Pageable pageable) {
+        log.debug("Request to get all EquipoComputo");
         return repository.findAll(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public FactorBasico findById(String id) {
-        log.debug("Request to get FactorBasico : {}", id);
-        return repository.findOne(id);
+    public Optional<EquipoComputo> findById(String id) {
+        log.debug("Request to get EquipoComputo : {}", id);
+        return repository.findById(id);
     }
 
     @Override
-    public FactorBasico save(FactorBasico factorBasico) {
-        return repository.save(factorBasico);
+    public EquipoComputo save(EquipoComputo equipoComputo) {
+        return repository.save(equipoComputo);
     }
 
     @Override
     public boolean exists(String id) {
-        return repository.exists(id);
+        return repository.existsById(id);
     }
 
     @Override
     public void delete(String id) {
-        log.debug("Request to delete FactorBasico : {}", id);
-        repository.delete(id);
+        log.debug("Request to delete EquipoComputo : {}", id);
+        repository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        log.debug("Request to delete All FactorBasico");
+        log.debug("Request to delete All EquipoComputo");
         repository.deleteAll();
     }
-    
+
     @Override
     @Transactional(readOnly = true)
-    public Page<FactorBasico> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of FactorBasico");
+    public Page<EquipoComputo> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of EquipoComputo");
         return repository.findAll(pageable);
     }
 }

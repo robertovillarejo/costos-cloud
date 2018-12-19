@@ -66,17 +66,19 @@ import mx.infotec.dads.costos.service.ProveedorService;
 public class ProveedorResource {
 
     private static final Logger log = LoggerFactory.getLogger(ProveedorResource.class);
-    
+
     private static final String ENTITY_NAME = "proveedor";
 
     @Autowired
     private ProveedorService service;
-    
+
     /**
-     * GET  /proveedores : recupera todos los proveedores.
+     * GET /proveedores : recupera todos los proveedores.
      *
-     * @param pageable información de paginación
-     * @return El objeto ResponseEntity con estado de 200 (OK) y la lista de proveedores en el cuerpo del mensaje
+     * @param pageable
+     *            información de paginación
+     * @return El objeto ResponseEntity con estado de 200 (OK) y la lista de
+     *         proveedores en el cuerpo del mensaje
      */
     @GetMapping("/proveedores")
     @Timed
@@ -88,66 +90,77 @@ public class ProveedorResource {
     }
 
     /**
-     * GET  /proveedores/:id : recupera por "id" de Proveedor.
+     * GET /proveedores/:id : recupera por "id" de Proveedor.
      *
-     * @param id el id del Proveedor que se desea recuperar
-     * @return El objeto ResponseEntity con el estado de 200 (OK) y dentro del cuerpo del mensaje el Proveedor, o con estado de 404 (Not Found)
+     * @param id
+     *            el id del Proveedor que se desea recuperar
+     * @return El objeto ResponseEntity con el estado de 200 (OK) y dentro del
+     *         cuerpo del mensaje el Proveedor, o con estado de 404 (Not Found)
      */
     @GetMapping("/proveedores/{id}")
     @Timed
     public ResponseEntity<Proveedor> getProveedor(@PathVariable String id) {
         log.debug("REST request to get Proveedor : {}", id);
-        Proveedor proveedor = service.findById(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(proveedor));
+        Optional<Proveedor> proveedor = service.findById(id);
+        return ResponseUtil.wrapOrNotFound(proveedor);
     }
 
     /**
-     * POST  /proveedores : Create a new usuario.
+     * POST /proveedores : Create a new usuario.
      *
-     * @param proveedor el proveedor que se desea crear
-     * @return El objeto ResponseEntity con estado 201 (Created) y en el cuerpo un nuevo proveedor, o con estado 400 (Bad Request) si el usuario ya tiene un ID
-     * @throws URISyntaxException Si la sintaxis de la URI no es correcta
+     * @param proveedor
+     *            el proveedor que se desea crear
+     * @return El objeto ResponseEntity con estado 201 (Created) y en el cuerpo un
+     *         nuevo proveedor, o con estado 400 (Bad Request) si el usuario ya
+     *         tiene un ID
+     * @throws URISyntaxException
+     *             Si la sintaxis de la URI no es correcta
      */
     @PostMapping("/proveedores")
     @Timed
-    public ResponseEntity<Proveedor> createProveedor(@Valid @RequestBody Proveedor proveedor) throws URISyntaxException {
+    public ResponseEntity<Proveedor> createProveedor(@Valid @RequestBody Proveedor proveedor)
+            throws URISyntaxException {
         log.debug("REST request to save Proveedor : {}", proveedor);
         if (proveedor.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new proveedor cannot already have an ID")).body(null);
+            return ResponseEntity.badRequest().headers(
+                    HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new proveedor cannot already have an ID"))
+                    .body(null);
         }
         Proveedor result = service.save(proveedor);
         return ResponseEntity.created(new URI("/api/proveedores/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
     }
-    
+
     /**
-     * PUT  /proveedores : Actualiza un Proveedor existente.
+     * PUT /proveedores : Actualiza un Proveedor existente.
      *
-     * @param proveedor el proveedor que se desea actualizar
-     * @return el objeto ResponseEntity con estado de 200 (OK) y en el cuerpo de la respuesta el Proveedor actualizado,
-     * o con estatus de 400 (Bad Request) si el proveedor no es valido,
-     * o con estatus de 500 (Internal Server Error) si el proveedor no se puede actualizar
-     * @throws URISyntaxException si la sintaxis de la URI no es correcta
+     * @param proveedor
+     *            el proveedor que se desea actualizar
+     * @return el objeto ResponseEntity con estado de 200 (OK) y en el cuerpo de la
+     *         respuesta el Proveedor actualizado, o con estatus de 400 (Bad
+     *         Request) si el proveedor no es valido, o con estatus de 500 (Internal
+     *         Server Error) si el proveedor no se puede actualizar
+     * @throws URISyntaxException
+     *             si la sintaxis de la URI no es correcta
      */
     @PutMapping("/proveedores")
     @Timed
-    public ResponseEntity<Proveedor> updateProveedor(@Valid @RequestBody Proveedor proveedor) throws URISyntaxException {
+    public ResponseEntity<Proveedor> updateProveedor(@Valid @RequestBody Proveedor proveedor)
+            throws URISyntaxException {
         log.debug("REST request to update Proveedor : {}", proveedor);
         if (proveedor.getId() == null) {
             return createProveedor(proveedor);
         }
         Proveedor result = service.save(proveedor);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, proveedor.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, proveedor.getId().toString())).body(result);
     }
 
-
     /**
-     * DELETE  /proveedores/:id : borrar el Proveedor con "id".
+     * DELETE /proveedores/:id : borrar el Proveedor con "id".
      *
-     * @param id el id del Proveedor que se desea borrar
+     * @param id
+     *            el id del Proveedor que se desea borrar
      * @return el objeto ResponseEntity con estatus 200 (OK)
      */
     @DeleteMapping("/proveedores/{id}")
@@ -159,11 +172,13 @@ public class ProveedorResource {
     }
 
     /**
-     * SEARCH  /_search/proveedores?query=:query : buscar por el proveedor correspondiente
-     * to the query.
+     * SEARCH /_search/proveedores?query=:query : buscar por el proveedor
+     * correspondiente to the query.
      *
-     * @param query el query para el proveedor que se desea buscar
-     * @param pageable información de la paginación
+     * @param query
+     *            el query para el proveedor que se desea buscar
+     * @param pageable
+     *            información de la paginación
      * @return el resultado de la busqueda
      */
     @GetMapping("/_search/proveedores")
@@ -171,9 +186,9 @@ public class ProveedorResource {
     public ResponseEntity<List<Proveedor>> searchProveedor(@RequestParam String query, @ApiParam Pageable pageable) {
         log.debug("REST request to search for a page of Proveedor for query {}", query);
         Page<Proveedor> page = service.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/proveedores");
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page,
+                "/api/_search/proveedores");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-    
-    
+
 }

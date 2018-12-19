@@ -97,8 +97,8 @@ public class FactorBasicoResource {
     @Timed
     public ResponseEntity<FactorBasico> getFactorBasico(@PathVariable String id) {
         log.debug("REST request to get FactorBasico : {}", id);
-        FactorBasico factorBasico = service.findById(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(factorBasico));
+        Optional<FactorBasico> factorBasico = service.findById(id);
+        return ResponseUtil.wrapOrNotFound(factorBasico);
     }
 
     /**

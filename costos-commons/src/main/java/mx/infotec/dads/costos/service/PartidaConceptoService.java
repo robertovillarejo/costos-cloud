@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 package mx.infotec.dads.costos.service;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import mx.infotec.dads.costos.domain.PartidaConcepto;
@@ -47,7 +49,7 @@ public interface PartidaConceptoService {
      * @param id
      * @return PartidaConcepto
      */
-    PartidaConcepto findById(String id);
+    Optional<PartidaConcepto> findById(String id);
 
     /**
      * Guarda o actualiza un PartidaConcepto

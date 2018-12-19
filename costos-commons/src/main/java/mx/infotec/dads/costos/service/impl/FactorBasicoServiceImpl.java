@@ -29,67 +29,70 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.infotec.dads.costos.domain.Proveedor;
-import mx.infotec.dads.costos.repository.ProveedorRepository;
-import mx.infotec.dads.costos.service.ProveedorService;
+import mx.infotec.dads.costos.domain.FactorBasico;
+import mx.infotec.dads.costos.repository.FactorBasicoRepository;
+import mx.infotec.dads.costos.service.FactorBasicoService;
 
 /**
- * ProveedorServiceImpl
+ * FactorBasicoServiceImpl
  * 
  * @author kukulkan
  * @kukulkanGenerated 20181109143229
  */
 @Service
 @Transactional
-public class ProveedorServiceImpl implements ProveedorService {
+public class FactorBasicoServiceImpl implements FactorBasicoService {
 
-    private final Logger log = LoggerFactory.getLogger(ProveedorServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(FactorBasicoServiceImpl.class);
 
     @Autowired
-    private ProveedorRepository repository;
+    private FactorBasicoRepository repository;
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Proveedor> findAll(Pageable pageable) {
-        log.debug("Request to get all Proveedor");
+    public Page<FactorBasico> findAll(Pageable pageable) {
+        log.debug("Request to get all FactorBasico");
         return repository.findAll(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Proveedor findById(String id) {
-        log.debug("Request to get Proveedor : {}", id);
-        return repository.findOne(id);
+    public Optional<FactorBasico> findById(String id) {
+        log.debug("Request to get FactorBasico : {}", id);
+        return repository.findById(id);
     }
 
     @Override
-    public Proveedor save(Proveedor proveedor) {
-        return repository.save(proveedor);
+    public FactorBasico save(FactorBasico factorBasico) {
+        return repository.save(factorBasico);
     }
 
     @Override
     public boolean exists(String id) {
-        return repository.exists(id);
+        return repository.existsById(id);
     }
 
     @Override
     public void delete(String id) {
-        log.debug("Request to delete Proveedor : {}", id);
-        repository.delete(id);
+        log.debug("Request to delete FactorBasico : {}", id);
+        repository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        log.debug("Request to delete All Proveedor");
+        log.debug("Request to delete All FactorBasico");
         repository.deleteAll();
     }
-    
+
     @Override
     @Transactional(readOnly = true)
-    public Page<Proveedor> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Proveedor");
+    public Page<FactorBasico> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of FactorBasico");
         return repository.findAll(pageable);
     }
 }

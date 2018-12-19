@@ -29,67 +29,71 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mx.infotec.dads.costos.domain.PartidaConcepto;
-import mx.infotec.dads.costos.repository.PartidaConceptoRepository;
-import mx.infotec.dads.costos.service.PartidaConceptoService;
+
+import mx.infotec.dads.costos.domain.Proveedor;
+import mx.infotec.dads.costos.repository.ProveedorRepository;
+import mx.infotec.dads.costos.service.ProveedorService;
 
 /**
- * PartidaConceptoServiceImpl
+ * ProveedorServiceImpl
  * 
  * @author kukulkan
  * @kukulkanGenerated 20181109143229
  */
 @Service
 @Transactional
-public class PartidaConceptoServiceImpl implements PartidaConceptoService {
+public class ProveedorServiceImpl implements ProveedorService {
 
-    private final Logger log = LoggerFactory.getLogger(PartidaConceptoServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(ProveedorServiceImpl.class);
 
     @Autowired
-    private PartidaConceptoRepository repository;
+    private ProveedorRepository repository;
 
     @Override
     @Transactional(readOnly = true)
-    public Page<PartidaConcepto> findAll(Pageable pageable) {
-        log.debug("Request to get all PartidaConcepto");
+    public Page<Proveedor> findAll(Pageable pageable) {
+        log.debug("Request to get all Proveedor");
         return repository.findAll(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public PartidaConcepto findById(String id) {
-        log.debug("Request to get PartidaConcepto : {}", id);
-        return repository.findOne(id);
+    public Optional<Proveedor> findById(String id) {
+        log.debug("Request to get Proveedor : {}", id);
+        return repository.findById(id);
     }
 
     @Override
-    public PartidaConcepto save(PartidaConcepto partidaConcepto) {
-        return repository.save(partidaConcepto);
+    public Proveedor save(Proveedor proveedor) {
+        return repository.save(proveedor);
     }
 
     @Override
     public boolean exists(String id) {
-        return repository.exists(id);
+        return repository.existsById(id);
     }
 
     @Override
     public void delete(String id) {
-        log.debug("Request to delete PartidaConcepto : {}", id);
-        repository.delete(id);
+        log.debug("Request to delete Proveedor : {}", id);
+        repository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        log.debug("Request to delete All PartidaConcepto");
+        log.debug("Request to delete All Proveedor");
         repository.deleteAll();
     }
     
     @Override
     @Transactional(readOnly = true)
-    public Page<PartidaConcepto> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of PartidaConcepto");
+    public Page<Proveedor> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Proveedor");
         return repository.findAll(pageable);
     }
 }
