@@ -1,7 +1,7 @@
 /*
  *  
  * The MIT License (MIT)
- * Copyright (c) 2018 kukulkan
+ * Copyright (c) 2018 Roberto Villarejo Martínez
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,22 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.costos.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+package org.springframework.cloud.task.app.rules.batch.context;
 
-import mx.infotec.dads.costos.domain.Proveedor;
+import mx.infotec.dads.costos.domain.dataframe.DfItemDt;
+import mx.infotec.dads.costos.service.ProveedorService;
 
-/**
- * ProveedorRepository
- * 
- * @author kukulkan
- * @kukulkanGenerated 20181109143229
- */
-public interface ProveedorRepository extends MongoRepository<Proveedor, String> {
+public class DtCostoContext extends CostoContext {
 
-    @Query("{ 'nombre': ?0 }")
-    public Proveedor findByNombre(String nombre);
+    private DfItemDt dfItemDt;
+
+    public DtCostoContext(DfItemDt dfItemDt, ProveedorService proveedorService) {
+        this.dfItemDt = dfItemDt;
+        this.proveedorService = proveedorService;
+    }
+
+    public DfItemDt getItem() {
+        return dfItemDt;
+    }
+
+    // public Proveedor getProveedor() {
+    // proveedorService.findByNombre(dfItemDt.ge);
+    // }
 
 }

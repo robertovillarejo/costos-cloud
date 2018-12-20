@@ -25,24 +25,16 @@
 package org.springframework.cloud.task.app.rules.batch.context;
 
 import mx.infotec.dads.costos.domain.Costo;
-import mx.infotec.dads.costos.domain.DataFrameItem;
+import mx.infotec.dads.costos.service.ProveedorService;
 
-public class CostoContext {
+public abstract class CostoContext {
 
     protected Costo costo = new Costo();
 
-    private DataFrameItem dfItem;
-
-    public CostoContext(DataFrameItem dfItem) {
-        this.dfItem = dfItem;
-    }
+    protected ProveedorService proveedorService;
 
     public Costo getCosto() {
         return costo;
-    }
-
-    public DataFrameItem getItem() {
-        return dfItem;
     }
 
 }

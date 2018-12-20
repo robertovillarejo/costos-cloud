@@ -1,7 +1,7 @@
 /*
  *  
  * The MIT License (MIT)
- * Copyright (c) 2018 kukulkan
+ * Copyright (c) 2018 Roberto Villarejo Martínez
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,22 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.costos.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+package org.springframework.cloud.task.app.rules.batch.context;
+
+import java.util.Optional;
+
+import org.springframework.data.domain.Example;
 
 import mx.infotec.dads.costos.domain.Proveedor;
+import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
+import mx.infotec.dads.costos.service.ProveedorService;
 
-/**
- * ProveedorRepository
- * 
- * @author kukulkan
- * @kukulkanGenerated 20181109143229
- */
-public interface ProveedorRepository extends MongoRepository<Proveedor, String> {
+public class RhCostoContext extends CostoContext {
 
-    @Query("{ 'nombre': ?0 }")
-    public Proveedor findByNombre(String nombre);
+    private DfItemRh dfItem;
+
+    public RhCostoContext(DfItemRh dfItem, ProveedorService proveedorService) {
+        this.dfItem = dfItem;
+        this.proveedorService = proveedorService;
+    }
+
+    public DfItemRh getItem() {
+        return this.dfItem;
+    }
+
+    public Proveedor getProveedor() {
+        Proveedor exampleProveedor = new Proveedor();
+        exampleProveedor.setNombre(dfItem.getProveedor());
+        exampleProveedor.setMes(dfItem.getMes());
+        exampleProveedor.setAnio(dfItem.getAnio());
+        Optional<Proveedor> proveedor = proveedorService.findByExample(Example.of(exampleProveedor));
+        if (proveedor.isPresent())
+            return proveedor.get();
+        return null;
+    }
 
 }

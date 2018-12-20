@@ -28,7 +28,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -104,7 +103,12 @@ public class Costo implements Serializable {
     @SheetColumn(title = "numeroFactura")
     protected String numeroFactura;
 
-    @DBRef
+    @SheetColumn(title = "observacion")
+    protected String observacion;
+
+    @SheetColumn(title = "fechaObservacion")
+    protected String fechaObservacion;
+
     protected DataFrameItem dataFrameItem;
 
     public String getId() {
@@ -241,6 +245,22 @@ public class Costo implements Serializable {
 
     public void setNumeroFactura(String numeroFactura) {
         this.numeroFactura = numeroFactura;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
+    public String getFechaObservacion() {
+        return fechaObservacion;
+    }
+
+    public void setFechaObservacion(String fechaObservacion) {
+        this.fechaObservacion = fechaObservacion;
     }
 
     public DataFrameItem getDataFrameItem() {

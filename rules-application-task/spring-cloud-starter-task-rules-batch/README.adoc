@@ -9,6 +9,7 @@ A batch job task that executes 2 jobs each job prints out the job name and a tim
 The **$$timestamp$$** $$task$$ has the following options:
 
 //tag::configuration-properties[]
+$$rules.chunk-size$$:: $$The chunk size for the excel parsing job$$ *($$Integer$$, default: `$$10$$`)*
 //end::configuration-properties[]
 
 == Building with Maven

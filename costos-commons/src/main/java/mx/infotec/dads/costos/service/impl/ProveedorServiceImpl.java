@@ -24,6 +24,7 @@
 package mx.infotec.dads.costos.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -89,11 +90,17 @@ public class ProveedorServiceImpl implements ProveedorService {
         log.debug("Request to delete All Proveedor");
         repository.deleteAll();
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public Page<Proveedor> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Proveedor");
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public Optional<Proveedor> findByExample(Example<Proveedor> proveedorExample) {
+        Optional<Proveedor> maybeProveedor = repository.findOne(proveedorExample);
+        return maybeProveedor;
     }
 }
