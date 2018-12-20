@@ -49,10 +49,10 @@ public class SigaifParser implements ExcelRowParser<DataFrameItem> {
      * separados por coma).
      */
     private final SortedMap<Integer, String> supportedSchema = ExcelRowMapParser.parsePositionBasedSchema(
-            "Póliza,Proceso,Evento,Devengado,Beneficiario,Entidad Federativa,Área,Proyecto,Especialidad,Proy. Específico,Partida,Fecha de transacción,Núm. De documento fuente,Fecha de documento,Descripción,Importe");
+            "Partida,Subtipo_costo,Area,Año,Mes1,Mes2 Mes3,Mes4,Mes5,Mes6,Mes7,Mes8,Mes9,Mes10,Mes11,Mes12");
 
     private ExcelRowMapParser parser = new ExcelRowMapParser(ExcelRowMapParser.getMappingSchema(supportedSchema,
-            ExcelRowMapParser.parseMappingSchema("Importe,monto:Área,area:Beneficiario,proveedor")));
+            ExcelRowMapParser.parseMappingSchema("Partida,partida:Subtipo_costo,subtipoCosto:Area,area:Año,anio:")));
 
     private ObjectMapper mapper = new ObjectMapper();
 

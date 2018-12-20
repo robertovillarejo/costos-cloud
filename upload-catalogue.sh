@@ -1,4 +1,4 @@
-curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NzgzNDc1OH0.xGmVwITIreI-A4GSG2QvG6NCmhRH7eW0R_XW0RL1-hU7U8Arws0HgRHFTIU2SqLk3620RTLptctEpdJHJiyWuw' -d '[ \ 
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NzgzOTM0OX0.wRdwe6C3aM2Zj-SwQHkhFMHBMwcvbikqQk8Q-kGJxq7HCIgzdo_KmQ_morbL2KzEonn9LUyf1ZdPN3kr8QW_Xg' -d '[ \ 
    { \ 
      "nombre": "EQUIPO DE COMPUTO A", \ 
      "sede": null, \ 
@@ -79,7 +79,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --
  ]' 'http://localhost:8081/api/factorBasico-list'
 
 
- curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NzgzNDc1OH0.xGmVwITIreI-A4GSG2QvG6NCmhRH7eW0R_XW0RL1-hU7U8Arws0HgRHFTIU2SqLk3620RTLptctEpdJHJiyWuw' -d '[ \ 
+ curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NzgzOTM0OX0.wRdwe6C3aM2Zj-SwQHkhFMHBMwcvbikqQk8Q-kGJxq7HCIgzdo_KmQ_morbL2KzEonn9LUyf1ZdPN3kr8QW_Xg' -d '[ \ 
    { \ 
      "claveServicio": 70, \ 
      "nombre": "PSP0949", \ 
@@ -322,7 +322,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --
    } \ 
  ]' 'http://localhost:8081/api/proveedores-list'
 
- curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NzgzNDc1OH0.xGmVwITIreI-A4GSG2QvG6NCmhRH7eW0R_XW0RL1-hU7U8Arws0HgRHFTIU2SqLk3620RTLptctEpdJHJiyWuw' -d '[ \ 
+ curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NzgzOTM0OX0.wRdwe6C3aM2Zj-SwQHkhFMHBMwcvbikqQk8Q-kGJxq7HCIgzdo_KmQ_morbL2KzEonn9LUyf1ZdPN3kr8QW_Xg' -d '[ \ 
    { \ 
      "tipoCosto": "RH", \ 
      "subtipoCosto": "HONORARIOS", \ 
@@ -388,7 +388,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --
    } \ 
  ]' 'http://localhost:8081/api/partidaConcepto-list'
 
- curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NzgzNDc1OH0.xGmVwITIreI-A4GSG2QvG6NCmhRH7eW0R_XW0RL1-hU7U8Arws0HgRHFTIU2SqLk3620RTLptctEpdJHJiyWuw' -d '[ \ 
+ curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0NzgzOTM0OX0.wRdwe6C3aM2Zj-SwQHkhFMHBMwcvbikqQk8Q-kGJxq7HCIgzdo_KmQ_morbL2KzEonn9LUyf1ZdPN3kr8QW_Xg' -d '[ \ 
    { \ 
      "tipoComputadora": "B", \ 
      "proveedor": "PSP0949" \ 

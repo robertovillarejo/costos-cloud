@@ -24,25 +24,69 @@
 
 package org.springframework.cloud.task.app.rules.batch.context;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import mx.infotec.dads.costos.domain.Costo;
 import mx.infotec.dads.costos.domain.DataFrameItem;
+import mx.infotec.dads.costos.domain.PartidaConcepto;
+import mx.infotec.dads.costos.domain.Proveedor;
+import mx.infotec.dads.costos.domain.dataframe.DfItemDt;
+import mx.infotec.dads.costos.service.FactorBasicoService;
+import mx.infotec.dads.costos.service.PartidaConceptoService;
+import mx.infotec.dads.costos.service.ProveedorService;
 
 public class CostoContext {
 
-    protected Costo costo = new Costo();
+	protected Costo costo = new Costo();
 
-    private DataFrameItem dfItem;
+	private DataFrameItem dfItem;
+	
+	@Autowired
+	private ProveedorService proveedor;
+	
+	@Autowired
+	private PartidaConceptoService partidaConcepto;
+	
+	@Autowired
+	private FactorBasicoService factores;
 
-    public CostoContext(DataFrameItem dfItem) {
-        this.dfItem = dfItem;
-    }
+	public CostoContext(DataFrameItem dfItem) {
+		this.dfItem = dfItem;
+	}
 
-    public Costo getCosto() {
-        return costo;
-    }
+	/*public ProveedorService getProveedor() {
+		DfItemDt dt = (DfItemDt) dfItem;
+		Optional<Proveedor> pc = proveedor.findOneBySubPartida(dt.getSubPartida());
+		if (pc.isPresent()) {
+			return pc.get();
+		} else {
+			return null;
+		}
+		return proveedor;
+	}*/
 
-    public DataFrameItem getItem() {
-        return dfItem;
-    }
+	public PartidaConcepto getPartidaConcepto() {
+		DfItemDt dt = (DfItemDt) dfItem;
+		Optional<PartidaConcepto> pc = partidaConcepto.findOneBySubPartida(dt.getSubPartida());
+		if (pc.isPresent()) {
+			return pc.get();
+		} else {
+			return null;
+		}
+	}
+
+	public FactorBasicoService getFactores() {
+		return factores;
+	}
+
+	public Costo getCosto() {
+		return costo;
+	}
+
+	public DataFrameItem getItem() {
+		return dfItem;
+	}
 
 }

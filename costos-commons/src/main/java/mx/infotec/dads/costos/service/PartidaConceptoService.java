@@ -99,6 +99,6 @@ public interface PartidaConceptoService {
      * @param subPartida
      * @return
      */
-    Optional<PartidaConcepto> findOneBySubPartida(String subPartida);
+    //Optional<PartidaConcepto> findOneBySubPartida(String subPartida);
 
 }

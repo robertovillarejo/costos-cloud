@@ -96,9 +96,9 @@ public class PartidaConceptoServiceImpl implements PartidaConceptoService {
         return repository.findAll(pageable);
     }
 
-    @Override
+    /*@Override
     public Optional<PartidaConcepto> findOneBySubPartida(String subPartida) {
         log.debug("Request to find a PartidaConcepto by subPartida: {}", subPartida);
-        return repository.findOneBySubPartida(subPartida);
-    }
+        return repository.findBySubPartida(subPartida);
+    }*/
 }

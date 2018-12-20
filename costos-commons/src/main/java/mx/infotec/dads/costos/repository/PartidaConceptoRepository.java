@@ -37,6 +37,6 @@ import mx.infotec.dads.costos.domain.PartidaConcepto;
  */
 public interface PartidaConceptoRepository extends MongoRepository<PartidaConcepto, String> {
     
-    public Optional<PartidaConcepto> findOneBySubPartida(String subPartida);
+    //public Optional<PartidaConcepto> findBySubPartida(String subPartida);
 
 }

@@ -85,8 +85,11 @@ public class Costo implements Serializable {
 
     @SheetColumn(title = "tipoCosto")
     protected String tipoCosto;
+    
+    @SheetColumn(title = "subTipoCosto")
+    protected String subTipoCosto;
 
-    @SheetColumn(title = "partida")
+	@SheetColumn(title = "partida")
     protected String partida;
 
     @SheetColumn(title = "proveedor")
@@ -195,6 +198,14 @@ public class Costo implements Serializable {
         this.tipoCosto = tipoCosto;
     }
 
+    public String getSubTipoCosto() {
+		return subTipoCosto;
+	}
+
+	public void setSubTipoCosto(String subTipoCosto) {
+		this.subTipoCosto = subTipoCosto;
+	}
+	
     public String getPartida() {
         return partida;
     }
@@ -251,13 +262,14 @@ public class Costo implements Serializable {
         this.dataFrameItem = dfItem;
     }
 
-    @Override
-    public String toString() {
-        return "Costo [id=" + id + ", monto=" + monto + ", porcentaje=" + porcentaje + ", anio=" + anio + ", mes=" + mes
-                + ", fechaRegistro=" + fechaRegistro + ", area=" + area + ", proyectoOperativo=" + proyectoOperativo
-                + ", proyectoPresupuestal=" + proyectoPresupuestal + ", servicio=" + servicio + ", tipoCosto="
-                + tipoCosto + ", partida=" + partida + ", proveedor=" + proveedor + ", user=" + user + ", subpartida="
-                + subpartida + ", subSubPartida=" + subSubPartida + ", numeroFactura=" + numeroFactura + "]";
-    }
+	@Override
+	public String toString() {
+		return "Costo [id=" + id + ", monto=" + monto + ", porcentaje=" + porcentaje + ", anio=" + anio + ", mes=" + mes
+				+ ", fechaRegistro=" + fechaRegistro + ", area=" + area + ", proyectoOperativo=" + proyectoOperativo
+				+ ", proyectoPresupuestal=" + proyectoPresupuestal + ", servicio=" + servicio + ", tipoCosto="
+				+ tipoCosto + ", subTipoCosto=" + subTipoCosto + ", partida=" + partida + ", proveedor=" + proveedor
+				+ ", user=" + user + ", subpartida=" + subpartida + ", subSubPartida=" + subSubPartida
+				+ ", numeroFactura=" + numeroFactura + ", dataFrameItem=" + dataFrameItem + "]";
+	}    
 
 }
