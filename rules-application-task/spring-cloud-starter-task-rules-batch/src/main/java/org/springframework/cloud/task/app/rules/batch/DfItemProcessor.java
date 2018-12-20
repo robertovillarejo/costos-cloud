@@ -24,6 +24,8 @@
 
 package org.springframework.cloud.task.app.rules.batch;
 
+import static mx.infotec.dads.costos.service.mapper.RuleMapper.mapToRulesList;
+
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -76,7 +78,7 @@ public class DfItemProcessor implements ItemProcessor<DataFrameItem, Costo>, Ste
         String dataFrameType = dfItem.getDataFrame().getDataFrameType().getName();
         Optional<DataFrameType> maybeDfType = dfTypeRepo.findOneByName(dataFrameType);
         if (maybeDfType.isPresent()) {
-            RulesApplier rulesApplier = new DefaultRulesApplier(RuleMapper.mapToRulesList(maybeDfType.get().getRules()),
+            RulesApplier rulesApplier = new DefaultRulesApplier(mapToRulesList(maybeDfType.get().getRules()),
                     new SpelExpressionParser());
             rulesApplier.apply(new StandardEvaluationContext(context));
         } else {

@@ -22,12 +22,36 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.repository;
+package mx.infotec.dads.costos.service.mapper;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import mx.infotec.dads.costos.domain.RulePersistable;
+import mx.infotec.dads.costos.service.dto.ActionDto;
+import mx.infotec.dads.costos.service.dto.RuleDto;
+import mx.infotec.dads.kukulkan.rules.Action;
+import mx.infotec.dads.kukulkan.rules.Rule;
 
-public interface RuleRepository extends MongoRepository<RulePersistable, String> {
+public class RuleMapper {
+
+    private RuleMapper() {
+    }
+
+    public static Rule mapToRule(RuleDto rulePersistable) {
+        return new Rule(rulePersistable.getName(), rulePersistable.getCondition(),
+                mapToActionList(rulePersistable.getActions()), rulePersistable.getOrder());
+    }
+
+    public static Action mapToAction(ActionDto actionPersistable) {
+        return new Action(actionPersistable.getActionExpression(), actionPersistable.getOrder());
+    }
+
+    public static List<Rule> mapToRulesList(List<RuleDto> rulesPersistable) {
+        return rulesPersistable.stream().map(RuleMapper::mapToRule).collect(Collectors.toList());
+    }
+
+    public static List<Action> mapToActionList(List<ActionDto> actionsPersistable) {
+        return actionsPersistable.stream().map(RuleMapper::mapToAction).collect(Collectors.toList());
+    }
 
 }

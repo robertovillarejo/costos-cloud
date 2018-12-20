@@ -30,8 +30,9 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import mx.infotec.dads.costos.service.dto.RuleDto;
 
 @Document("dataFrameTypes")
 public class DataFrameType implements Serializable {
@@ -47,8 +48,7 @@ public class DataFrameType implements Serializable {
     @NotNull
     private String name;
 
-    @DBRef
-    private List<RulePersistable> rules;
+    private List<RuleDto> rules;
 
     public String getId() {
         return id;
@@ -66,11 +66,11 @@ public class DataFrameType implements Serializable {
         this.name = name;
     }
 
-    public List<RulePersistable> getRules() {
+    public List<RuleDto> getRules() {
         return rules;
     }
 
-    public void setRules(List<RulePersistable> rules) {
+    public void setRules(List<RuleDto> rules) {
         this.rules = rules;
     }
 
