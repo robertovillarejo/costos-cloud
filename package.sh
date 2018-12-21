@@ -14,13 +14,6 @@ cd ..
 
 echo '
 ********************************
-EMPAQUETANDO COSTOS PROCESSOR...
-********************************'
-cd costos-processor && mvn clean package
-cd ..
-
-echo '
-********************************
 GENERANDO PARSER BATCH TASK...
 ********************************'
 cd excel-parser-task && mvn clean install -PgenerateApps -DskipTests

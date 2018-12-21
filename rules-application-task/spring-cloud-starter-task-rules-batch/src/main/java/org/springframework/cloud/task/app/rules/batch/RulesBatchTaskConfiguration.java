@@ -37,6 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
@@ -53,6 +54,7 @@ import mx.infotec.dads.costos.domain.DataFrameItem;
 @Configuration
 @EnableConfigurationProperties({ RulesBatchTaskProperties.class })
 @EnableMongoRepositories(basePackages = { "mx.infotec.dads.costos" })
+@ComponentScan(basePackages = "mx.infotec.dads.costos")
 public class RulesBatchTaskConfiguration {
 
     @Autowired

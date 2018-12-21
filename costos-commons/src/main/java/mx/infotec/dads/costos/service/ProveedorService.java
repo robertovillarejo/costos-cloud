@@ -22,10 +22,13 @@
  * SOFTWARE.
  */
 package mx.infotec.dads.costos.service;
+
 import java.util.Optional;
 
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import mx.infotec.dads.costos.domain.Proveedor;
 
 /**
@@ -50,6 +53,13 @@ public interface ProveedorService {
      * @return Proveedor
      */
     Optional<Proveedor> findById(String id);
+
+    /**
+     * 
+     * @param nombre
+     * @return
+     */
+    Optional<Proveedor> findByExample(Example<Proveedor> proveedorExample);
 
     /**
      * Guarda o actualiza un Proveedor
@@ -80,15 +90,17 @@ public interface ProveedorService {
      * @param id
      */
     void deleteAll();
-    
+
     /**
      * Buscar Proveedor con el correspondiente al query.
      *
-     *  @param query El query de la busqueda
-     *  
-     *  @param pageable la información de paginación
-     *  @return Page de todas las entidades
+     * @param query
+     *            El query de la busqueda
+     * 
+     * @param pageable
+     *            la información de paginación
+     * @return Page de todas las entidades
      */
     Page<Proveedor> search(String query, Pageable pageable);
-    
+
 }

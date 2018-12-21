@@ -23,19 +23,14 @@
  */
 package mx.infotec.dads.costos.domain;
 
+import java.io.Serializable;
+import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
-import javax.validation.constraints.*;
-
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.Date;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.util.Objects;
 /**
  * The PartidaConcepto
  * 
@@ -101,7 +96,7 @@ public class PartidaConcepto implements Serializable {
      * @kukulkanGenerated 20181109143229
      */
     @Field("subSubPartida")
-    private String subSubPartida;
+    private String subSubpartida;
 	
     /**
      * Este constructor fue generado automáticamente por kukulkan
@@ -235,8 +230,8 @@ public class PartidaConcepto implements Serializable {
      *
      * @kukulkanGenerated 20181109143229
      */
-    public String getSubSubPartida() {
-        return subSubPartida;
+    public String getSubSubpartida() {
+        return subSubpartida;
     }
 
     /**
@@ -247,8 +242,8 @@ public class PartidaConcepto implements Serializable {
      *
      * @kukulkanGenerated 20181109143229
      */
-    public void setSubSubPartida(String subSubPartida) {
-        this.subSubPartida = subSubPartida;
+    public void setSubSubpartida(String subSubPartida) {
+        this.subSubpartida = subSubPartida;
     }
 
     @Override
@@ -288,7 +283,7 @@ public class PartidaConcepto implements Serializable {
         sb.append(", subtipoCosto=").append(subtipoCosto);
         sb.append(", partida=").append(partida);
         sb.append(", subPartida=").append(subPartida);
-        sb.append(", subSubPartida=").append(subSubPartida);
+        sb.append(", subSubPartida=").append(subSubpartida);
         sb.append("]");
         return sb.toString();
     }

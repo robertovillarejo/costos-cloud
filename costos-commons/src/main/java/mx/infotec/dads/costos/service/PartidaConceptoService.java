@@ -25,6 +25,7 @@ package mx.infotec.dads.costos.service;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import mx.infotec.dads.costos.domain.PartidaConcepto;
@@ -100,5 +101,12 @@ public interface PartidaConceptoService {
      * @return
      */
     //Optional<PartidaConcepto> findOneBySubPartida(String subPartida);
+
+    /**
+     * 
+     * @param partidaConceptoExample
+     * @return
+     */
+    Optional<PartidaConcepto> findByExample(Example<PartidaConcepto> partidaConceptoExample);
 
 }

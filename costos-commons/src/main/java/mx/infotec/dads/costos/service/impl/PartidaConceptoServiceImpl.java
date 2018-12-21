@@ -24,6 +24,7 @@
 package mx.infotec.dads.costos.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -96,9 +97,8 @@ public class PartidaConceptoServiceImpl implements PartidaConceptoService {
         return repository.findAll(pageable);
     }
 
-    /*@Override
-    public Optional<PartidaConcepto> findOneBySubPartida(String subPartida) {
-        log.debug("Request to find a PartidaConcepto by subPartida: {}", subPartida);
-        return repository.findBySubPartida(subPartida);
-    }*/
+    @Override
+    public Optional<PartidaConcepto> findByExample(Example<PartidaConcepto> partidaConceptoExample) {
+        return repository.findOne(partidaConceptoExample);
+    }
 }

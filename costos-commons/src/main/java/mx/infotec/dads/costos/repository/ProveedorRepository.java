@@ -22,8 +22,9 @@
  * SOFTWARE.
  */
 package mx.infotec.dads.costos.repository;
-import org.springframework.data.mongodb.repository.MongoRepository;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import mx.infotec.dads.costos.domain.Proveedor;
 
@@ -34,5 +35,8 @@ import mx.infotec.dads.costos.domain.Proveedor;
  * @kukulkanGenerated 20181109143229
  */
 public interface ProveedorRepository extends MongoRepository<Proveedor, String> {
+
+    @Query("{ 'nombre': ?0 }")
+    public Proveedor findByNombre(String nombre);
 
 }

@@ -28,7 +28,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -85,11 +84,11 @@ public class Costo implements Serializable {
 
     @SheetColumn(title = "tipoCosto")
     protected String tipoCosto;
-    
-    @SheetColumn(title = "subTipoCosto")
-    protected String subTipoCosto;
 
-	@SheetColumn(title = "partida")
+    @SheetColumn(title = "subtipoCosto")
+    protected String subtipoCosto;
+
+    @SheetColumn(title = "partida")
     protected String partida;
 
     @SheetColumn(title = "proveedor")
@@ -101,13 +100,18 @@ public class Costo implements Serializable {
     @SheetColumn(title = "subpartida")
     protected String subpartida;
 
-    @SheetColumn(title = "subSubPartida")
-    protected String subSubPartida;
+    @SheetColumn(title = "subSubpartida")
+    protected String subSubpartida;
 
     @SheetColumn(title = "numeroFactura")
     protected String numeroFactura;
 
-    @DBRef
+    @SheetColumn(title = "observacion")
+    protected String observacion;
+
+    @SheetColumn(title = "fechaObservacion")
+    protected String fechaObservacion;
+
     protected DataFrameItem dataFrameItem;
 
     public String getId() {
@@ -198,14 +202,14 @@ public class Costo implements Serializable {
         this.tipoCosto = tipoCosto;
     }
 
-    public String getSubTipoCosto() {
-		return subTipoCosto;
-	}
+    public String getSubtipoCosto() {
+        return subtipoCosto;
+    }
 
-	public void setSubTipoCosto(String subTipoCosto) {
-		this.subTipoCosto = subTipoCosto;
-	}
-	
+    public void setSubtipoCosto(String subTipoCosto) {
+        this.subtipoCosto = subTipoCosto;
+    }
+
     public String getPartida() {
         return partida;
     }
@@ -238,12 +242,12 @@ public class Costo implements Serializable {
         this.subpartida = subpartida;
     }
 
-    public String getSubSubPartida() {
-        return subSubPartida;
+    public String getSubSubpartida() {
+        return subSubpartida;
     }
 
-    public void setSubSubPartida(String subSubPartida) {
-        this.subSubPartida = subSubPartida;
+    public void setSubSubpartida(String subSubPartida) {
+        this.subSubpartida = subSubPartida;
     }
 
     public String getNumeroFactura() {
@@ -254,6 +258,22 @@ public class Costo implements Serializable {
         this.numeroFactura = numeroFactura;
     }
 
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
+    public String getFechaObservacion() {
+        return fechaObservacion;
+    }
+
+    public void setFechaObservacion(String fechaObservacion) {
+        this.fechaObservacion = fechaObservacion;
+    }
+
     public DataFrameItem getDataFrameItem() {
         return dataFrameItem;
     }
@@ -262,14 +282,13 @@ public class Costo implements Serializable {
         this.dataFrameItem = dfItem;
     }
 
-	@Override
-	public String toString() {
-		return "Costo [id=" + id + ", monto=" + monto + ", porcentaje=" + porcentaje + ", anio=" + anio + ", mes=" + mes
-				+ ", fechaRegistro=" + fechaRegistro + ", area=" + area + ", proyectoOperativo=" + proyectoOperativo
-				+ ", proyectoPresupuestal=" + proyectoPresupuestal + ", servicio=" + servicio + ", tipoCosto="
-				+ tipoCosto + ", subTipoCosto=" + subTipoCosto + ", partida=" + partida + ", proveedor=" + proveedor
-				+ ", user=" + user + ", subpartida=" + subpartida + ", subSubPartida=" + subSubPartida
-				+ ", numeroFactura=" + numeroFactura + ", dataFrameItem=" + dataFrameItem + "]";
-	}    
+    @Override
+    public String toString() {
+        return "Costo [id=" + id + ", monto=" + monto + ", porcentaje=" + porcentaje + ", anio=" + anio + ", mes=" + mes
+                + ", fechaRegistro=" + fechaRegistro + ", area=" + area + ", proyectoOperativo=" + proyectoOperativo
+                + ", proyectoPresupuestal=" + proyectoPresupuestal + ", servicio=" + servicio + ", tipoCosto="
+                + tipoCosto + ", partida=" + partida + ", proveedor=" + proveedor + ", user=" + user + ", subpartida="
+                + subpartida + ", subSubPartida=" + subSubpartida + ", numeroFactura=" + numeroFactura + "]";
+    }
 
 }

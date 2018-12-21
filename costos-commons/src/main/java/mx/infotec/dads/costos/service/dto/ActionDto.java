@@ -22,45 +22,27 @@
  * SOFTWARE.
  */
 
-package mx.infotec.dads.costos.domain;
+package mx.infotec.dads.costos.service.dto;
 
 import java.io.Serializable;
-import java.util.List;
 
-import org.springframework.data.annotation.Id;
-
-public class RulePersistable implements Serializable {
+public class ActionDto implements Serializable {
 
     /**
      * 
      */
-    private static final long serialVersionUID = -2609771106555979294L;
+    private static final long serialVersionUID = -6495528465598975236L;
 
-    @Id
-    private String id;
-
-    private String name;
+    private String actionExpression;
 
     private int order;
 
-    private String condition;
-
-    private List<ActionPersistable> actions;
-
-    public String getId() {
-        return id;
+    public String getActionExpression() {
+        return actionExpression;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setActionExpression(String actionExpression) {
+        this.actionExpression = actionExpression;
     }
 
     public int getOrder() {
@@ -69,22 +51,6 @@ public class RulePersistable implements Serializable {
 
     public void setOrder(int order) {
         this.order = order;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
-    public List<ActionPersistable> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<ActionPersistable> actions) {
-        this.actions = actions;
     }
 
 }

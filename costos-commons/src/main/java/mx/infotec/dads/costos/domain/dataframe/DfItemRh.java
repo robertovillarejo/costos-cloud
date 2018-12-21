@@ -34,55 +34,64 @@ import mx.infotec.dads.costos.domain.DataFrameItem;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DfItemRh extends DataFrameItem {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4276184845100479553L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4276184845100479553L;
 
-	protected String proveedor;
-	protected String subConcepto;
-	protected int mes;
-	protected int anio;
-	protected float monto;
+    private String proveedor;
+    private String subConcepto;
+    private int mes;
+    private int anio;
+    private float monto;
+    private String subtipoCosto;
 
-	public String getProveedor() {
-		return proveedor;
-	}
+    public String getProveedor() {
+        return proveedor;
+    }
 
-	public void setProveedor(String proveedor) {
-		this.proveedor = proveedor;
-	}
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
 
-	public String getSubConcepto() {
-		return subConcepto;
-	}
+    public String getSubConcepto() {
+        return subConcepto;
+    }
 
-	public void setSubConcepto(String subConcepto) {
-		this.subConcepto = subConcepto;
-	}
+    public void setSubConcepto(String subConcepto) {
+        this.subConcepto = subConcepto;
+    }
 
-	public int getMes() {
-		return mes;
-	}
+    public int getMes() {
+        return mes;
+    }
 
-	public void setMes(int mes) {
-		this.mes = mes;
-	}
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
 
-	public int getAnio() {
-		return anio;
-	}
+    public int getAnio() {
+        return anio;
+    }
 
-	public void setAnio(int anio) {
-		this.anio = anio;
-	}
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
 
-	public float getMonto() {
-		return monto;
-	}
+    public float getMonto() {
+        return monto;
+    }
 
-	public void setMonto(float monto) {
-		this.monto = monto;
-	}
+    public void setMonto(float monto) {
+        this.monto = monto;
+    }
+
+    public String getSubtipoCosto() {
+        return subtipoCosto;
+    }
+
+    public void setSubtipoCosto(String subtipoCosto) {
+        this.subtipoCosto = subtipoCosto;
+    }
 
 }

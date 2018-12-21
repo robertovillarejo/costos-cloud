@@ -22,36 +22,56 @@
  * SOFTWARE.
  */
 
-package org.springframework.cloud.task.app.rules.batch;
+package mx.infotec.dads.costos.service.dto;
 
+import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import mx.infotec.dads.costos.domain.ActionPersistable;
-import mx.infotec.dads.costos.domain.RulePersistable;
-import mx.infotec.dads.kukulkan.rules.Action;
-import mx.infotec.dads.kukulkan.rules.Rule;
+public class RuleDto implements Serializable {
 
-public class RuleMapper {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3733883987015092520L;
 
-    private RuleMapper() {
+    private String name;
+
+    private int order;
+
+    private String condition;
+
+    private List<ActionDto> actions;
+
+    public String getName() {
+        return name;
     }
 
-    public static Rule mapToRule(RulePersistable rulePersistable) {
-        return new Rule(rulePersistable.getName(), rulePersistable.getCondition(),
-                mapToActionList(rulePersistable.getActions()), rulePersistable.getOrder());
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public static Action mapToAction(ActionPersistable actionPersistable) {
-        return new Action(actionPersistable.getActionExpression(), actionPersistable.getOrder());
+    public int getOrder() {
+        return order;
     }
 
-    public static List<Rule> mapToRulesList(List<RulePersistable> rulesPersistable) {
-        return rulesPersistable.stream().map(RuleMapper::mapToRule).collect(Collectors.toList());
+    public void setOrder(int order) {
+        this.order = order;
     }
 
-    public static List<Action> mapToActionList(List<ActionPersistable> actionsPersistable) {
-        return actionsPersistable.stream().map(RuleMapper::mapToAction).collect(Collectors.toList());
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public List<ActionDto> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<ActionDto> actions) {
+        this.actions = actions;
     }
 
 }

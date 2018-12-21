@@ -24,6 +24,8 @@
 
 package org.springframework.cloud.task.app.rules.batch;
 
+import static mx.infotec.dads.costos.service.mapper.RuleMapper.mapToRulesList;
+
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -34,14 +36,22 @@ import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.task.app.rules.batch.context.CostoContext;
+import org.springframework.cloud.task.app.rules.batch.context.DtCostoContext;
+import org.springframework.cloud.task.app.rules.batch.context.RhCostoContext;
+import org.springframework.cloud.task.app.rules.batch.context.SigaifCostoContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import mx.infotec.dads.costos.domain.Costo;
 import mx.infotec.dads.costos.domain.DataFrameItem;
 import mx.infotec.dads.costos.domain.DataFrameType;
+import mx.infotec.dads.costos.domain.dataframe.DfItemDt;
+import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
+import mx.infotec.dads.costos.domain.dataframe.DfItemSigaif;
 import mx.infotec.dads.costos.repository.DataFrameTypeRepository;
 import mx.infotec.dads.costos.repository.DfItemRepository;
+import mx.infotec.dads.costos.service.PartidaConceptoService;
+import mx.infotec.dads.costos.service.ProveedorService;
 import mx.infotec.dads.kukulkan.rules.DefaultRulesApplier;
 import mx.infotec.dads.kukulkan.rules.RulesApplier;
 
@@ -55,6 +65,12 @@ public class DfItemProcessor implements ItemProcessor<DataFrameItem, Costo>, Ste
     @Autowired
     private DataFrameTypeRepository dfTypeRepo;
 
+    @Autowired
+    private ProveedorService proveedorService;
+
+    @Autowired
+    private PartidaConceptoService partidaConceptoService;
+
     @Override
     public void beforeStep(StepExecution stepExecution) {
     }
@@ -62,19 +78,18 @@ public class DfItemProcessor implements ItemProcessor<DataFrameItem, Costo>, Ste
     @Override
     public Costo process(DataFrameItem dfItem) throws Exception {
         logger.info("Processing dfItem: {}", dfItem);
-        DataFrameItem dataFrameItem = dfItem;
-        CostoContext context = new CostoContext(dfItem);
+        CostoContext context = buildContext(dfItem);
         String dataFrameType = dfItem.getDataFrame().getDataFrameType().getName();
         Optional<DataFrameType> maybeDfType = dfTypeRepo.findOneByName(dataFrameType);
         if (maybeDfType.isPresent()) {
-            RulesApplier rulesApplier = new DefaultRulesApplier(RuleMapper.mapToRulesList(maybeDfType.get().getRules()),
+            RulesApplier rulesApplier = new DefaultRulesApplier(mapToRulesList(maybeDfType.get().getRules()),
                     new SpelExpressionParser());
             rulesApplier.apply(new StandardEvaluationContext(context));
         } else {
             logger.debug("No rules to apply for data frame type {}", dataFrameType);
         }
-        dataFrameItem.setProcessed(true);
-        dfItemRepo.save(dataFrameItem);
+        dfItem.setProcessed(true);
+        dfItemRepo.save(dfItem);
         Costo costo = context.getCosto();
         costo.setDataFrameItem(dfItem);
         return costo;
@@ -83,6 +98,17 @@ public class DfItemProcessor implements ItemProcessor<DataFrameItem, Costo>, Ste
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         return ExitStatus.COMPLETED;
+    }
+
+    public CostoContext buildContext(DataFrameItem dfItem) {
+        if (dfItem instanceof DfItemRh) {
+            return new RhCostoContext((DfItemRh) dfItem, proveedorService, partidaConceptoService);
+        } else if (dfItem instanceof DfItemSigaif) {
+            return new SigaifCostoContext((DfItemSigaif) dfItem, proveedorService, partidaConceptoService);
+        } else if (dfItem instanceof DfItemDt) {
+            return new DtCostoContext((DfItemDt) dfItem, proveedorService, partidaConceptoService);
+        }
+        return null;
     }
 
 }

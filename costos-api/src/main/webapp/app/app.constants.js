@@ -5,6 +5,6 @@
         .module('costosapiApp')
         .constant('VERSION', "0.0.1-SNAPSHOT")
         .constant('DEBUG_INFO_ENABLED', false)
-        .constant('BUILD_TIMESTAMP', 1545258251265)
+        .constant('BUILD_TIMESTAMP', 1545417408185)
 ;
 })();
