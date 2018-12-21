@@ -26,6 +26,7 @@ package org.springframework.cloud.task.app.rules.batch.context;
 
 import java.util.Optional;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 
 import mx.infotec.dads.costos.domain.PartidaConcepto;
@@ -34,26 +35,36 @@ import mx.infotec.dads.costos.domain.dataframe.DfItemDt;
 import mx.infotec.dads.costos.service.PartidaConceptoService;
 import mx.infotec.dads.costos.service.ProveedorService;
 
+/**
+ * @author Roberto Villarejo Martínez
+ *
+ */
 public class DtCostoContext extends CostoContext {
 
-    private DfItemDt dtItem;
-
-    private PartidaConceptoService partidaConceptoService;
+    private DfItemDt dt;
 
     public DtCostoContext(DfItemDt dfItemDt, ProveedorService proveedorService,
             PartidaConceptoService partidaConceptoService) {
-        this.dtItem = dfItemDt;
+        this.dt = dfItemDt;
         this.proveedorService = proveedorService;
         this.partidaConceptoService = partidaConceptoService;
     }
 
     public DfItemDt getItem() {
-        return dtItem;
+        return dt;
     }
 
+    /**
+     * Recupera el proveedor a partir de la relación:
+     * dt.partidaConcepto.subtipoCosto == proveedor.subtipoCosto
+     * 
+     * @return el proveedor
+     */
+    @Cacheable
     public Proveedor getProveedor() {
+        PartidaConcepto partidaConcepto = getPartidaConcepto();
         Proveedor proveedorExample = new Proveedor();
-        proveedorExample.setSubtipoCosto(costo.getSubtipoCosto());
+        proveedorExample.setSubtipoCosto(partidaConcepto.getSubtipoCosto());
         Optional<Proveedor> maybeProveedor = proveedorService.findByExample(Example.of(proveedorExample));
         if (maybeProveedor.isPresent()) {
             return maybeProveedor.get();
@@ -61,9 +72,16 @@ public class DtCostoContext extends CostoContext {
         return null;
     }
 
+    /**
+     * Recupera la partidaConcepto a partir de la relación: dt.partida ==
+     * partidaConcepto.partida
+     * 
+     * @return la partidaConcepto
+     */
+    @Cacheable
     public PartidaConcepto getPartidaConcepto() {
         PartidaConcepto partidaConceptoExample = new PartidaConcepto();
-        partidaConceptoExample.setPartida(dtItem.getPartida());
+        partidaConceptoExample.setPartida(dt.getPartida());
         Optional<PartidaConcepto> maybePc = partidaConceptoService.findByExample(Example.of(partidaConceptoExample));
         if (maybePc.isPresent()) {
             return maybePc.get();

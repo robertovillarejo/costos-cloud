@@ -102,9 +102,9 @@ public class DfItemProcessor implements ItemProcessor<DataFrameItem, Costo>, Ste
 
     public CostoContext buildContext(DataFrameItem dfItem) {
         if (dfItem instanceof DfItemRh) {
-            return new RhCostoContext((DfItemRh) dfItem, proveedorService);
+            return new RhCostoContext((DfItemRh) dfItem, proveedorService, partidaConceptoService);
         } else if (dfItem instanceof DfItemSigaif) {
-            return new SigaifCostoContext((DfItemSigaif) dfItem, proveedorService);
+            return new SigaifCostoContext((DfItemSigaif) dfItem, proveedorService, partidaConceptoService);
         } else if (dfItem instanceof DfItemDt) {
             return new DtCostoContext((DfItemDt) dfItem, proveedorService, partidaConceptoService);
         }

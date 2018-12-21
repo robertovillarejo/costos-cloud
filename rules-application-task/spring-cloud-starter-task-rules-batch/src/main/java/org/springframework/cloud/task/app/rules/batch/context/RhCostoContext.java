@@ -26,33 +26,68 @@ package org.springframework.cloud.task.app.rules.batch.context;
 
 import java.util.Optional;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 
+import mx.infotec.dads.costos.domain.PartidaConcepto;
 import mx.infotec.dads.costos.domain.Proveedor;
 import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
+import mx.infotec.dads.costos.service.PartidaConceptoService;
 import mx.infotec.dads.costos.service.ProveedorService;
 
+/**
+ * @author Roberto Villarejo Martínez
+ *
+ */
 public class RhCostoContext extends CostoContext {
 
-    private DfItemRh rhItem;
+    private DfItemRh rh;
 
-    public RhCostoContext(DfItemRh dfItem, ProveedorService proveedorService) {
-        this.rhItem = dfItem;
+    public RhCostoContext(DfItemRh dfItem, ProveedorService proveedorService,
+            PartidaConceptoService partidaConceptoService) {
+        this.rh = dfItem;
         this.proveedorService = proveedorService;
+        this.partidaConceptoService = partidaConceptoService;
     }
 
     public DfItemRh getItem() {
-        return this.rhItem;
+        return this.rh;
     }
 
+    /**
+     * Recupera el proveedor a partir de la relación: rh.proveedor ==
+     * proveedor.nombre && rh.mes == proveedor.mes && rh.anio == proveedor.anio &&
+     * rh.subtipoCosto == proveedor.subtipoCosto
+     * 
+     * @return el proveedor
+     */
+    @Cacheable
     public Proveedor getProveedor() {
         Proveedor exampleProveedor = new Proveedor();
-        exampleProveedor.setNombre(rhItem.getProveedor());
-        exampleProveedor.setMes(rhItem.getMes());
-        exampleProveedor.setAnio(rhItem.getAnio());
+        exampleProveedor.setNombre(rh.getProveedor());
+        exampleProveedor.setMes(rh.getMes());
+        exampleProveedor.setAnio(rh.getAnio());
+        exampleProveedor.setSubtipoCosto(rh.getSubtipoCosto());
         Optional<Proveedor> proveedor = proveedorService.findByExample(Example.of(exampleProveedor));
         if (proveedor.isPresent())
             return proveedor.get();
+        return null;
+    }
+
+    /**
+     * Recupera la partidaConcepto a partir de la relación: rh.subtipoCosto ==
+     * partidaConcepto.subtipoCosto
+     * 
+     * @return la partidaConcepto
+     */
+    @Cacheable
+    public PartidaConcepto getPartidaConcepto() {
+        PartidaConcepto example = new PartidaConcepto();
+        example.setSubtipoCosto(rh.getSubtipoCosto());
+        Optional<PartidaConcepto> maybePartidaConcepto = partidaConceptoService.findByExample(Example.of(example));
+        if (maybePartidaConcepto.isPresent()) {
+            return maybePartidaConcepto.get();
+        }
         return null;
     }
 

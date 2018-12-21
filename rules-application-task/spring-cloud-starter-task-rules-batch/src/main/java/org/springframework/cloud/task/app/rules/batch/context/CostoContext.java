@@ -25,14 +25,27 @@
 package org.springframework.cloud.task.app.rules.batch.context;
 
 import mx.infotec.dads.costos.domain.Costo;
+import mx.infotec.dads.costos.service.PartidaConceptoService;
 import mx.infotec.dads.costos.service.ProveedorService;
 
+/**
+ * 
+ * @author Roberto Villarejo Martínez
+ *
+ */
 public abstract class CostoContext {
 
     protected Costo costo = new Costo();
 
     protected ProveedorService proveedorService;
 
+    protected PartidaConceptoService partidaConceptoService;
+
+    /**
+     * Retorna el costo modificado durante la aplicación de las reglas SpEL
+     * 
+     * @return el nuevo costo
+     */
     public Costo getCosto() {
         return costo;
     }

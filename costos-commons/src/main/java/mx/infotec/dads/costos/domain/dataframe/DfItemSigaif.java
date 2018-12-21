@@ -39,9 +39,11 @@ public class DfItemSigaif extends DataFrameItem {
      */
     private static final long serialVersionUID = 5068991723463595030L;
 
-    protected String numeroFactura;
+    private String numeroFactura;
 
-    protected String servicio;
+    private String servicio;
+
+    private String subtipoCosto;
 
     public String getNumeroFactura() {
         return numeroFactura;
@@ -57,6 +59,14 @@ public class DfItemSigaif extends DataFrameItem {
 
     public void setServicio(String servicio) {
         this.servicio = servicio;
+    }
+
+    public String getSubtipoCosto() {
+        return subtipoCosto;
+    }
+
+    public void setSubtipoCosto(String subtipoCosto) {
+        this.subtipoCosto = subtipoCosto;
     }
 
     @Override

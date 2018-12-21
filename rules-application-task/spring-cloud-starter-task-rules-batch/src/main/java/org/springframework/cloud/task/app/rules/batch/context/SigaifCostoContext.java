@@ -24,20 +24,68 @@
 
 package org.springframework.cloud.task.app.rules.batch.context;
 
+import java.util.Optional;
+
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Example;
+
+import mx.infotec.dads.costos.domain.PartidaConcepto;
+import mx.infotec.dads.costos.domain.Proveedor;
 import mx.infotec.dads.costos.domain.dataframe.DfItemSigaif;
+import mx.infotec.dads.costos.service.PartidaConceptoService;
 import mx.infotec.dads.costos.service.ProveedorService;
 
+/**
+ * @author Roberto Villarejo Martínez
+ *
+ */
 public class SigaifCostoContext extends CostoContext {
 
-    private DfItemSigaif dfItem;
+    private DfItemSigaif sigaif;
 
-    public SigaifCostoContext(DfItemSigaif dfItem, ProveedorService proveedorService) {
-        this.dfItem = dfItem;
+    public SigaifCostoContext(DfItemSigaif dfItem, ProveedorService proveedorService,
+            PartidaConceptoService partidaConceptoService) {
+        this.sigaif = dfItem;
         this.proveedorService = proveedorService;
+        this.partidaConceptoService = partidaConceptoService;
     }
 
     public DfItemSigaif getItem() {
-        return dfItem;
+        return sigaif;
+    }
+
+    /**
+     * Recupera el proveedor a partir de la relación: sigaif.subtipoCosto ==
+     * proveedor.subtipoCosto
+     * 
+     * @return el proveedor
+     */
+    @Cacheable
+    public Proveedor getProveedor() {
+        Proveedor example = new Proveedor();
+        example.setSubtipoCosto(sigaif.getSubtipoCosto());
+        Optional<Proveedor> maybeProveedor = proveedorService.findByExample(Example.of(example));
+        if (maybeProveedor.isPresent()) {
+            return maybeProveedor.get();
+        }
+        return null;
+    }
+
+    /**
+     * Recupera la partidaConcepto a partir de la relación: sigaif.partida ==
+     * partidaConcepto.partida
+     * 
+     * @return la partidaConcepto
+     */
+    @Cacheable
+    public PartidaConcepto getPartidaConcepto() {
+        PartidaConcepto example = new PartidaConcepto();
+        example.setSubtipoCosto(sigaif.getSubtipoCosto());
+        Optional<PartidaConcepto> maybePartidaConcepto = partidaConceptoService.findByExample(Example.of(example));
+        if (maybePartidaConcepto.isPresent()) {
+            return maybePartidaConcepto.get();
+        }
+        return null;
     }
 
 }

@@ -39,11 +39,12 @@ public class DfItemRh extends DataFrameItem {
      */
     private static final long serialVersionUID = -4276184845100479553L;
 
-    protected String proveedor;
-    protected String subConcepto;
-    protected int mes;
-    protected int anio;
-    protected float monto;
+    private String proveedor;
+    private String subConcepto;
+    private int mes;
+    private int anio;
+    private float monto;
+    private String subtipoCosto;
 
     public String getProveedor() {
         return proveedor;
@@ -83,6 +84,14 @@ public class DfItemRh extends DataFrameItem {
 
     public void setMonto(float monto) {
         this.monto = monto;
+    }
+
+    public String getSubtipoCosto() {
+        return subtipoCosto;
+    }
+
+    public void setSubtipoCosto(String subtipoCosto) {
+        this.subtipoCosto = subtipoCosto;
     }
 
 }
