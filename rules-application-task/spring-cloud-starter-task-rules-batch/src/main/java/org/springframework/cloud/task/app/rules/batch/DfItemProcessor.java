@@ -89,7 +89,8 @@ public class DfItemProcessor implements ItemProcessor<DataFrameItem, Costo>, Ste
             logger.debug("No rules to apply for data frame type {}", dataFrameType);
         }
         dfItem.setProcessed(true);
-        dfItemRepo.save(dfItem);
+        //Descomente la siguiente línea si desea persistir las modificaciones que el DataFrameItem sufre durante la aplicación de las reglas.        
+        //dfItemRepo.save(dfItem);
         Costo costo = context.getCosto();
         costo.setDataFrameItem(dfItem);
         return costo;

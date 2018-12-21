@@ -1,17 +1,15 @@
 # Costos Cloud
 
-## Diagrama de contexto
-Como se muestra en el diagrama de contexto, éste es un proyecto que interactúa con la aplicación CostosApp y es el macro-componente responsable de procesar _data frames_ a objetos de dominio y aplicarles reglas de transformación.
-
-![Diagrama de contexto](img/contexto.png)
+## Contexto
+Éste es un proyecto que interactúa con la aplicación CostosApp y es el macro-componente responsable de procesar _data frames_ a objetos de dominio y aplicarles reglas de transformación.
 
 Este componente se compone de tres sub-componentes:
 - **Costos Cloud API**: es la interfaz que se proporciona a la aplicación de CostosApp para interactuar con **Costos Cloud** (este proyecto): 
     - Carga de _Data Frames_ (archivos Excel)
-    - Creación de reglas de transformación
-    - Consulta de costos (resultado)
-- **Excel Parser**: es el encargado de _parsear_ los _Data Frames_ cargados y persistirlos como objetos 'Costo'.
-- **Costo Processor**: se encarga de aplicar reglas de transformación, previamente cargados en la BD, en el contexto de 'Costo'. 
+    - Creación de _DataFrameType_ y sus reglas de transformación
+    - Consulta de costos
+- **Excel Parser**: es el encargado de _parsear_ los _DataFrame_ cargados y transformar cada fila a objectos _DataFrameItem_.
+- **Rules Applier**: se encarga de aplicar reglas de transformación.
 
 ## Diagrama de secuencia
 A continuación se muestra el diagrama de secuencia para un DataFrame de 'Costo'.
@@ -20,30 +18,26 @@ A continuación se muestra el diagrama de secuencia para un DataFrame de 'Costo'
 
 ## Descripción de los componentes
 En este repositorio se encuentran los siguientes proyectos:  
-- **Rules**: es una librería para la definición de reglas definidas con SpEL
-- **Costos Commons**: son clases comunes a usar en Costos API, Excel Parser Task y Costos Processor; en general son clases POJO y Repository.
-- **Costos API**: es la interfaz REST que utilizará la aplicación de Costos para interactuar con la aplicación _Costos Cloud_. Proporciona _endpoints_ para administrar las reglas, subir archivos de DataFrame y consultar los costos procesados.
-- **Excel Parser Task**: es una aplicación de Spring Batch que se ejecuta como una tarea programada en el servidor de Spring Cloud Data Flow.
-- **Costos Processor**: es una aplicación _Stream_ de tipo _Processor_ que se encarga de aplicar las reglas definidas para un costo.
-
-La **Excel Parser Task** consulta cada minuto el archivo de Excel más antiguo sin procesar, lo _parsea_ e inserta los costos en la colección `costos` en la BD de Mongo.
-
-Una vez insertados, el **costos-stream** se encargar de procesarlos y persistirlos.
+- **Kukulkán Rules**: es una librería para la definición y aplicación de reglas escritas en SpEL
+- **Costos Commons**: son clases comunes a usar en Costos API, Excel Parser Task y Rules Application Task: clases de dominio, repositorios y servicios.
+- **Costos API**: es la interfaz REST que utilizará la aplicación de Costos para interactuar con la aplicación _Costos Cloud_. Proporciona _endpoints_ para administrar los _DataFrameType_, subir _DataFrame_ y consultar los costos procesados.
+- **Excel Parser Task**: es una aplicación de Spring Batch que se encarga de parsear cada una de las filas de los _DataFrame_ y persistirlos como _DataFrameItem_.
+- **Rules Application Task**: es una aplicación de Spring Batch que se encarga aplicar reglas a cada uno de los _DataFrameItem_ según la fuente de la que provienen.
 
 ### Costos API
 **Endpoints**:  
 - **Carga de DataFrame**: `api/dataFrame`  
-- **Carga de Regla**: `api/rules`  
+- **Administración de DataFrameType (y sus reglas)**: `api/dataFrameType`
 - **Consulta de costos**: `api/costos`  
 
 ### Excel Parser
-La manera en que el componente _Excel Parser_ decide cuál parser usar para transformar una fila de Workbook de Excel a una objeto 'Costo' es comparando la fila de _headers_ del _Data Frame_ contra los _ExcelRowParser_ registrados.
+La manera en que el _Excel Parser_ decide cuál parser usar para transformar una fila de Workbook de Excel a un objeto _DataFrameItem_ es comparando la fila de _headers_ del _Data Frame_ contra el esquema soportado de cada uno de los parsers (_ExcelRowParser_) registrados.
 
-Para añadir un nuevo _parser_ para una nueva fuente de datos, implemente la interfaz `ExcelRowParser`.
+Para añadir un nuevo _parser_ para una nueva fuente de datos, implemente la interfaz `ExcelRowParser`. Por ejemplo, 
 
 ```java
 @Component
-public class AnotherParser implements ExcelRowParser<Costo> {
+public class AnotherParser implements ExcelRowParser<DataFrameItem> {
 
     private final Logger logger = LoggerFactory.getLogger(AnotherParser.class);
 
@@ -72,10 +66,10 @@ public class AnotherParser implements ExcelRowParser<Costo> {
     }
 
     @Override
-    public Costo parse(Row row) {
+    public DataFrameItem parse(Row row) {
         logger.debug("Parsing row...");
         Map<String, String> map = parser.map(row);
-        return mapper.convertValue(map, Costo.class);
+        return mapper.convertValue(map, AnotherDataFrameItem.class); //AnotherDataFrameItem extiende de la clase DataFrameItem
     }
 
     @Override
@@ -87,27 +81,41 @@ public class AnotherParser implements ExcelRowParser<Costo> {
 ```
 
 Note la utilización de un `ExcelRowMapParser` que ayuda a convertir una fila `org.apache.poi.ss.usermodel.Row.Row` a un Mapa de clave-valor **String, String**: `Map<String, String> map = parser.map(row);`  
-Luego, se utiliza el ObjectMapper de Jackson para convertir el Mapa a un objeto: `mapper.convertValue(map, Costo.class);`
+Luego, se utiliza el ObjectMapper de Jackson para convertir el Mapa a un objeto: `mapper.convertValue(map, AnotherDataFrameItem.class);`
 
 ### Costo Processor
 
-El **Costos Processor** carga al iniciar las reglas de transformación guardadas previamente en la BD y las aplica para cada una de los costos. Éstas reglas están expresadas con **Spring Expression Language** (SpEL).
+La **Rules Application Task** se encarga de aplicar las reglas de transformación según el tipo de _DataFrameItem_ que se está procesando. Estas reglas son previamente asociadas a un _DataFrameType_ y se encuentran escritas en **Spring Expression Language** (SpEL).
 
 ```java
-@ServiceActivator(inputChannel = Processor.INPUT, outputChannel = Processor.OUTPUT)
-    public CostoObjectId process(CostoObjectId costo) throws JsonProcessingException {
-        logger.info("Processing costo: {}", costo);
-        rulesApplier.apply(new StandardEvaluationContext(costo));
-        costo.setProcessed(true);
+//...
+public Costo process(DataFrameItem dfItem) throws Exception {
+        logger.info("Processing dfItem: {}", dfItem);
+        CostoContext context = buildContext(dfItem);
+        String dataFrameType = dfItem.getDataFrame().getDataFrameType().getName();
+        Optional<DataFrameType> maybeDfType = dfTypeRepo.findOneByName(dataFrameType);
+        if (maybeDfType.isPresent()) {
+            RulesApplier rulesApplier = new DefaultRulesApplier(mapToRulesList(maybeDfType.get().getRules()),
+                    new SpelExpressionParser());
+            rulesApplier.apply(new StandardEvaluationContext(context));
+        } else {
+            logger.debug("No rules to apply for data frame type {}", dataFrameType);
+        }
+        dfItem.setProcessed(true);
+        //Descomente la siguiente línea si desea persistir las modificaciones que el DataFrameItem sufre durante la aplicación de las reglas.
+        //dfItemRepo.save(dfItem);
+        Costo costo = context.getCosto();
+        costo.setDataFrameItem(dfItem);
         return costo;
     }
+//...
 ```
 
 ## Prerequisitos
 
 - Maven
 - Docker y Docker Compose
-- Insomnia: Cliente REST (opcional)
+- Robo3T (Opcional para visualizar los registros en la MongoDB)
 
 ### Building
 Para compilar y generar los archivos `.jar` ejecute el script para empaquetar: `./package.sh`
@@ -120,7 +128,6 @@ Se exponen hacia la máquina host los siguientes servicios:
 - MongoDB en puerto 27017
 - Costos API en puerto 8080
 - Dataflow Server en puerto 9393 (http://localhost:9393/dashboard para ver la Interfaz Gráfica)
-- Robo3T (Opcional para visualizar los registros en la MongoDB)
 
 ## Uso
 
@@ -129,52 +136,49 @@ Para copiar la **Excel Parser Task** al Dataflow Server ejecute en la carpeta ra
     
     docker cp excel-parser-task/apps/parser-batch-task/target/parser-batch-task-2.0.0.RELEASE.jar dataflow-server:/home
 
-Para copiar el **Costos Processor** al Dataflow Server ejecute en la carpeta raíz del proyecto:  
+Para copiar el **Rules Application Task** al Dataflow Server ejecute en la carpeta raíz del proyecto:  
     
-    docker cp costos-processor/target/costos-processor-0.0.1-SNAPSHOT.jar dataflow-server:/home
+    docker cp rules-application-task/apps/rules-batch-task/target/rules-batch-task-2.0.0.RELEASE.jar
+    dataflow-server:/home
 
 ### Creando los streams
-Se utilizan dos streams para este proyecto:
 - **trigger-excel-parser-task**: dispara la **Excel Parser Task** cada cierto tiempo
-- **costos-stream**: obtiene los costos marcados como `processed = false`, los procesa (aplica reglas de transformación guardadas en la BD) y los persiste marcados como `processed = true`
 
 Para los siguientes pasos utilice el **Spring Cloud Data Flow Shell**.
-Ejecute: `java -jar spring-cloud-dataflow-shell-1.6.1.RELEASE.jar` en la carpeta raíz.
+Ejecute: `java -jar spring-cloud-dataflow-shell-1.7.3.RELEASE.jar` en la carpeta raíz.
 
 #### Creando el stream trigger-excel-parser-task
 
     stream create --name trigger-excel-parser-task --definition "triggertask --uri='file://home/parser-batch-task-2.0.0.RELEASE.jar' --cron='0 * * ? * *' --application-name=parse-costos-excel --environment-properties='spring.data.mongodb.host=mongo,spring.data.mongodb.port=27017,spring.data.mongodb.database=costos' | task-launcher" --deploy
 
+#### Creando el stream trigger-excel-parser-task
 
-#### Creando el stream costos-stream
-Registrar el jar previamente copiado al Dataflow Server como una aplicación Processor. 
-
-    app register --name costos --type processor --uri 'file://home/costos-processor-0.0.1-SNAPSHOT.jar'
-
-Crear el stream para el procesamiento de los costos:
-
-    stream create --name costos-stream --definition "source: mongodb --query="{'processed': false}" --database=costos --port=27017 --host=mongo --collection=costos | costos --spring.data.mongodb.database=costos --spring.data.mongodb.port=27017 --spring.data.mongodb.host=mongo | sink: mongodb --database=costos --port=27017 --host=mongo --collection=costos" --deploy
+    stream create --name trigger-rules-application-task --definition "triggertask --uri='file://home/rules-batch-task-2.0.0.RELEASE.jar' --cron='0 * * ? * *' --application-name=rules-application --environment-properties='spring.data.mongodb.host=mongo,spring.data.mongodb.port=27017,spring.data.mongodb.database=costos' | task-launcher" --deploy
 
 ### Insertando reglas
-Insertar reglas que el **Costo Processor** aplica en cada costo.
+Insertar reglas que el **Rules Application Task** aplica en cada costo.
 
+Ejemplo:  
 ```bash
-curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Authorization: Bearer TOKEN_DE_AUTORIZACION' -d '{ \ 
-     "name": "Asignacion de area", \ 
-     "order": 99, \ 
-     "condition": "area == 40", \ 
-     "actions": [ \ 
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: */*' --header 'Authorization: Bearer TOKEN_DE_AUTORIZACION' -d '{ \ 
+   "name": "string", \ 
+   "rules": [ \ 
+     { \ 
+       "actions": [ \ 
          { \ 
-         "actionExpression": "servicio = %27Servicio administrativos DADT Direccion%27", \ 
-         "order": 99 \ 
+           "actionExpression": "costo.monto = item.monto", \ 
+           "order": 0 \ 
          } \ 
-     ] \ 
-     }' 'http://localhost:8081/api/rules'
+       ], \ 
+       "condition": "true", \ 
+       "name": "Regla de transformación 1", \ 
+       "order": 0 \ 
+     } \ 
+   ] \ 
+ }' 'http://localhost:8081/api/dataFrameType'
 ```
 
-Como respuesta debe obtener un código **201 (Created)**
-
-### Probando los streams
+### Probando un flujo
 Usando **curl** para subir un Data Frame (Archivos Excel) mediante la **Costos API**:
 
 ```bash
@@ -184,11 +188,9 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
  }' 'http://localhost:8081/api/dataFrame'
 ```
 
-Como respuesta debe obtener un código **201 (Created)**
+La **Excel Parser Task** consulta cada minuto el archivo de Excel más antiguo sin procesar, lo _parsea_ e inserta los _DataFrameItem_ en la colección `dataFrameItems` en la BD de Mongo.
 
-La **Excel Parser Task** consulta cada minuto el archivo de Excel más antiguo sin procesar, lo _parsea_ e inserta los costos en la colección `costos` en la BD de Mongo.
-
-Una vez insertados, el **costos-stream** se encargar de procesarlos y persistirlos.
+La **Rules Application Task** consulta cada minuto los _DataFrameItem_ sin procesar y aplica reglas de transformación sobre cada instancia según su _DataFrameType_ de origen.
 
 ## FAQ
 

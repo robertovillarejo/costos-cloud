@@ -75,9 +75,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 75.97900390625,
+											"left": 76,
 											"top": 10,
-											"width": 124.56982421875,
+											"width": 123,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -103,7 +103,7 @@
 											"containerExtending": false,
 											"left": 10,
 											"top": 10,
-											"width": 60.97900390625,
+											"width": 61,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -600,7 +600,7 @@
 													"containerExtending": false,
 													"left": 349,
 													"top": 47,
-													"width": 84.45166015625,
+													"width": 86,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
@@ -672,7 +672,7 @@
 											"containerExtending": false,
 											"left": 344,
 											"top": 40,
-											"width": 94.45166015625,
+											"width": 96,
 											"height": 40,
 											"autoResize": false,
 											"stereotypeLabel": {
@@ -706,7 +706,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 391,
+											"left": 392,
 											"top": 80,
 											"width": 1,
 											"height": 521,
@@ -724,7 +724,7 @@
 									"containerExtending": false,
 									"left": 344,
 									"top": 40,
-									"width": 94.45166015625,
+									"width": 96,
 									"height": 561,
 									"autoResize": false,
 									"stereotypeDisplay": "label",
@@ -802,11 +802,11 @@
 													"containerExtending": false,
 													"left": 493,
 													"top": 47,
-													"width": 117.64990234375,
+													"width": 146,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "CostosProcessor",
+													"text": "RulesApplicationTask",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -874,7 +874,7 @@
 											"containerExtending": false,
 											"left": 488,
 											"top": 40,
-											"width": 127.64990234375,
+											"width": 156,
 											"height": 40,
 											"autoResize": false,
 											"stereotypeLabel": {
@@ -908,7 +908,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 552,
+											"left": 566,
 											"top": 80,
 											"width": 1,
 											"height": 521,
@@ -926,7 +926,7 @@
 									"containerExtending": false,
 									"left": 488,
 									"top": 40,
-									"width": 127.64990234375,
+									"width": 156,
 									"height": 561,
 									"autoResize": false,
 									"stereotypeDisplay": "label",
@@ -1682,9 +1682,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 433,
+											"left": 434,
 											"top": 272,
-											"width": 230.49609375,
+											"width": 231,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -1717,7 +1717,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 548,
+											"left": 549,
 											"top": 257,
 											"width": 0,
 											"height": 13,
@@ -1751,7 +1751,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 548,
+											"left": 549,
 											"top": 292,
 											"width": 0,
 											"height": 13,
@@ -1808,7 +1808,7 @@
 										"$ref": "AAAAAAFnXCrRuXmRqwo="
 									},
 									"lineStyle": 0,
-									"points": "391:288;706:288",
+									"points": "392:288;706:288",
 									"nameLabel": {
 										"$ref": "AAAAAAFnXC0mtXo2zeE="
 									},
@@ -1852,7 +1852,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 509,
+											"left": 510,
 											"top": 316,
 											"width": 83.08447265625,
 											"height": 13,
@@ -1887,7 +1887,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 550,
+											"left": 551,
 											"top": 331,
 											"width": 0,
 											"height": 13,
@@ -1921,7 +1921,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 551,
+											"left": 552,
 											"top": 296,
 											"width": 0,
 											"height": 13,
@@ -1955,7 +1955,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 384,
+											"left": 385,
 											"top": 312,
 											"width": 14,
 											"height": 29,
@@ -1978,7 +1978,7 @@
 										"$ref": "AAAAAAFnXCslwXnRMsY="
 									},
 									"lineStyle": 0,
-									"points": "706:312;397:312",
+									"points": "706:312;398:312",
 									"nameLabel": {
 										"$ref": "AAAAAAFnXC2ZSnpMqhg="
 									},
@@ -2024,7 +2024,7 @@
 											"containerExtending": false,
 											"left": 432,
 											"top": 336,
-											"width": 145.9580078125,
+											"width": 146,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.6226967185247274,
@@ -2057,7 +2057,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 451,
+											"left": 452,
 											"top": 339,
 											"width": 0,
 											"height": 13,
@@ -2091,7 +2091,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 417,
+											"left": 418,
 											"top": 340,
 											"width": 0,
 											"height": 13,
@@ -2125,7 +2125,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 384,
+											"left": 385,
 											"top": 356,
 											"width": 14,
 											"height": 29,
@@ -2148,7 +2148,7 @@
 										"$ref": "AAAAAAFnXCrRuXmRqwo="
 									},
 									"lineStyle": 0,
-									"points": "397:336;427:336;427:356;397:356",
+									"points": "398:336;428:336;428:356;398:356",
 									"nameLabel": {
 										"$ref": "AAAAAAFnXC3j3Xpk+d4="
 									},
@@ -2192,9 +2192,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 500,
+											"left": 455,
 											"top": 368,
-											"width": 97.55078125,
+											"width": 189,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -2204,7 +2204,7 @@
 											},
 											"edgePosition": 1,
 											"underline": false,
-											"text": "7 : Objetos costo",
+											"text": "7 : Instancias de DataFrameItem",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2227,7 +2227,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 548,
+											"left": 549,
 											"top": 353,
 											"width": 0,
 											"height": 13,
@@ -2261,7 +2261,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 548,
+											"left": 549,
 											"top": 388,
 											"width": 0,
 											"height": 13,
@@ -2318,7 +2318,7 @@
 										"$ref": "AAAAAAFnXCrRuXmRqwo="
 									},
 									"lineStyle": 0,
-									"points": "391:384;706:384",
+									"points": "392:384;706:384",
 									"nameLabel": {
 										"$ref": "AAAAAAFnXC5WnHp9+4s="
 									},
@@ -2362,9 +2362,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 520,
+											"left": 452,
 											"top": 429,
-											"width": 187.1416015625,
+											"width": 337,
 											"height": 13,
 											"autoResize": false,
 											"alpha": -3.7850940623831972,
@@ -2374,7 +2374,7 @@
 											},
 											"edgePosition": 1,
 											"underline": false,
-											"text": "8 : Query de costos sin procesar",
+											"text": "8 : Consulta de instancias de DataFrameItem sin procesar",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2397,7 +2397,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 629,
+											"left": 636,
 											"top": 417,
 											"width": 0,
 											"height": 13,
@@ -2431,7 +2431,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 629,
+											"left": 636,
 											"top": 452,
 											"width": 0,
 											"height": 13,
@@ -2488,7 +2488,7 @@
 										"$ref": "AAAAAAFnXCsA43mxvgY="
 									},
 									"lineStyle": 0,
-									"points": "552:448;706:448",
+									"points": "566:448;706:448",
 									"nameLabel": {
 										"$ref": "AAAAAAFnXC8Qq3qY+To="
 									},
@@ -2532,19 +2532,19 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 592,
-											"top": 476,
-											"width": 78.04443359375,
+											"left": 576,
+											"top": 479,
+											"width": 189,
 											"height": 13,
 											"autoResize": false,
-											"alpha": 1.5707963267948966,
-											"distance": 10,
+											"alpha": 2.717398366688587,
+											"distance": 34.0147027033899,
 											"hostEdge": {
 												"$ref": "AAAAAAFnXC+H9nqu14w="
 											},
 											"edgePosition": 1,
 											"underline": false,
-											"text": "9 : Costo",
+											"text": "9 : Instancias de DataFrameItem",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2567,7 +2567,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 631,
+											"left": 638,
 											"top": 491,
 											"width": 0,
 											"height": 13,
@@ -2601,7 +2601,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 632,
+											"left": 639,
 											"top": 456,
 											"width": 0,
 											"height": 13,
@@ -2635,7 +2635,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 545,
+											"left": 559,
 											"top": 472,
 											"width": 14,
 											"height": 29,
@@ -2658,7 +2658,7 @@
 										"$ref": "AAAAAAFnXCslwXnRMsY="
 									},
 									"lineStyle": 0,
-									"points": "706:472;558:472",
+									"points": "706:472;572:472",
 									"nameLabel": {
 										"$ref": "AAAAAAFnXC+H9nqvrOU="
 									},
@@ -2702,9 +2702,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 591,
+											"left": 604,
 											"top": 504,
-											"width": 249.30419921875,
+											"width": 250,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5395554958036526,
@@ -2737,7 +2737,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 612,
+											"left": 626,
 											"top": 499,
 											"width": 0,
 											"height": 13,
@@ -2771,7 +2771,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 578,
+											"left": 592,
 											"top": 500,
 											"width": 0,
 											"height": 13,
@@ -2805,7 +2805,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 545,
+											"left": 559,
 											"top": 516,
 											"width": 14,
 											"height": 29,
@@ -2828,7 +2828,7 @@
 										"$ref": "AAAAAAFnXCsA43mxvgY="
 									},
 									"lineStyle": 0,
-									"points": "558:496;588:496;588:516;558:516",
+									"points": "572:496;602:496;602:516;572:516",
 									"nameLabel": {
 										"$ref": "AAAAAAFnXDArEXrJ1Bw="
 									},
@@ -2872,9 +2872,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 560,
+											"left": 566,
 											"top": 528,
-											"width": 139.4580078125,
+											"width": 141,
 											"height": 13,
 											"autoResize": false,
 											"alpha": 1.5707963267948966,
@@ -2884,7 +2884,7 @@
 											},
 											"edgePosition": 1,
 											"underline": false,
-											"text": "11 : Costo",
+											"text": "11 : Instancias de Costo",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2907,7 +2907,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 629,
+											"left": 636,
 											"top": 513,
 											"width": 0,
 											"height": 13,
@@ -2941,7 +2941,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 629,
+											"left": 636,
 											"top": 548,
 											"width": 0,
 											"height": 13,
@@ -2998,7 +2998,7 @@
 										"$ref": "AAAAAAFnXCsA43mxvgY="
 									},
 									"lineStyle": 0,
-									"points": "552:544;706:544",
+									"points": "566:544;706:544",
 									"nameLabel": {
 										"$ref": "AAAAAAFnXDB+9nrgscs="
 									},
@@ -3131,7 +3131,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFnXCpK1Hk7PYw="
 							},
-							"name": "Objetos costo",
+							"name": "Instancias de DataFrameItem",
 							"source": {
 								"$ref": "AAAAAAFnXCrRuHmKPNk="
 							},
@@ -3148,7 +3148,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFnXCpK1Hk7PYw="
 							},
-							"name": "Query de costos sin procesar",
+							"name": "Consulta de instancias de DataFrameItem sin procesar",
 							"source": {
 								"$ref": "AAAAAAFnXCsA4XmqJ/4="
 							},
@@ -3165,7 +3165,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFnXCpK1Hk7PYw="
 							},
-							"name": "Costo",
+							"name": "Instancias de DataFrameItem",
 							"source": {
 								"$ref": "AAAAAAFnXCslwXnKYH4="
 							},
@@ -3199,7 +3199,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFnXCpK1Hk7PYw="
 							},
-							"name": "Costo",
+							"name": "Instancias de Costo",
 							"source": {
 								"$ref": "AAAAAAFnXCsA4XmqJ/4="
 							},
@@ -3257,7 +3257,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFnXCpK1Hk7PYw="
 							},
-							"name": "CostosProcessor",
+							"name": "RulesApplicationTask",
 							"visibility": "public",
 							"represent": {
 								"$ref": "AAAAAAFnXCsA4XmpNyE="
@@ -3292,6 +3292,7 @@
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
+					"type": "",
 					"isReadOnly": false,
 					"isOrdered": false,
 					"isUnique": false,
@@ -3309,6 +3310,7 @@
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
+					"type": "",
 					"isReadOnly": false,
 					"isOrdered": false,
 					"isUnique": false,
@@ -3326,6 +3328,7 @@
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
+					"type": "",
 					"isReadOnly": false,
 					"isOrdered": false,
 					"isUnique": false,
@@ -3360,6 +3363,7 @@
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
+					"type": "",
 					"isReadOnly": false,
 					"isOrdered": false,
 					"isUnique": false,
