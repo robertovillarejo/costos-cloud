@@ -24,24 +24,51 @@
 
 package org.springframework.cloud.task.app.rules.batch.context;
 
+import java.util.Optional;
+
+import org.springframework.data.domain.Example;
+
+import mx.infotec.dads.costos.domain.PartidaConcepto;
+import mx.infotec.dads.costos.domain.Proveedor;
 import mx.infotec.dads.costos.domain.dataframe.DfItemDt;
+import mx.infotec.dads.costos.service.PartidaConceptoService;
 import mx.infotec.dads.costos.service.ProveedorService;
 
 public class DtCostoContext extends CostoContext {
 
-    private DfItemDt dfItemDt;
+    private DfItemDt dtItem;
 
-    public DtCostoContext(DfItemDt dfItemDt, ProveedorService proveedorService) {
-        this.dfItemDt = dfItemDt;
+    private PartidaConceptoService partidaConceptoService;
+
+    public DtCostoContext(DfItemDt dfItemDt, ProveedorService proveedorService,
+            PartidaConceptoService partidaConceptoService) {
+        this.dtItem = dfItemDt;
         this.proveedorService = proveedorService;
+        this.partidaConceptoService = partidaConceptoService;
     }
 
     public DfItemDt getItem() {
-        return dfItemDt;
+        return dtItem;
     }
 
-    // public Proveedor getProveedor() {
-    // proveedorService.findByNombre(dfItemDt.ge);
-    // }
+    public Proveedor getProveedor() {
+        Proveedor proveedorExample = new Proveedor();
+        proveedorExample.setSubtipoCosto(costo.getSubtipoCosto());
+        Optional<Proveedor> maybeProveedor = proveedorService.findByExample(Example.of(proveedorExample));
+        if (maybeProveedor.isPresent()) {
+            return maybeProveedor.get();
+        }
+        return null;
+    }
+
+    public PartidaConcepto getPartidaConcepto() {
+        PartidaConcepto partidaConceptoExample = new PartidaConcepto();
+        partidaConceptoExample.setPartida(dtItem.getPartida());
+        Optional<PartidaConcepto> maybePc = partidaConceptoService.findByExample(Example.of(partidaConceptoExample));
+        if (maybePc.isPresent()) {
+            return maybePc.get();
+        }
+        return null;
+    }
 
 }

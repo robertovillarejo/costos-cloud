@@ -34,22 +34,22 @@ import mx.infotec.dads.costos.service.ProveedorService;
 
 public class RhCostoContext extends CostoContext {
 
-    private DfItemRh dfItem;
+    private DfItemRh rhItem;
 
     public RhCostoContext(DfItemRh dfItem, ProveedorService proveedorService) {
-        this.dfItem = dfItem;
+        this.rhItem = dfItem;
         this.proveedorService = proveedorService;
     }
 
     public DfItemRh getItem() {
-        return this.dfItem;
+        return this.rhItem;
     }
 
     public Proveedor getProveedor() {
         Proveedor exampleProveedor = new Proveedor();
-        exampleProveedor.setNombre(dfItem.getProveedor());
-        exampleProveedor.setMes(dfItem.getMes());
-        exampleProveedor.setAnio(dfItem.getAnio());
+        exampleProveedor.setNombre(rhItem.getProveedor());
+        exampleProveedor.setMes(rhItem.getMes());
+        exampleProveedor.setAnio(rhItem.getAnio());
         Optional<Proveedor> proveedor = proveedorService.findByExample(Example.of(exampleProveedor));
         if (proveedor.isPresent())
             return proveedor.get();

@@ -50,6 +50,7 @@ import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
 import mx.infotec.dads.costos.domain.dataframe.DfItemSigaif;
 import mx.infotec.dads.costos.repository.DataFrameTypeRepository;
 import mx.infotec.dads.costos.repository.DfItemRepository;
+import mx.infotec.dads.costos.service.PartidaConceptoService;
 import mx.infotec.dads.costos.service.ProveedorService;
 import mx.infotec.dads.kukulkan.rules.DefaultRulesApplier;
 import mx.infotec.dads.kukulkan.rules.RulesApplier;
@@ -66,6 +67,9 @@ public class DfItemProcessor implements ItemProcessor<DataFrameItem, Costo>, Ste
 
     @Autowired
     private ProveedorService proveedorService;
+
+    @Autowired
+    private PartidaConceptoService partidaConceptoService;
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
@@ -102,7 +106,7 @@ public class DfItemProcessor implements ItemProcessor<DataFrameItem, Costo>, Ste
         } else if (dfItem instanceof DfItemSigaif) {
             return new SigaifCostoContext((DfItemSigaif) dfItem, proveedorService);
         } else if (dfItem instanceof DfItemDt) {
-            return new DtCostoContext((DfItemDt) dfItem, proveedorService);
+            return new DtCostoContext((DfItemDt) dfItem, proveedorService, partidaConceptoService);
         }
         return null;
     }

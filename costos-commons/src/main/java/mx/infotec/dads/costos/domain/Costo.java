@@ -85,6 +85,9 @@ public class Costo implements Serializable {
     @SheetColumn(title = "tipoCosto")
     protected String tipoCosto;
 
+    @SheetColumn(title = "subtipoCosto")
+    protected String subtipoCosto;
+
     @SheetColumn(title = "partida")
     protected String partida;
 
@@ -97,8 +100,8 @@ public class Costo implements Serializable {
     @SheetColumn(title = "subpartida")
     protected String subpartida;
 
-    @SheetColumn(title = "subSubPartida")
-    protected String subSubPartida;
+    @SheetColumn(title = "subSubpartida")
+    protected String subSubpartida;
 
     @SheetColumn(title = "numeroFactura")
     protected String numeroFactura;
@@ -199,6 +202,14 @@ public class Costo implements Serializable {
         this.tipoCosto = tipoCosto;
     }
 
+    public String getSubtipoCosto() {
+        return subtipoCosto;
+    }
+
+    public void setSubtipoCosto(String subTipoCosto) {
+        this.subtipoCosto = subTipoCosto;
+    }
+
     public String getPartida() {
         return partida;
     }
@@ -231,12 +242,12 @@ public class Costo implements Serializable {
         this.subpartida = subpartida;
     }
 
-    public String getSubSubPartida() {
-        return subSubPartida;
+    public String getSubSubpartida() {
+        return subSubpartida;
     }
 
-    public void setSubSubPartida(String subSubPartida) {
-        this.subSubPartida = subSubPartida;
+    public void setSubSubpartida(String subSubPartida) {
+        this.subSubpartida = subSubPartida;
     }
 
     public String getNumeroFactura() {
@@ -277,7 +288,7 @@ public class Costo implements Serializable {
                 + ", fechaRegistro=" + fechaRegistro + ", area=" + area + ", proyectoOperativo=" + proyectoOperativo
                 + ", proyectoPresupuestal=" + proyectoPresupuestal + ", servicio=" + servicio + ", tipoCosto="
                 + tipoCosto + ", partida=" + partida + ", proveedor=" + proveedor + ", user=" + user + ", subpartida="
-                + subpartida + ", subSubPartida=" + subSubPartida + ", numeroFactura=" + numeroFactura + "]";
+                + subpartida + ", subSubPartida=" + subSubpartida + ", numeroFactura=" + numeroFactura + "]";
     }
 
 }
