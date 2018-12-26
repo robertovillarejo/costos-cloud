@@ -36,6 +36,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import mx.infotec.dads.costos.domain.DataFrameItem;
+import mx.infotec.dads.kukulkan.genericexcelparser.ExcelRowMapParser;
+import mx.infotec.dads.kukulkan.genericexcelparser.ExcelRowParser;
+import mx.infotec.dads.kukulkan.genericexcelparser.ExcelRowParserRegistry;
 
 @Component
 public class DfiParserRegistry implements ExcelRowParserRegistry<DataFrameItem> {

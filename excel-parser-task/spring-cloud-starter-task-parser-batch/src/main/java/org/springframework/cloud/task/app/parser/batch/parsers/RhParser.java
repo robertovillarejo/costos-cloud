@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package org.springframework.cloud.task.app.parser.batch;
+package org.springframework.cloud.task.app.parser.batch.parsers;
 
 import java.util.Map;
 import java.util.SortedMap;
@@ -35,21 +35,23 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import mx.infotec.dads.costos.domain.DataFrameItem;
-import mx.infotec.dads.costos.domain.dataframe.DfItemDt;
+import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
+import mx.infotec.dads.kukulkan.genericexcelparser.ExcelRowMapParser;
+import mx.infotec.dads.kukulkan.genericexcelparser.ExcelRowParser;
 
 @Component
-public class DtParser implements ExcelRowParser<DataFrameItem> {
+public class RhParser implements ExcelRowParser<DataFrameItem> {
 
-    private final Logger logger = LoggerFactory.getLogger(DtParser.class);
+    private final Logger logger = LoggerFactory.getLogger(RhParser.class);
 
-    private static final String NAME = "dt";
+    private static final String NAME = "rh";
 
     /**
      * El esquema que este parser soporta (expresado como una lista de
      * encabezados separados por coma).
      */
     private final SortedMap<Integer, String> supportedSchema = ExcelRowMapParser
-            .parsePositionBasedSchema("PARTIDA,SUBPARTIDA,MONTO,PORCENTAJE,MES,AÑO,CLAVE_SERVICIO");
+            .parsePositionBasedSchema("Proveedor,Subconcepto,Mes,Año,Monto");
 
     /**
      * El 'mappingSchema' es la definición del mapeo de una columna a una
@@ -59,18 +61,19 @@ public class DtParser implements ExcelRowParser<DataFrameItem> {
      * escribir uno solo: 'propiedad'.
      */
     private ExcelRowMapParser parser = new ExcelRowMapParser(ExcelRowMapParser.getMappingSchema(supportedSchema,
-            ExcelRowMapParser.parseMappingSchema("PARTIDA,partida:SUBPARTIDA,subPartida:MONTO,monto:PORCENTAJE,porcentaje:MES,mes:CLAVE_SERVICIO,claveServicio")));
+            ExcelRowMapParser.parseMappingSchema("Proveedor,proveedor:Subconcepto,subconcepto:Mes,mes:Año,anio:Monto,monto")));
 
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public DataFrameItem parse(Row row) {
-        return mapper.convertValue(parser.map(row), DfItemDt.class);
+    public String getName() {
+        return NAME;
     }
 
     @Override
-    public String getName() {
-        return NAME;
+    public DataFrameItem parse(Row row) {
+        logger.debug("Parsing row...");
+        return mapper.convertValue(parser.map(row), DfItemRh.class);
     }
 
     @Override

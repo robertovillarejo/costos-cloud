@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package org.springframework.cloud.task.app.parser.batch;
+package org.springframework.cloud.task.app.parser.batch.parsers;
 
 import java.util.Map;
 import java.util.SortedMap;
@@ -36,6 +36,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import mx.infotec.dads.costos.domain.DataFrameItem;
 import mx.infotec.dads.costos.domain.dataframe.DfItemSigaif;
+import mx.infotec.dads.kukulkan.genericexcelparser.ExcelRowMapParser;
+import mx.infotec.dads.kukulkan.genericexcelparser.ExcelRowParser;
 
 @Component
 public class SigaifParser implements ExcelRowParser<DataFrameItem> {
