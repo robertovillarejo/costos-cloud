@@ -126,7 +126,7 @@ Para levantar la infraestructura ejecute: `docker-compose up` en la carpeta raí
 Se exponen hacia la máquina host los siguientes servicios:
 
 - MongoDB en puerto 27017
-- Costos API en puerto 8080
+- Costos API en puerto 8081
 - Dataflow Server en puerto 9393 (http://localhost:9393/dashboard para ver la Interfaz Gráfica)
 
 ## Uso

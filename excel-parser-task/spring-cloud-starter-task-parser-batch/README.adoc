@@ -10,6 +10,9 @@ The **$$timestamp$$** $$task$$ has the following options:
 
 //tag::configuration-properties[]
 $$parser.chunk-size$$:: $$The chunk size for the excel parsing job$$ *($$Integer$$, default: `$$10$$`)*
+$$spring.data.mongodb.database$$:: $$Database name.$$ *($$String$$, default: `$$<none>$$`)*
+$$spring.data.mongodb.host$$:: $$Mongo server host. Cannot be set with URI.$$ *($$String$$, default: `$$<none>$$`)*
+$$spring.data.mongodb.port$$:: $$Mongo server port. Cannot be set with URI.$$ *($$Integer$$, default: `$$<none>$$`)*
 //end::configuration-properties[]
 
 == Building with Maven
