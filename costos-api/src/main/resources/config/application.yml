@@ -93,4 +93,17 @@ jhipster:
 application:
     allowedDataFrameMediaTypes:
         - application/x-tika-ooxml
-        - application/zip
+        - application/vnd.ms-spreadsheetml
+        - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        - application/vnd.ms-excel
+        - application/vnd.ms-excel.addin.macroenabled.12
+        - application/vnd.ms-excel.sheet.macroenabled.12
+        - application/vnd.ms-excel.sheet.macroenabled.12
+        - application/vnd.ms-excel.sheet.binary.macroenabled.12
+        - application/vnd.ms-excel.sheet.4
+        - application/vnd.ms-excel.workspace.4
+        - application/vnd.ms-excel.sheet.3
+        - application/vnd.ms-excel.workspace.3
+        - application/vnd.ms-excel.sheet.2
+        - application/vnd.ms-excel.template.macroenabled.12
+        - application/x-tika-msworks-spreadsheet
