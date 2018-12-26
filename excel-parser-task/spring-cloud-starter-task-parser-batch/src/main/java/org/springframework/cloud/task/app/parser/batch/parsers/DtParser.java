@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package org.springframework.cloud.task.app.parser.batch;
+package org.springframework.cloud.task.app.parser.batch.parsers;
 
 import java.util.Map;
 import java.util.SortedMap;
@@ -35,43 +35,44 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import mx.infotec.dads.costos.domain.DataFrameItem;
-import mx.infotec.dads.costos.domain.dataframe.DfItemRh;
+import mx.infotec.dads.costos.domain.dataframe.DfItemDt;
+import mx.infotec.dads.kukulkan.genericexcelparser.ExcelRowMapParser;
+import mx.infotec.dads.kukulkan.genericexcelparser.ExcelRowParser;
 
 @Component
-public class RhParser implements ExcelRowParser<DataFrameItem> {
+public class DtParser implements ExcelRowParser<DataFrameItem> {
 
-    private final Logger logger = LoggerFactory.getLogger(RhParser.class);
+    private final Logger logger = LoggerFactory.getLogger(DtParser.class);
 
-    private static final String NAME = "rh";
+    private static final String NAME = "dt";
 
     /**
-     * El esquema que este parser soporta (expresado como una lista de
-     * encabezados separados por coma).
+     * El esquema que este parser soporta (expresado como una lista de encabezados
+     * separados por coma).
      */
     private final SortedMap<Integer, String> supportedSchema = ExcelRowMapParser
-            .parsePositionBasedSchema("Proveedor,Subconcepto,Mes,Año,Monto");
+            .parsePositionBasedSchema("PARTIDA,SUBPARTIDA,MONTO,PORCENTAJE,MES,AÑO,CLAVE_SERVICIO");
 
     /**
-     * El 'mappingSchema' es la definición del mapeo de una columna a una
-     * propiedad del objeto. Se expresa como una lista de 'Header,propiedad'
-     * separados por dos puntos ':' Si el header y la propiedad tienen el mismo
-     * nombre entonces no es necesario usar 'Header:propiedad', basta con
-     * escribir uno solo: 'propiedad'.
+     * El 'mappingSchema' es la definición del mapeo de una columna a una propiedad
+     * del objeto. Se expresa como una lista de 'Header,propiedad' separados por dos
+     * puntos ':' Si el header y la propiedad tienen el mismo nombre entonces no es
+     * necesario usar 'Header:propiedad', basta con escribir uno solo: 'propiedad'.
      */
-    private ExcelRowMapParser parser = new ExcelRowMapParser(ExcelRowMapParser.getMappingSchema(supportedSchema,
-            ExcelRowMapParser.parseMappingSchema("Proveedor,proveedor:Subconcepto,subconcepto:Mes,mes:Año,anio:Monto,monto")));
+    private ExcelRowMapParser parser = new ExcelRowMapParser(
+            ExcelRowMapParser.getMappingSchema(supportedSchema, ExcelRowMapParser.parseMappingSchema(
+                    "PARTIDA,partida:SUBPARTIDA,subPartida:MONTO,monto:PORCENTAJE,porcentaje:MES,mes:CLAVE_SERVICIO,claveServicio")));
 
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public String getName() {
-        return NAME;
+    public DataFrameItem parse(Row row) {
+        return mapper.convertValue(parser.map(row), DfItemDt.class);
     }
 
     @Override
-    public DataFrameItem parse(Row row) {
-        logger.debug("Parsing row...");
-        return mapper.convertValue(parser.map(row), DfItemRh.class);
+    public String getName() {
+        return NAME;
     }
 
     @Override

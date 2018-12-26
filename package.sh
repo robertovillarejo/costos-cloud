@@ -2,21 +2,29 @@ echo '
 *****************************
 INSTALANDO KUKULKAN RULES...
 *****************************'
-cd kukulkan-rules && mvn clean install -DskipTests
+cd kukulkan-rules && mvn clean install
+cd ..
+
+echo '
+*****************************
+INSTALANDO GENERIC EXCEL PARSER
+*****************************
+'
+cd generic-excel-parser && mvn clean install
 cd ..
 
 echo '
 *****************************
 INSTALANDO COSTOS COMMONS...
 *****************************'
-cd costos-commons && mvn clean install -DskipTests
+cd costos-commons && mvn clean install
 cd ..
 
 echo '
 ********************************
 GENERANDO PARSER BATCH TASK...
 ********************************'
-cd excel-parser-task && mvn clean install -PgenerateApps -DskipTests
+cd excel-parser-task && mvn clean install -PgenerateApps
 
 echo '
 ********************************
@@ -30,7 +38,7 @@ echo '
 ********************************
 GENERANDO RULES BATCH TASK...
 ********************************'
-cd rules-application-task && mvn clean install -PgenerateApps -DskipTests
+cd rules-application-task && mvn clean install -PgenerateApps
 
 echo '
 ********************************

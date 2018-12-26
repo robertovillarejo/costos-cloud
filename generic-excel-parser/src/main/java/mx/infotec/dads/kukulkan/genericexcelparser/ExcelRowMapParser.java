@@ -22,14 +22,14 @@
  * SOFTWARE.
  */
 
-package org.springframework.cloud.task.app.parser.batch;
+package mx.infotec.dads.kukulkan.genericexcelparser;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -45,11 +45,10 @@ public class ExcelRowMapParser {
 
     /**
      * @param mappingSchema
-     *            El 'mappingSchema' es un mapa que contiene entradas
-     *            numeroColumna -> nombrePropiedad Las claves de este mapa es un
-     *            subconjunto de las columnas del esquema del Workbook y los
-     *            valores son los nombres de las propiedades a las que se
-     *            mapearán las celdas
+     *            El 'mappingSchema' es un mapa que contiene entradas numeroColumna
+     *            -> nombrePropiedad Las claves de este mapa es un subconjunto de
+     *            las columnas del esquema del Workbook y los valores son los
+     *            nombres de las propiedades a las que se mapearán las celdas
      */
     public ExcelRowMapParser(SortedMap<Integer, String> mappingSchema) {
         this.mappingSchema = mappingSchema;
@@ -59,12 +58,11 @@ public class ExcelRowMapParser {
      * @param headersRow
      *            El Row que contiene los headers de la Sheet
      * @param namedMappingSchema
-     *            El 'mappingSchema' es la definición del mapeo de una columna a
-     *            una propiedad del objeto. Se expresa como una lista de
-     *            'Header,propiedad' separados por dos puntos ':' Si el header y
-     *            la propiedad tienen el mismo nombre entonces no es necesario
-     *            usar 'Header:propiedad', basta con escribir uno solo:
-     *            'propiedad'.
+     *            El 'mappingSchema' es la definición del mapeo de una columna a una
+     *            propiedad del objeto. Se expresa como una lista de
+     *            'Header,propiedad' separados por dos puntos ':' Si el header y la
+     *            propiedad tienen el mismo nombre entonces no es necesario usar
+     *            'Header:propiedad', basta con escribir uno solo: 'propiedad'.
      */
     public ExcelRowMapParser(Row headersRow, Map<String, String> namedMappingSchema) {
         this.namedMappingSchema = namedMappingSchema;
@@ -72,8 +70,7 @@ public class ExcelRowMapParser {
     }
 
     /**
-     * Obtener el esquema de mapeo basado en nombres, es decir,
-     * 'Header:propiedad'
+     * Obtener el esquema de mapeo basado en nombres, es decir, 'Header:propiedad'
      * 
      * @return esquema de mapeo basado en nombres
      */
@@ -88,7 +85,7 @@ public class ExcelRowMapParser {
      * @return el mapa
      */
     public Map<String, Object> map(Row row) {
-        Map<String, Object> mappedInstance = new HashMap<>();
+        Map<String, Object> mappedInstance = new HashMap<String, Object>();
         for (Entry<Integer, String> entry : mappingSchema.entrySet()) {
             Object value;
             try {
@@ -114,7 +111,7 @@ public class ExcelRowMapParser {
             return Collections.emptySortedMap();
         }
 
-        TreeMap<Integer, String> mappingSchema = new TreeMap<>();
+        TreeMap<Integer, String> mappingSchema = new TreeMap<Integer, String>();
 
         Set<Integer> keySet = positionBasedSchema.keySet();
         for (Integer key : keySet) {
@@ -128,7 +125,7 @@ public class ExcelRowMapParser {
     }
 
     public static SortedMap<Integer, String> parsePositionBasedSchema(String positionBasedSchemaExpression) {
-        SortedMap<Integer, String> positionBasedSchema = new TreeMap<>();
+        SortedMap<Integer, String> positionBasedSchema = new TreeMap<Integer, String>();
         String[] headers = positionBasedSchemaExpression.split(",");
         for (int i = 0; i < headers.length; i++) {
             positionBasedSchema.put(i, headers[i]);
@@ -137,14 +134,14 @@ public class ExcelRowMapParser {
     }
 
     /**
-     * Generates the mapping schema based on column positions from a headersRow
-     * and namedMappingSchema
+     * Generates the mapping schema based on column positions from a headersRow and
+     * namedMappingSchema
      * 
      * @param headersRow
      *            the row with headers (usually the first header)
      * @param namedMappingSchema
-     *            the map with 'Header Name' (from Excel Sheet) to 'Property
-     *            Name' for mapping
+     *            the map with 'Header Name' (from Excel Sheet) to 'Property Name'
+     *            for mapping
      * @return el esquema de mapeo basado en número de columnas
      */
     public static SortedMap<Integer, String> getMappingSchema(Row headersRow, Map<String, String> namedMappingSchema) {
@@ -162,7 +159,7 @@ public class ExcelRowMapParser {
      */
     public static SortedMap<Integer, String> getPositionBasedSchema(Row row) {
         Iterator<Cell> cellIt = row.iterator();
-        SortedMap<Integer, String> headersPositions = new TreeMap<>();
+        SortedMap<Integer, String> headersPositions = new TreeMap<Integer, String>();
 
         while (cellIt.hasNext()) {
             Cell cell = cellIt.next();
@@ -185,7 +182,7 @@ public class ExcelRowMapParser {
      * @return el esquema de mapeo basado en nombres
      */
     public static Map<String, String> parseMappingSchema(String colonSeparatedMappingSchema) {
-        Map<String, String> mappingSchema = new HashMap<>();
+        Map<String, String> mappingSchema = new HashMap<String, String>();
         if (colonSeparatedMappingSchema == null || "".equals(colonSeparatedMappingSchema)) {
             return Collections.emptyMap();
         }
