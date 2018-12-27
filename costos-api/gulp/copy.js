@@ -16,6 +16,7 @@ module.exports = {
     i18n: i18n,
     languages: languages,
     fonts: fonts,
+    webfonts: webfonts,
     common: common,
     swagger: swagger,
     images: images
@@ -54,6 +55,29 @@ function fonts() {
         gulp.src(config.app + 'content/**/*.{woff,woff2,svg,ttf,eot,otf}')
         .pipe(plumber({errorHandler: handleErrors}))
         .pipe(changed(config.dist + 'content/fonts/'))
+        .pipe(flatten())
+        .pipe(rev())
+        .pipe(gulp.dest(config.dist + 'content/fonts/'))
+        .pipe(rev.manifest(config.revManifest, {
+            base: config.dist,
+            merge: true
+        }))
+        .pipe(gulp.dest(config.dist))
+    );
+}
+
+function webfonts() {
+    return es.merge(gulp.src(config.bower + 'components-font-awesome/webfonts/*.*')
+        .pipe(plumber({errorHandler: handleErrors}))
+        .pipe(rev())
+        .pipe(gulp.dest(config.dist + 'content/webfonts/'))
+        .pipe(rev.manifest(config.revManifest, {
+            base: config.dist,
+            merge: true
+        }))
+        .pipe(gulp.dest(config.dist)),
+        gulp.src(config.app + 'content/**/*.{woff,woff2,svg,ttf,eot,otf}')
+        .pipe(plumber({errorHandler: handleErrors}))
         .pipe(flatten())
         .pipe(rev())
         .pipe(gulp.dest(config.dist + 'content/fonts/'))
