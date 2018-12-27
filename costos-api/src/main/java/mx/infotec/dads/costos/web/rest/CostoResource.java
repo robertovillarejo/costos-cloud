@@ -199,7 +199,7 @@ public class CostoResource {
      * @return Un archivo workbook con extensión xlsx de Costo.
      * @throws MalformedURLException
      */
-    @GetMapping(produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", path = "/costos/workbook")
+    @GetMapping(produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", path = "/costos/workbook")
     @Timed
     public ResponseEntity<StreamingResponseBody> getCostoWorkbook(@ApiParam Sort sort) {
         log.debug("REST request to get Costo Workbook");
