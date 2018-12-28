@@ -36,9 +36,9 @@ import mx.infotec.dads.costos.service.ProveedorService;
  */
 public abstract class CostoContext {
 
-	protected Costo costo = new Costo();
+    protected Costo costo = new Costo();
 
-	private DataFrameItem dfItem;
+    private DataFrameItem dfItem;
 
     protected ProveedorService proveedorService;
 
